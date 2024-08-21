@@ -1,70 +1,94 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 📚 Read me and Lead me <릿미>
 
-## Available Scripts
+## 🌟 프로젝트 주제 선정
+- **셀프 탐색**부터 **보완점 진단**, 이에 대한 **글쓰기 지원**하는 웹 서비스
 
-In the project directory, you can run:
+<br/>
 
-### `npm start`
+## 🗓️ 작업 기간 및 형태
+- **작업 기간** : 24.07.19 - 24.09.30
+- **형태** : 단단한 '나'를 만들기 위한 쉬운 글쓰기 플랫폼
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 👥 프로젝트 팀원
 
-### `npm test`
+- **서비스 개발자(풀스택)**: 김영하
+- **서비스 개발자(프론트)**: 박세양
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 📁 폴더 구조
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+MAEGEUL/
+│
+├── client/                     # 프론트엔드 소스 코드
+│   ├── components/             # UI 컴포넌트
+│   ├── pages/                  # 페이지 컴포넌트
+│   ├── store/                  # 전역 상태 관리 (예: Redux)
+│   ├── App.css
+│   ├── App.styles.ts
+│   ├── App.test.tsx
+│   ├── App.tsx
+│   ├── index.css
+│   ├── index.tsx
+│   ├── logo.svg
+│   ├── react-app-env.d.ts
+│   ├── reportWebVitals.ts
+│   ├── setupTests.ts
+│
+├── server/                    # 백엔드 관련 폴더
+│   ├── controllers/            # 라우트 핸들러
+│   │   └── User.controller.js  # 사용자 관련 컨트롤러
+│   ├── models/                 # Mongoose 모델
+│   │   └── User.js             # 사용자 스키마 정의
+│   ├── routes/                 # API 라우트
+│   │   └── User.api.js         # 사용자 관련 API 라우트
+│   ├── .env                    # 환경 변수 파일
+│   └── server.js               # Express 서버 엔트리 포인트
+│
+├── node_modules/               # 프론트엔드 의존성 (프론트엔드와 백엔드의 의존성을 분리할 수 있음)
+│
+├── public/                     # 정적 파일 (예: index.html)
+├── .gitignore
+├── package-lock.json           # 프론트엔드 의존성 관리
+├── package.json                # 프론트엔드 의존성 관리
+├── README.md
+├── tailwind.config.js
+└── tsconfig.json
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 💻 GIT 규칙 - commit, branch
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+💡 가급적 아래 가이드라인에 따라 개발을 진행해주세요.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 📝 Commit 규칙
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+📢 커밋 메시지 작성 방식은 개인마다 차이가 있어 굳이 아래 내용을 따르지 않아도 좋습니다. 단, 내용을 알 수 있도록 `이슈타입: 세부 설명` 구조를 지켜주세요 😊
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- ⭕ `코드수정 : 로그인 코드 수정`, `replace : 로고 교체`, `북마크 조회 EndPoint 변경`
+- ❌ `aaa`, `엔드포인트 변경`, `기능 완성`
 
-## Learn More
+#### 커밋 메시지 유형:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **`Feat`**: 새로운 기능을 추가할 경우
+- **`Add`**: 새로운 파일을 추가한 경우
+- **`Update`**: 기능, 코드를 수정한 경우
+- **`Fix`**: 버그를 고친 경우
+- **`Remove`**: 파일을 삭제하는 작업만 수행한 경우
+- **`Rename`**: 파일 및 폴더명을 수정하거나 옮긴 경우
+- **`Chore`**: 패키지 매니저를 설정하는 경우 (예: `npm i ~` 로 package.json 변경된 경우)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 🌿 Branch 컨벤션
 
-### Code Splitting
+1. 매주 토요일 **`master branch`**에 merge 
+2. 기능(feature)별로 작성 (예시 : `back/jm_login`)
+3. **`feature`**는 **`dev`**로부터 분기
+4. 완성된 **`feature`**는 **`dev`**에 병합
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
