@@ -1,25 +1,19 @@
-//src/components/Footer.tsx
+// src/components/Footer.tsx
 import React from 'react';
-import styled from 'styled-components';
 
 const Footer: React.FC = () => {
   return (
-    <FooterContainer>
-      <FooterText>© 2023 SEYANG PARK. All rights reserved.</FooterText>
-    </FooterContainer>
+    <footer className="w-full py-10 bg-gray-100 text-gray-600 text-sm">
+      <div className="container mx-auto flex justify-between items-center px-4">
+        <p className="text-left">&copy; 2023 SEYANG PARK. All rights reserved.</p>
+        <p className="text-right hover:text-gray-800 transition-colors cursor-pointer">Privacy Policy</p>
+        <p className="text-right hover:text-gray-800 transition-colors cursor-pointer">
+          Useful Links</p>
+          <p className="text-right hover:text-gray-800 transition-colors cursor-pointer">
+          Contact</p>
+      </div>
+    </footer>
   );
 };
 
 export default Footer;
-
-const FooterContainer = styled.footer`
-  width: 100%;
-  padding: 1rem 0;
-  background-color: #f4f4f4;
-  text-align: center;
-`;
-
-const FooterText = styled.p`
-  color: #8c8c8c;
-  font-size: 0.875rem;
-`;

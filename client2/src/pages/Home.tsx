@@ -1,47 +1,37 @@
-//src/pages/Home.tsx
 import React from 'react';
 import Header from '../components/Header';
-import MoodSlider from '../components/MoodSlider';
 import Footer from '../components/Footer';
-import styled from 'styled-components';
+import Contents from '../components/Contents';
 
 const Home: React.FC = () => {
   return (
-    <Container>
+    <div className="flex flex-col items-center justify-between min-h-screen">
       <Header />
-      <Content>
-        <Title>오늘의 기분 지수를 측정해 볼까요?</Title>
-        <Subtitle>하루를 보내고 난 지금의 나의 기분은 어떤지 솔직하게 기록해봐요.</Subtitle>
-        <MoodSlider />
-      </Content>
+      <div className="text-center mt-8">
+        <div className="my-16">
+          <div className="relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-lg animate-slide"></div>
+            <div className="relative text-6xl text-gray-600">배너자리</div>
+          </div>
+          <h1 className="text-2xl text-gray-600 mb-4">안녕하세요!</h1>
+          <p className="text-sm text-gray-500 mb-8">SubTitle</p>
+          <div className="flex justify-center gap-4">
+            <button className="bg-gray-600 text-white py-3 px-6 rounded-full border-none cursor-pointer">
+              긍정 글쓰기
+            </button>
+            <button className="bg-transparent text-gray-600 py-3 px-6 rounded-full border border-gray-600 cursor-pointer">
+              Writting List
+            </button>
+          </div>
+        </div>
+
+        <div className="my-16">
+          <Contents />
+        </div>
+      </div>
       <Footer />
-    </Container>
+    </div>
   );
 };
 
 export default Home;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 100vh;
-`;
-
-const Content = styled.div`
-  text-align: center;
-  margin-top: 2rem;
-`;
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  color: #6c6783;
-  margin-bottom: 1rem;
-`;
-
-const Subtitle = styled.p`
-  font-size: 1rem;
-  color: #8c8c8c;
-  margin-bottom: 2rem;
-`;
