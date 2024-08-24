@@ -1,5 +1,6 @@
 // src/components/MoodSlider.tsx
 import React, { useState } from 'react';
+import './MoodSlider.css'; // 커스텀 스타일을 위한 CSS 파일 추가
 
 const MoodSlider: React.FC = () => {
   const [value, setValue] = useState(0);
@@ -15,8 +16,15 @@ const MoodSlider: React.FC = () => {
   };
 
   const handleEmotionCheck = () => {
-    // Navigate to emotion check page or perform another action
     alert('🥲글쓰기 기능은 아직 공사중이에요.🔧');
+  };
+
+  const handleSliderClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const slider = e.currentTarget;
+    const rect = slider.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const newValue = Math.round((offsetX / rect.width) * 10); // 슬라이더 값을 0-10 사이로 계산
+    setValue(newValue);
   };
 
   const renderContent = () => {
@@ -60,14 +68,21 @@ const MoodSlider: React.FC = () => {
     <div className="w-3/4 mx-auto py-8">
       {!submitted ? (
         <div className="text-center">
-          <input
-            type="range"
-            min="0"
-            max="10"
-            value={value}
-            onChange={(e) => setValue(Number(e.target.value))}
-            className="w-full appearance-none bg-gray-300 h-1 rounded-lg outline-none"
-          />
+          <div className="relative w-full" onClick={handleSliderClick}>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              value={value}
+              onChange={(e) => setValue(Number(e.target.value))}
+              className="mood-slider"
+            />
+            <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between">
+              {[3, 6, 9].map((mark) => (
+                <div key={mark} className="slider-mark" style={{ left: `${(mark / 10) * 100}%` }}></div>
+              ))}
+            </div>
+          </div>
           <div className="flex justify-between text-gray-700 mt-4">
             <span>0</span>
             <span>10</span>
@@ -85,3 +100,4 @@ const MoodSlider: React.FC = () => {
 };
 
 export default MoodSlider;
+
