@@ -1,6 +1,7 @@
 // src/components/MoodSlider.tsx
 import React, { useState } from 'react';
 import './MoodSlider.css'; // 커스텀 스타일을 위한 CSS 파일 추가
+import { Link } from 'react-router-dom'; // 글쓰기 페이지 이동
 
 const MoodSlider: React.FC = () => {
   const [value, setValue] = useState(0);
@@ -23,9 +24,20 @@ const MoodSlider: React.FC = () => {
     const slider = e.currentTarget;
     const rect = slider.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
-    const newValue = Math.round((offsetX / rect.width) * 10); // Calculate slider value between 0-10
+    let newValue = Math.round((offsetX / rect.width) * 10);
+  
+    // newValue가 0 미만이거나 10을 초과할 수 없도록 합니다.
+    if (newValue < 0) newValue = 0;
+    if (newValue > 10) newValue = 10;
+  
     setValue(newValue);
   };
+  
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Math.max(0, Math.min(10, Number(e.target.value)));
+    setValue(newValue);
+  };
+  
 
   const renderContent = () => {
     if (value <= 3) {
@@ -34,9 +46,14 @@ const MoodSlider: React.FC = () => {
           <p className="text-2xl text-scampi-600 mb-4">힘든 하루를 보내셨군요.</p>
           <p className="text-2xl text-scampi-600 mb-4">기분 전환을 시작해볼까요?</p>
           <div className="flex justify-center gap-4">
-            <button onClick={handleRetry} className="bg-scampi-500 text-white py-2 px-4 rounded-md hover:bg-scampi-600">다시 측정하러가기</button>
-            <button onClick={handleEmotionCheck} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">감정체크 버튼</button>
-          </div>
+          <button onClick={handleRetry} className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+            다시 측정하러가기</button>
+            <Link to="/mydiary">
+          <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+          감정 체크 완료
+          </button>
+        </Link>
+           </div>
         </div>
       );
     } else if (value <= 6) {
@@ -45,8 +62,13 @@ const MoodSlider: React.FC = () => {
           <p className="text-2xl text-scampi-600 mb-4">보통인 하루였군요.</p>
           <p className="text-2xl text-scampi-600 mb-4">잠시 여유를 즐겨보는 건 어떨까요?</p>
           <div className="flex justify-center gap-4">
-            <button onClick={handleRetry} className="bg-scampi-500 text-white py-2 px-4 rounded-md hover:bg-scampi-600">다시 측정하러가기</button>
-            <button onClick={handleEmotionCheck} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">감정체크 버튼</button>
+          <button onClick={handleRetry} className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+            다시 측정하러가기</button>
+            <Link to="/mydiary">
+          <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+          감정 체크 완료
+          </button>
+        </Link>
           </div>
         </div>
       );
@@ -56,9 +78,13 @@ const MoodSlider: React.FC = () => {
           <p className="text-2xl text-scampi-600 mb-4">오늘 정말 행복한 날이에요!</p>
           <p className="text-2xl text-scampi-600 mb-4">이 기분을 더 만끽해볼까요?</p>
           <div className="flex justify-center gap-4">
-            <button onClick={handleRetry} className="bg-scampi-500 text-white py-2 px-4 rounded-md hover:bg-scampi-600">다시 측정하러가기</button>
-            <button onClick={handleEmotionCheck} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">감정체크 버튼</button>
-          </div>
+            <button onClick={handleRetry} className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+            다시 측정하러가기</button>
+            <Link to="/mydiary">
+          <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+          감정 체크 완료
+          </button>
+        </Link></div>
         </div>
       );
     }
@@ -90,7 +116,7 @@ const MoodSlider: React.FC = () => {
           <div className="text-center mt-4">
             <p className="text-4xl text-scampi-600">{value}</p>
           </div>
-          <button onClick={handleSubmit} className="bg-green-500 text-white py-2 px-6 rounded-md mt-4 hover:bg-green-600">선택완료</button>
+          <button onClick={handleSubmit} className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">선택완료</button>
         </div>
       ) : (
         renderContent()
