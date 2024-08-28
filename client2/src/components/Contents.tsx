@@ -8,10 +8,10 @@ import './Contents.css';
 
 const Contents: React.FC = () => {
   const cardContents = [
-    { title: '자기 계발', text: '독서하기', tag: '#태그', src: ImageSrc1 }, 
-    { title: '자기 관리', text: '일정한 시간에 잠자고 일어나기', tag: '#태그', src: ImageSrc2},
-    { title: '취미 활동', text: '맛있는 음식 먹기', tag: '#태그', src: ImageSrc3 }, 
-    { title: '건강', text: '스트레칭 하기', tag: '#태그', src: ImageSrc4 },
+    { title: '자기 계발', text: '독서하기', tag: '#책추천', src: ImageSrc1 }, 
+    { title: '자기 관리', text: '일정한 시간에 잠자고 일어나기', tag: '#미라클모닝', src: ImageSrc2},
+    { title: '취미 활동', text: '맛있는 음식 먹기', tag: '#식단', src: ImageSrc3 }, 
+    { title: '건강', text: '스트레칭 하기', tag: '#명상', src: ImageSrc4 },
   ];
 
   return (
@@ -47,9 +47,9 @@ const Card: React.FC<CardProps> = ({ title, text, tag, src }) => {
         </div>
         <div className="card-back">
           <div className="flex flex-col justify-center items-center">
-            <h3 className="text-xl font-bold mb-2 text-scampi-600">{title}</h3>
+            <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
             <p className="text-sm text-scampi-500">{tag}</p>
-            <button className="bg-stone-100 text-neutral-800 py-2 px-6 rounded-md mt-4 hover:bg-stone-300">콘텐츠 탐색하기</button>
+            <button className="bg-stone-100 text-neutral-800 text-sm py-2 px-6 rounded-md mt-4 hover:bg-stone-300">콘텐츠 탐색하기</button>
           </div>
         </div>
       </div>

@@ -1,25 +1,22 @@
-// src/components/MoodSlider.tsx
+// src/components/EnergySlider.tsx
 import React, { useState } from 'react';
 import './MoodSlider.css'; // 커스텀 스타일을 위한 CSS 파일 추가
 import { Link } from 'react-router-dom'; // 글쓰기 페이지 이동
-import Emoji_1 from '../Icon/emoji_1.gif';
-import Emoji_3 from '../Icon/emoji_3.gif';
-import Emoji_5 from '../Icon/emoji_5.gif';
-import Emoji_7 from '../Icon/emoji_7.gif';
-import Emoji_9 from '../Icon/emoji_9.gif';
+import Fire from '../Icon/fire.gif';
 
-interface MoodSliderProps {
+interface EnergySliderProps {
   onValueChange: (value: number) => void;
   onSubmit: () => void;
 }
 
-const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange }) => {
+const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit }) => {
   const [value, setValue] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = () => {
     setSubmitted(true);
     onValueChange(value);
+    onSubmit();
   };
 
   const handleRetry = () => {
@@ -99,21 +96,17 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange }) => {
   return (
     <div className="flex flex-col items-center justify-between">
       {!submitted ? (
-        <div className="text-center mt-8">
+        <div className="text-center">
           <h1 className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mb-4">
-            오늘의 편안함 정도는?
+            오늘의 에너지 레벨은?
           </h1>
           <p className="text-scampi-700 dark:text-scampi-300 text-sm font-medium font-['DM Sans'] leading-10">
-            지금 내가 느끼는 편안한 정도를 수치로 기록해봐요.
+            지금 내가 느끼는 활력 정도를 수치로 기록해봐요.
           </p>
           <div className="relative w-full mx-auto py-8">
             <div className="relative w-10 flex items-center justify-between">
               {/* 이모지를 슬라이더와 같은 위치에 배치 */}
-              <img src={Emoji_1} className="emoji-style" />
-              <img src={Emoji_3} className="emoji-style" />
-              <img src={Emoji_5} className="emoji-style" />
-              <img src={Emoji_7} className="emoji-style" />
-              <img src={Emoji_9} className="emoji-style" />
+              <img src={Fire} className="emoji-style" />
             </div>
             <div className="relative w-full mt-4" onClick={handleSliderClick}>
               <input
@@ -142,9 +135,9 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange }) => {
             <div className="text-center mt-4">
               <p className="text-4xl text-scampi-600">{value}</p>
             </div>
-            {/* <button onClick={handleSubmit} className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+            <button onClick={handleSubmit} className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
               선택완료
-            </button> */}
+            </button>
           </div>
         </div>
       ) : (
@@ -154,4 +147,4 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange }) => {
   );
 };
 
-export default MoodSlider;
+export default EnergySlider;

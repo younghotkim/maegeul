@@ -6,6 +6,11 @@ const Banner: React.FC = () => {
     'https://picsum.photos/1200/600?random=1',
     'https://picsum.photos/1200/600?random=2',
     'https://picsum.photos/1200/600?random=3',
+    'https://picsum.photos/1200/600?random=4',
+    'https://picsum.photos/1200/600?random=5',
+    'https://picsum.photos/1200/600?random=6',
+    'https://picsum.photos/1200/600?random=7',
+    'https://picsum.photos/1200/600?random=8',
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);

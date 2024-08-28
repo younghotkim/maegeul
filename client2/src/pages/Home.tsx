@@ -11,7 +11,7 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-between min-h-screen">
       <Header />
-      <div className="text-center relative overflow-hidden w-1220 h-720">
+      <div className="text-center relative overflow-hidden w-1220 h-720 p-10">
           <Banner />
         
         <div className="flex justify-center gap-10">
