@@ -45,7 +45,7 @@ const Navi: React.FC = () => {
           </div>
           <div className="flex flex-col gap-4">
             {/* 첫 번째 버튼 */}
-            <div className="w-full h-14 bg-transparent border border-scampi-600 rounded-3xl flex items-center px-6 hover:bg-scampi-100 dark:hover:bg-scampi-800 transition-colors cursor-pointer group-hover:border-scampi-50 ">
+            <div className="w-full h-14 bg-transparent border border-scampi-600 rounded-3xl flex items-center px-6 hover:bg-scampi-100 dark:hover:bg-scampi-800 transition-colors cursor-pointer group-hover:border-scampi-600 ">
               <SearchIcon className="w-4 h-4 mr-2 group-hover:text-scampi-900 group-hover:dark:text-scampi-900" />
               <span className="text-scampi-700 dark:text-scampi-300 text-lg ">
                 나의 하루를 단어 구름으로 본다면?
@@ -53,14 +53,14 @@ const Navi: React.FC = () => {
               <ArrowIcon className="w-4 h-4 ml-auto group-hover:text-scampi-50 group-hover:dark:text-scampi-900" />
             </div>
             {/* 두 번째 버튼 */}
-            <div className="w-full h-14 bg-transparent border border-scampi-600 rounded-3xl flex items-center px-6 hover:bg-scampi-100 dark:hover:bg-scampi-800 transition-colors cursor-pointer group-hover:border-scampi-50 ">
+            <div className="w-full h-14 bg-transparent border border-scampi-600 rounded-3xl flex items-center px-6 hover:bg-scampi-100 dark:hover:bg-scampi-800 transition-colors cursor-pointer group-hover:border-scampi-600">
               <SearchIcon className="w-4 h-4 mr-2 group-hover:text-scampi-900 group-hover:dark:text-scampi-900" />
               <span className="text-scampi-700 dark:text-scampi-300 text-lg ">나의 감정 변화 그래프는 어떤 모습일까?
               </span>
               <ArrowIcon className="w-4 h-4 ml-auto group-hover:text-scampi-50 group-hover:dark:text-scampi-900" />
             </div>
             {/* 세 번째 버튼 */}
-            <div className="w-full h-14 bg-transparent border border-scampi-600 rounded-3xl flex items-center px-6 hover:bg-scampi-100 dark:hover:bg-scampi-800 transition-colors cursor-pointer group-hover:border-scampi-50 ">
+            <div className="w-full h-14 bg-transparent border border-scampi-600 rounded-3xl flex items-center px-6 hover:bg-scampi-100 dark:hover:bg-scampi-800 transition-colors cursor-pointer group-hover:border-scampi-600">
               <SearchIcon className="w-4 h-4 mr-2 group-hover:text-scampi-900 group-hover:dark:text-scampi-900" />
               <span className="text-scampi-700 dark:text-scampi-300 text-lg ">지금 나에게 필요한 콘텐츠는 뭘까?
               </span>

@@ -1,9 +1,9 @@
-// src/pages/MyDiary/MyDiary.tsx
+// src/pages/Archiving/Article.tsx
 import React from 'react';
 import Header from '../../components/Header';
-const MyDiary: React.FC = () => {
+const Article: React.FC = () => {
     return (
         <Header />
     );
 }
-    export default MyDiary;
+    export default Article;

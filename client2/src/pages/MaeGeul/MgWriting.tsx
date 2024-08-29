@@ -1,17 +1,15 @@
-// src/pages/MaeGeul.tsx
+// src/pages/AIWriting/MgWriting.tsx
 import React from 'react';
 import Header from '../../components/Header';
-import Diag from '../MaeGeul/Diag';
 import WritingGuide from '../../components/WritingGuide';
 
-const MaeGeul: React.FC = () => {
+const MgWriting: React.FC = () => {
     return (
         <>
             <Header />
             <WritingGuide />
-            <Diag />
+
         </>
     );
 }
-
-export default MaeGeul;
+    export default MgWriting;

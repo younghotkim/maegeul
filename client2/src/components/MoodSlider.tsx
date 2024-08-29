@@ -14,7 +14,7 @@ interface MoodSliderProps {
 }
 
 const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange }) => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(5);
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = () => {
@@ -107,7 +107,7 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange }) => {
             지금 내가 느끼는 편안한 정도를 수치로 기록해봐요.
           </p>
           <div className="relative w-full mx-auto py-8">
-            <div className="relative w-10 flex items-center justify-between">
+            <div className="relative w-10 flex items-center justify-between gap-10">
               {/* 이모지를 슬라이더와 같은 위치에 배치 */}
               <img src={Emoji_1} className="emoji-style" />
               <img src={Emoji_3} className="emoji-style" />
@@ -129,7 +129,7 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange }) => {
                 className="mood-slider" // External CSS for custom slider styles
               />
               <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between">
-                {[1, 3, 5, 7, 9].map((mark) => (
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((mark) => (
                   <div key={mark} className="slider-mark" style={{ left: `${(mark / 10) * 100}%` }}>
                   </div>
                 ))}

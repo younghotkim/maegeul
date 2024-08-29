@@ -4,8 +4,8 @@ import MoodSlider from '../../components/MoodSlider'; // MoodSlider 컴포넌트
 import EnergySlider from '../../components/EnergySlider'; // EnergySlider 컴포넌트를 가져옵니다.
 import { Link } from 'react-router-dom'; // react-router-dom에서 Link 컴포넌트를 가져옵니다. 페이지 이동에 사용됩니다.
 
-// Home 컴포넌트를 정의합니다.
-const Home: React.FC = () => {
+// Diag 컴포넌트를 정의합니다.
+const Diag: React.FC = () => {
   // moodValue와 energyValue를 관리할 state를 정의합니다.
   const [moodValue, setMoodValue] = useState<number | null>(null);
   const [energyValue, setEnergyValue] = useState<number | null>(null);
@@ -48,7 +48,7 @@ const Home: React.FC = () => {
               <button onClick={handleRetry} className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
                 다시 측정하기
               </button>
-              <Link to="/mydiary">
+              <Link to="/MgWriting">
                 <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
                   글쓰러가기
                 </button>
@@ -73,4 +73,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home; // Home 컴포넌트를 내보냅니다.
+export default Diag; // Home 컴포넌트를 내보냅니다.

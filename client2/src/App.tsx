@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import MaeGeul from './pages/MaeGeul/Maeguel';
 import AIWriting from './pages/AIWriting/AIWriting';
-import MyDiary from './pages/MyDiary/MyDiary';
+import Article from './pages/Archiving/Article';
+import MgWriting from './pages/MaeGeul/MgWriting';
 
 const App: React.FC = () => {
   return (
@@ -14,7 +15,8 @@ const App: React.FC = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/maegeul" element={<MaeGeul />} />
         <Route path="/aiwriting" element={<AIWriting />} />
-        <Route path="/mydiary" element={<MyDiary />} />
+        <Route path="/article" element={<Article />} />
+        <Route path="/mgwriting" element={<MgWriting />} />
       </Routes>
     </Router>
   );
