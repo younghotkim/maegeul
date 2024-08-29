@@ -1,17 +1,21 @@
 {
-  "name": "server",
+  "name": "emotion-diary-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Emotion diary backend",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "@google/generative-ai": "^0.17.0",
+    "axios": "^0.21.1",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "google-fonts": "^1.0.0",
+    "openai": "^4.56.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }

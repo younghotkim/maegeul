@@ -30,7 +30,7 @@ const Header: React.FC = () => {
             매일 글쓰기
           </button>
         </Link>
-        <Link to="/aiwriting">
+        <Link to="/emotionForm">
           <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
             AI 하루진단
           </button>

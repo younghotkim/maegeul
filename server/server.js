@@ -1,35 +1,20 @@
-const express = require("express");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors'); // CORS 패키지 가져오기
+const analyzeRoute = require('./routes/analyze');
 
 dotenv.config();
 
 const app = express();
+
+// CORS 설정
 app.use(cors());
+
 app.use(express.json());
 
-const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-
-app.post("/api/analyze", async (req, res) => {
-  const { text } = req.body;
-
-  //const prompt = `이 문장의 감정을 분석해줘 그런 다음 나온 감정들을 #를 써서 키워드 형식으로 정리해줘 그리고 결과창에는 키워드만 보여줘.: "${text}"`;
-
-
-  const prompt = `나는 긍정적인 사람이 되고 싶어. 다음 문장을 긍정적인 언어로 바꿔줘.: "${text}"`;
-
-  try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const analysis = await response.text();
-
-    res.json({ result: analysis });
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong" });
-  }
-});
+app.use('/api/analyze', analyzeRoute);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

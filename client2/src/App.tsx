@@ -6,6 +6,7 @@ import MaeGeul from './pages/MaeGeul/Maeguel';
 import AIWriting from './pages/AIWriting/AIWriting';
 import Article from './pages/Archiving/Article';
 import MgWriting from './pages/MaeGeul/MgWriting';
+import EmotionForm from './components/EmotionForm';
 
 const App: React.FC = () => {
   return (
@@ -14,7 +15,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/maegeul" element={<MaeGeul />} />
-        <Route path="/aiwriting" element={<AIWriting />} />
+        <Route path="/emotionForm" element={<EmotionForm />} />
         <Route path="/article" element={<Article />} />
         <Route path="/mgwriting" element={<MgWriting />} />
       </Routes>

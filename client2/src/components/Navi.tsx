@@ -24,7 +24,7 @@ const Navi: React.FC = () => {
         </Link>
 
         {/* 두 번째 카드 */}
-        <Link to="/aiwriting" className="group w-96 h-60 bg-scampi-50 dark:bg-scampi-900 rounded-2xl p-8 transition-colors">
+        <Link to="/emotionForm" className="group w-96 h-60 bg-scampi-50 dark:bg-scampi-900 rounded-2xl p-8 transition-colors">
           <p className="text-left text-scampi-400 dark:text-scampi-600 text-base font-normal uppercase leading-none tracking-wider mb-4 group-hover:bg-scampi-100 group-hover:dark:bg-scampi-900">
              AI가 분석해주는 나의 하루
           </p>
