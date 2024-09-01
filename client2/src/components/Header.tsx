@@ -49,9 +49,11 @@ const Header: React.FC = () => {
           {isDarkMode ? '🔆' : '🌙'}
         </button>
         <UserIcon className="w-8 h-8 fill-current text-scampi-700 dark:text-scampi-200" />
+        <Link to="/login">
         <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
           로그인
         </button>
+        </Link>
       </nav>
     </header>
   );
