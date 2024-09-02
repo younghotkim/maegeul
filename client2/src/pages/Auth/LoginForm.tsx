@@ -24,7 +24,7 @@ const LoginForm = () => {
 
     try {
       console.log("액시오스 : ", email, password);
-      await axios.post('http://localhost:6000/log',{
+      await axios.post('http://localhost:5000/users/login',{
         email,
         password
       }).then((rep) => {

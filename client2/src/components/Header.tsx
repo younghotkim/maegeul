@@ -1,11 +1,17 @@
 // src/components/Header.tsx
-// SVG 파일을 React 컴포넌트로 임포트
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as UserIcon } from '../Icon/User.svg';
 
 const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // 사용자가 로그인되어 있는지 확인
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token); // 토큰이 존재하면 로그인 상태로 설정
+  }, []);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -49,11 +55,20 @@ const Header: React.FC = () => {
           {isDarkMode ? '🔆' : '🌙'}
         </button>
         <UserIcon className="w-8 h-8 fill-current text-scampi-700 dark:text-scampi-200" />
-        <Link to="/login">
-        <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
-          로그인
-        </button>
-        </Link>
+
+        {isLoggedIn ? (
+          <Link to="/logout">
+            <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+              로그아웃
+            </button>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+              로그인
+            </button>
+          </Link>
+        )}
       </nav>
     </header>
   );

@@ -1,3 +1,4 @@
+//server/app.js
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -25,7 +26,7 @@ mongoose
 // });
 
 app.use("/users", userApi);
-app.use("/log", userApi);
+// app.use("/auth", userApi);
 
 // 포트 열기 서버 시작
 app.listen(5000, () => console.log(`Server running on port 5000`));

@@ -9,6 +9,7 @@ import MgWriting from './pages/MaeGeul/MgWriting';
 import EmotionForm from './components/EmotionForm';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
+import Logout from './pages/Auth/Logout';
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
         <Route path="/mgwriting" element={<MgWriting />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </Router>
   );
