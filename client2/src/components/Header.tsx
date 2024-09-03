@@ -4,22 +4,40 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as UserIcon } from '../Icon/User.svg';
 
 const Header: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    // 초기 다크 모드 설정을 로컬 스토리지에서 가져옴
+    return localStorage.getItem('isDarkMode') === 'true';
+  });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     // 사용자가 로그인되어 있는지 확인
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token); // 토큰이 존재하면 로그인 상태로 설정
-  }, []);
+
+    // 초기 다크 모드 설정 적용
+    if (isDarkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    if (document.body.classList.contains('dark')) {
-      document.body.classList.remove('dark');
-    } else {
-      document.body.classList.add('dark');
-    }
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      // 로컬 스토리지에 다크 모드 상태 저장
+      localStorage.setItem('isDarkMode', newMode.toString());
+
+      // 다크 모드 클래스 적용 또는 제거
+      if (newMode) {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.remove('dark');
+      }
+
+      return newMode;
+    });
   };
 
   return (
@@ -54,8 +72,11 @@ const Header: React.FC = () => {
           className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
           {isDarkMode ? '🔆' : '🌙'}
         </button>
-        <UserIcon className="w-8 h-8 fill-current text-scampi-700 dark:text-scampi-200" />
-
+        <Link to="/mypage"> {/* Link 컴포넌트로 UserIcon을 감싸 클릭 시 Mypage로 이동 */}
+          <button className="w-8 h-8 p-1 bg-transparent border-0 dark:text-scampi-200">
+            <UserIcon className="w-full h-full fill-current" />
+          </button>
+        </Link>
         {isLoggedIn ? (
           <Link to="/logout">
             <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">

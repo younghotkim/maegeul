@@ -50,7 +50,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleLogin} className="flex flex-col w-full max-w-lg mx-auto">
+    <form onSubmit={handleLogin} className="flex flex-col w-full max-w-lg mx-auto dark:bg-gray-800 dark:text-white">
       {error && <div className="text-red-500 mb-2">{error}</div>} {/* 에러 메시지 표시 */}
       <input
         type="text"
@@ -58,7 +58,7 @@ const LoginForm = () => {
         value={email}
         name='email'
         onChange={handleEmailChange}
-        className="p-3 mb-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300"
+        className="p-3 mb-2 text-lg border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 dark:bg-gray-800 dark:text-white"
       />
       <input
         type="password"
@@ -66,12 +66,12 @@ const LoginForm = () => {
         value={password}
         name='password'
         onChange={handlePasswordChange}
-        className="p-3 mb-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300"
+        className="p-3 mb-2 text-lg border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 dark:bg-gray-800 dark:text-white"
       />
       <button
         type="submit"
-       className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
-
+        className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
+      >
         로그인하기
       </button>
       <div className="flex justify-between mt-4">

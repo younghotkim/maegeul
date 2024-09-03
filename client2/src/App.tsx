@@ -7,9 +7,11 @@ import AIWriting from './pages/AIWriting/AIWriting';
 import Article from './pages/Archiving/Article';
 import MgWriting from './pages/MaeGeul/MgWriting';
 import EmotionForm from './components/EmotionForm';
+import Mypage from './pages/Auth/Mypage';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import Logout from './pages/Auth/Logout';
+
 
 const App: React.FC = () => {
   return (
@@ -21,6 +23,7 @@ const App: React.FC = () => {
         <Route path="/emotionForm" element={<EmotionForm />} />
         <Route path="/article" element={<Article />} />
         <Route path="/mgwriting" element={<MgWriting />} />
+        <Route path="/mypage" element={<Mypage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/logout" element={<Logout />} />
