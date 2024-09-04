@@ -41,7 +41,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 flex justify-between items-center w-full p-4 bg-scampi-100 dark:bg-scampi-800 shadow-md">
+    <header className="sticky top-0 z-50 flex justify-between items-center w-full p-10 bg-slate-100 bg-opacity-50 dark:bg-scampi-800 shadow-sm">
       <Link to="/home">
         <button className="text-xl bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-semibold">
           📂 MAEGEUL LOGO
