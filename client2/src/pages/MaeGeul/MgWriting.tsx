@@ -44,10 +44,10 @@ const MgWriting: React.FC = () => {
     return (
         <>
             <Header />
-            <div className="BackgroundBorder w-full h-full p-10 bg-white rounded-3xl shadow border border-black/10 flex">
+            <div className="BackgroundBorder w-full h-full p-10 bg-white rounded-3xl shadow border border-black/10 flex dark:bg-gray-600 dark:text-white">
                 <div className="Verticalborder flex-grow self-stretch pl-10 pr-11 pt-14 pb-96 border-r border-black/10 flex-col">
                     <div className="Container w-96 h-72 flex flex-col">
-                        <div className="User w-96 h-11 text-scampi-600 font-bold text-2xl leading-10">user님의 오늘의 감정 일기</div>
+                        <div className="User w-96 h-11 text-scampi-600 font-bold text-2xl leading-10 dark:text-white">user님의 오늘의 감정 일기</div>
                         <div className="Date w-96 h-11 text-right text-neutral-500 text-sm">{formattedDate}</div>
                         <div className="HorizontalDivider w-96 h-px my-2 bg-black/10" />
                         <div className="Container flex flex-col space-y-2">
@@ -61,9 +61,9 @@ const MgWriting: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="Background flex-grow px-12 pt-14 bg-slate-100 rounded-tr-2xl rounded-br-2xl flex flex-col">
+                <div className="Background flex-grow px-12 pt-14 bg-slate-100 rounded-tr-2xl rounded-br-2xl flex flex-col dark:bg-gray-600 dark:text-white">
                     <div className="Container w-full flex flex-col space-y-4">
-                        <div className="Input w-full pb-5 border-b border-black/10 flex">
+                        <div className="Input w-full pb-3 border-b border-black/10 flex">
                             <input 
                                 className="w-full h-9 text-scampi-600 font-bold text-2xl" 
                                 placeholder="제목을 입력하세요." 
@@ -72,8 +72,8 @@ const MgWriting: React.FC = () => {
                             />
                         </div>
                         <textarea 
-                            className="w-full h-40 p-3 bg-white rounded-lg border border-black/10"
-                            placeholder="오늘 하루 어떠셨나요? 오늘의 감사한 일들을 기록해보세요. (최대 500자까지 작성이 가능합니다.)"
+                            className="w-full h-40 p-3 bg-white rounded-lg border border-black/10 dark:bg-gray-800 dark:text-white"
+                            placeholder="오늘 하루 어떠셨나요? 오늘 내가 느낀 감정을 일으킨 상황과 함께 구체적으로 작성해보세요. (최대 500자까지 작성이 가능합니다.)"
                             maxLength={maxLength}
                             value={content}
                             onChange={(e) => setContent(e.target.value)}

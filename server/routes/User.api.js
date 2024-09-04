@@ -1,5 +1,5 @@
-//api를 용도별로 구분하기
 //LEADME/backend/routes/User.api.js
+//api를 용도별로 구분하기
 const express = require("express");
 const router = express.Router();
 const { loginUser, createUser, logoutUser } = require("../controllers/User.controller"); // 컨트롤러 임포트
