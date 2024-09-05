@@ -18,7 +18,7 @@ const Navi: React.FC = () => {
             to="/maegeul"
             className="group w-96 h-60 bg-scampi-50 dark:bg-scampi-900 rounded-2xl p-8 transition-colors hover:bg-scampi-100 hover:dark:bg-scampi-800"
           >
-            <p className="text-left text-scampi-400 dark:text-scampi-600 text-base font-bold uppercase leading-none tracking-wider mb-4">
+            <p className="text-left text-scampi-400 dark:text-scampi-600 text-base font-normal uppercase leading-none tracking-wider mb-4">
               작은 실천으로 시작하는 단단한 나
             </p>
             <h2 className="text-left text-scampi-700 dark:text-scampi-300 text-2xl font-bold leading-7">

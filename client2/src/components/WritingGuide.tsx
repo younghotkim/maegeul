@@ -1,5 +1,7 @@
 //src/components/WritingGuide.tsx
 import React, { useState } from 'react';
+import Info from '../Icon/Info.png'; 
+import Tooltip from './Tooltip';
 
 const WritingGuide: React.FC = () => {
     const [activeButton, setActiveButton] = useState<string | null>(null);
@@ -10,18 +12,27 @@ const WritingGuide: React.FC = () => {
             <p className="text-scampi-700 text-lg font-bold font-['DM Sans'] leading-7 text-center">
                 우리는 모두 매순간 감정을 경험하는 감정적 존재들이에요. <br />
                 지금 나의 감정은 어떤가요? 나에게 호기심을 가져보아요.
+                <Tooltip message='매글에서는 러셀 모델을 기반으로 감정을 측정해요. 쾌적함-에너지정도(Balance-Arousal)를 기록하면 현재 느끼는 감정을 "무드컬러"로 알아볼 수 있어요.'>
+                <img src={Info} alt="Info" className="inline cursor-pointer" />
+                </Tooltip>
             </p>
         ),
         diary: (
             <p className="text-scampi-700 text-lg font-bold font-['DM Sans'] leading-7 text-center">
                 가이드2<br />
                 지금 나의 감정은 어떤가요? 나에게 호기심을 가져보아요.
+                <Tooltip message='매글에서는 러셀 모델을 기반으로 감정을 측정해요. 쾌적함-에너지정도(Balance-Arousal)를 기록하면 현재 느끼는 감정을 "무드컬러"로 알아볼 수 있어요.'>
+                <img src={Info} alt="Info" className="inline ml-2 cursor-pointer" />
+                </Tooltip>
             </p>
         ),
         aiCheck: (
             <p className="text-scampi-700 text-lg font-bold font-['DM Sans'] leading-7 text-center">
                 가이드3<br />
                 지금 나의 감정은 어떤가요? 나에게 호기심을 가져보아요.
+                <Tooltip message='매글에서는 러셀 모델을 기반으로 감정을 측정해요. 쾌적함-에너지정도(Balance-Arousal)를 기록하면 현재 느끼는 감정을 "무드컬러"로 알아볼 수 있어요.'>
+                <img src={Info} alt="Info" className="inline ml-2 cursor-pointer" />
+                </Tooltip>
             </p>
         ),
     };
