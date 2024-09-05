@@ -1,44 +1,63 @@
-// src/pages/AIWriting/MgWriting.tsx
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
+import { analyzeEmotion } from '../../api/analyzeApi'; // 분석 API import
 
 const MgWriting: React.FC = () => {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
     const [formattedDate, setFormattedDate] = useState('');
+    const [emotionResult, setEmotionResult] = useState<string | null>(null); // 분석 결과 상태 추가
     const maxLength = 500;
 
-    // 현재 날짜를 가져와서 형식에 맞춰 상태로 저장
     useEffect(() => {
         const today = new Date();
         const formatted = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일 ${today.getHours()}시 ${today.getMinutes()}분`;
         setFormattedDate(formatted);
     }, []);
 
-    // 게시물 저장 함수
-    const handleSave = () => {
-        const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-        const newPost = { title, content, date: formattedDate };
-        posts.push(newPost);
-        localStorage.setItem('posts', JSON.stringify(posts));
-        alert('글이 저장되었습니다!');
+    const handleSave = async () => {
+        try {
+            const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+            const newPost = { title, content, date: formattedDate };
+            posts.push(newPost);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            alert('글이 저장되었습니다!');
+            setTitle(''); // 제목 초기화
+            setContent(''); // 내용 초기화
+
+            // AI 분석 여부 확인
+            if (window.confirm('AI 분석을 하시겠습니까?')) {
+                const emotion = await analyzeEmotion(content); // 감정 분석 호출
+                setEmotionResult(emotion); // 분석 결과 상태 저장
+                alert(`감정 분석 결과: ${emotion}`);
+            }
+
+        } catch (error) {
+            console.error('글 저장 중 오류 발생:', error);
+        }
     };
 
-    // 게시물 삭제 함수
     const handleDelete = (index: number) => {
-        const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-        posts.splice(index, 1);
-        localStorage.setItem('posts', JSON.stringify(posts));
-        alert('글이 삭제되었습니다!');
+        try {
+            const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+            posts.splice(index, 1);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            alert('글이 삭제되었습니다!');
+        } catch (error) {
+            console.error('글 삭제 중 오류 발생:', error);
+        }
     };
 
-    // 게시물 수정 함수
     const handleEdit = (index: number) => {
-        const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-        const postToEdit = posts[index];
-        setTitle(postToEdit.title);
-        setContent(postToEdit.content);
-        handleDelete(index);
+        try {
+            const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+            const postToEdit = posts[index];
+            setTitle(postToEdit.title);
+            setContent(postToEdit.content);
+            handleDelete(index);
+        } catch (error) {
+            console.error('글 수정 중 오류 발생:', error);
+        }
     };
 
     return (
@@ -93,6 +112,12 @@ const MgWriting: React.FC = () => {
                             <button onClick={handleSave} className="w-1/2 py-2 bg-gray-200 rounded-lg">임시 저장</button>
                             <button onClick={handleSave} className="w-1/2 py-2 bg-blue-500 text-white rounded-lg">작성 완료</button>
                         </div>
+                        {/* AI 분석 결과 표시 */}
+                        {emotionResult && (
+                            <div className="mt-4 p-4 bg-blue-100 rounded-lg text-blue-800">
+                                AI 분석 결과: {emotionResult}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

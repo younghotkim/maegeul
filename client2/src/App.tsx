@@ -11,7 +11,8 @@ import Mypage from './pages/Auth/Mypage';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import Logout from './pages/Auth/Logout';
-
+import LoginSuccess from './pages/Auth/LoginSuccess';
+import { PostProvider } from './context/PostContext';  // PostProvider 임포트
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         <Route path="/emotionForm" element={<EmotionForm />} />
         <Route path="/article" element={<Article />} />
         <Route path="/mgwriting" element={<MgWriting />} />
+        <Route path="/login/success" element={<LoginSuccess />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
