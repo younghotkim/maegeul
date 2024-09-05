@@ -7,7 +7,7 @@ const passport = require('passport');
 const dotenv = require('dotenv');
 
 // 라우트 파일들
-const userApi = require('./routes/User.api');
+const userApi = require('./routes/userApi');
 const authRoutes = require('./routes/auth');
 const analyzeRoute = require('./routes/analyze');
 
@@ -24,9 +24,9 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(express.json()); // JSON 요청 처리
 
-// MongoDB 연결
+// MongoDB connection
 mongoose
-    .connect(process.env.MONGODB_LOCAL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.MONGODB_LOCAL)
     .then(() => console.log('Mongoose connected'))
     .catch((err) => console.log('DB connection failed:', err));
 
