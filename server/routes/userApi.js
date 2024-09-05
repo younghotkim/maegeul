@@ -2,7 +2,7 @@
 //api를 용도별로 구분하기
 const express = require("express");
 const router = express.Router();
-const { loginUser, createUser, logoutUser } = require("../controllers/User.controller"); // 컨트롤러 임포트
+const { loginUser, createUser, logoutUser } = require("../controllers/userController"); // 컨트롤러 임포트
 const { check, validationResult } = require("express-validator");
 // 로그인
 router.post(
