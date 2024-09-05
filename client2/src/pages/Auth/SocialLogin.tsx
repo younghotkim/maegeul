@@ -1,36 +1,39 @@
-//client2/src/pages/Auth/SocialLogin.tsx
 import React from 'react';
-import KakaoLogin from 'react-kakao-login';
-import kakaoIcon from '../../Icon/kakao_login.png.png';
 
-const SocialLogin = () => {
-  const kakaoSuccess = (response: any) => {
-    console.log('카카오 로그인 성공:', response);
-  };
+// 스타일을 추가할 수도 있음
+const buttonStyle: React.CSSProperties = {
+  backgroundColor: '#FEE500',
+  border: 'none',
+  borderRadius: '12px',
+  padding: '10px 20px',
+  fontSize: '16px',
+  fontWeight: 'bold',
+  cursor: 'pointer',
+  color: '#3C1E1E',
+  display: 'flex',
+  alignItems: 'center',
+};
 
-  const kakaoFailure = (error: any) => {
-    console.error('카카오 로그인 실패:', error);
+const imageStyle: React.CSSProperties = {
+  marginRight: '10px',
+};
+
+const KakaoLoginButton: React.FC = () => {
+  const handleLogin = () => {
+    // 로그인 엔드포인트로 리디렉션
+    window.location.href = 'http://localhost:5000/auth/kakao';
   };
 
   return (
-<div className="flex flex-col items-center">
-  <h1 className="text-xl text-scampi-600 mb-5">간편 로그인</h1>
-  <KakaoLogin
-    token={process.env.REACT_APP_KAKAO_ID || ""}
-    onSuccess={kakaoSuccess}
-    onFail={kakaoFailure}
-    onLogout={console.info}
-    render={(props: any) => (
-      <button
-        onClick={props.onClick}
-        className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
-        <img src={kakaoIcon} alt="카카오 로그인" />
-      </button>
-    )}
-  />
-</div>
-
+    <button style={buttonStyle} onClick={handleLogin}>
+      <img
+        src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
+        alt="Kakao Login"
+        style={imageStyle}
+      />
+      카카오로 로그인
+    </button>
   );
 };
 
-export default SocialLogin;
+export default KakaoLoginButton;

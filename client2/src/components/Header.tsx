@@ -1,21 +1,19 @@
 // src/components/Header.tsx
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as UserIcon } from '../Icon/User.svg';
 
 const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    // 초기 다크 모드 설정을 로컬 스토리지에서 가져옴
     return localStorage.getItem('isDarkMode') === 'true';
   });
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
+    return !!localStorage.getItem('token');
+  });
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // 사용자가 로그인되어 있는지 확인
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token); // 토큰이 존재하면 로그인 상태로 설정
-
-    // 초기 다크 모드 설정 적용
+    // 다크 모드 초기 설정 적용
     if (isDarkMode) {
       document.body.classList.add('dark');
     } else {
@@ -23,21 +21,37 @@ const Header: React.FC = () => {
     }
   }, [isDarkMode]);
 
+  useEffect(() => {
+    // `storage` 이벤트를 통해 다른 탭에서 토큰이 변경될 때 상태 업데이트
+    const handleStorageChange = () => {
+      setIsLoggedIn(!!localStorage.getItem('token'));
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => {
       const newMode = !prevMode;
-      // 로컬 스토리지에 다크 모드 상태 저장
       localStorage.setItem('isDarkMode', newMode.toString());
-
-      // 다크 모드 클래스 적용 또는 제거
       if (newMode) {
         document.body.classList.add('dark');
       } else {
         document.body.classList.remove('dark');
       }
-
       return newMode;
     });
+  };
+
+  const handleLogout = () => {
+    // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/login'); // 로그아웃 후 로그인 페이지로 리다이렉트
   };
 
   return (
@@ -72,17 +86,17 @@ const Header: React.FC = () => {
           className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
           {isDarkMode ? '🔆' : '🌙'}
         </button>
-        <Link to="/mypage"> {/* Link 컴포넌트로 UserIcon을 감싸 클릭 시 Mypage로 이동 */}
+        <Link to="/mypage">
           <button className="w-8 h-8 p-1 bg-transparent border-0 dark:text-scampi-200">
             <UserIcon className="w-full h-full fill-current" />
           </button>
         </Link>
         {isLoggedIn ? (
-          <Link to="/logout">
-            <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
-              로그아웃
-            </button>
-          </Link>
+          <button
+            onClick={handleLogout}
+            className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+            로그아웃
+          </button>
         ) : (
           <Link to="/login">
             <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">

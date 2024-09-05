@@ -1,42 +1,45 @@
-// project/backend/models/user.js
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs"); // 비밀번호 암호화 라이브러리
 
-// 데이터테이블 컬럼 설계
-const userSchema = new Schema({
-    name: { type: String, required: true }, // 이름
-    nickname: { type: String, required: true }, // 닉네임
-    email: { 
-        type: String, 
-        required: true, 
-        unique: true, 
-        lowercase: true, 
-        trim: true 
-    }, // 이메일
-    password: { 
-        type: String, 
-        required: true 
-    } // 비밀번호
-}, { timestamps: true });
+const userSchema = new mongoose.Schema({
+  nickname: {
+    type: String,
+    required: [true, 'Nickname is required'],
+    unique: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
 
-// 비밀번호 해싱 미들웨어
-userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
-    try {
-        const salt = await bcrypt.genSalt(10);
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (err) {
-        next(err);
+  // 로컬 로그인 전용 필드
+  local: {
+    email: {
+      type: String,
+      unique: true,
+      sparse: true  // email 필드에 대한 중복을 허용하지 않지만, null 값은 허용
+    },
+    password: {
+      type: String
     }
+  },
+
+  // 카카오 로그인 전용 필드
+  kakao: {
+    kakaoId: {
+      type: String,
+      unique: true,  // 고유한 값을 요구
+      sparse: true   // null 값이 중복될 수 있도록 설정
+    },
+    profile_nickname: {
+      type: String,
+      required: [true, 'Profile nickname is required']
+    },
+    profileImage: {
+      type: String
+    }
+  }
 });
 
-// 비밀번호 확인 메소드
-userSchema.methods.comparePassword = function(candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
-};
-
-const User = mongoose.model("User", userSchema);
-
+const User = mongoose.model('User', userSchema);
 module.exports = User;
