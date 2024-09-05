@@ -1,7 +1,7 @@
 // src/components/Header.tsx
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ReactComponent as UserIcon } from '../Icon/User.svg';
+import UserPurple from '../Icon/User Purple.png';
 
 const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -88,7 +88,7 @@ const Header: React.FC = () => {
         </button>
         <Link to="/mypage">
           <button className="w-8 h-8 p-1 bg-transparent border-0 dark:text-scampi-200">
-            <UserIcon className="w-full h-full fill-current" />
+            <img src={UserPurple} className="w-full h-full fill-current" />
           </button>
         </Link>
         {isLoggedIn ? (

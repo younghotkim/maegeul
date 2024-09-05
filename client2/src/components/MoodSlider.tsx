@@ -6,6 +6,8 @@ import Emoji_3 from '../Icon/emoji_3.gif';
 import Emoji_5 from '../Icon/emoji_5.gif';
 import Emoji_7 from '../Icon/emoji_7.gif';
 import Emoji_9 from '../Icon/emoji_9.gif';
+import Info from '../Icon/Info.png'; 
+import Tooltip from './Tooltip';
 
 interface MoodSliderProps {
   onValueChange: (value: number) => void;
@@ -16,11 +18,11 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
   const [value, setValue] = useState(5);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = () => {
-    setSubmitted(true);
-    onValueChange(value);
-    onSubmit(); // onSubmit을 호출하여 EnergySlider의 상태를 업데이트
-  };
+  // const handleSubmit = () => {
+  //   setSubmitted(true);
+  //   onValueChange(value);
+  //   onSubmit(); // onSubmit을 호출하여 EnergySlider의 상태를 업데이트
+  // };
 
   const handleRetry = () => {
     setSubmitted(false);
@@ -43,7 +45,11 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
           </h1>
           <p className="text-scampi-700 dark:text-scampi-300 text-sm font-medium font-['DM Sans'] leading-10">
             지금 내가 느끼는 편안한 정도를 수치로 기록해봐요.
-          </p>
+            <Tooltip 
+            message='오늘 나의 편안함 수치는 몇인가요? 만족감, 쾌적함, 기쁨 등 내가 느낀 긍정 감정의 정도를 기록해 봅시다.'>
+                <img src={Info} alt="Info" className="items-end cursor-pointer place-items-end" />
+            </Tooltip>
+          </p>          
           <div className="relative w-full mx-auto py-8">
             <div className="relative w-10 flex items-center justify-between gap-10">
               <img src={Emoji_1} className="emoji-style" />
