@@ -1,7 +1,7 @@
 // src/components/Navi.tsx
 import React from 'react';
-import { ReactComponent as ArrowIcon } from '../Icon/Arrow Right.svg';
-import { ReactComponent as SearchIcon } from '../Icon/Search.svg';
+import SearchPurple from '../Icon/Search Purple.png';
+import ArrowPurple from '../Icon/Arrow Purple.png';
 import { Link } from 'react-router-dom';
 
 const Navi: React.FC = () => {
@@ -56,27 +56,27 @@ const Navi: React.FC = () => {
           <div className="flex flex-col gap-4">
             {/* 첫 번째 버튼 */}
             <div className="w-full h-14 bg-transparent border border-scampi-600 rounded-3xl flex items-center px-6 hover:bg-scampi-200 dark:hover:bg-scampi-700 transition-colors cursor-pointer">
-              <SearchIcon className="w-4 h-4 mr-2" />
+              <img src={SearchPurple} alt="Search Icon" className="w-4 h-4 mr-2" />
               <span className="text-scampi-700 dark:text-scampi-300 text-lg">
                 나의 하루를 단어 구름으로 본다면?
               </span>
-              <ArrowIcon className="w-4 h-4 ml-auto" />
+              <img src={ArrowPurple} alt="Arrow Icon" className="w-4 h-4 ml-auto" />
             </div>
             {/* 두 번째 버튼 */}
             <div className="w-full h-14 bg-transparent border border-scampi-600 rounded-3xl flex items-center px-6 hover:bg-scampi-200 dark:hover:bg-scampi-700 transition-colors cursor-pointer">
-              <SearchIcon className="w-4 h-4 mr-2" />
+              <img src={SearchPurple} alt="Search Icon" className="w-4 h-4 mr-2" />
               <span className="text-scampi-700 dark:text-scampi-300 text-lg">
                 나의 감정 변화 그래프는 어떤 모습일까?
               </span>
-              <ArrowIcon className="w-4 h-4 ml-auto" />
+              <img src={ArrowPurple} alt="Arrow Icon" className="w-4 h-4 ml-auto" />
             </div>
             {/* 세 번째 버튼 */}
             <div className="w-full h-14 bg-transparent border border-scampi-600 rounded-3xl flex items-center px-6 hover:bg-scampi-200 dark:hover:bg-scampi-700 transition-colors cursor-pointer">
-              <SearchIcon className="w-4 h-4 mr-2" />
+              <img src={SearchPurple} alt="Search Icon" className="w-4 h-4 mr-2" />
               <span className="text-scampi-700 dark:text-scampi-300 text-lg">
                 지금 나에게 필요한 콘텐츠는 뭘까?
               </span>
-              <ArrowIcon className="w-4 h-4 ml-auto" />
+              <img src={ArrowPurple} alt="Arrow Icon" className="w-4 h-4 ml-auto" />
             </div>
           </div>
         </Link>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './MoodSlider.css'; // 커스텀 스타일을 위한 CSS 파일 추가
 import Fire from '../Icon/fire.gif';
-import { ReactComponent as Arrow } from '../Icon/Arrow Right.svg';
+import ArrowWhite from '../Icon/Arrow White.png';
 import Info from '../Icon/Info.png'; 
 import Tooltip from './Tooltip';
 interface EnergySliderProps {
@@ -48,7 +48,7 @@ const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit }) 
           </h1>
           <p className="text-scampi-700 dark:text-scampi-300 text-sm font-medium font-['DM Sans'] leading-10">
             지금 내가 느끼는 활력 정도를 수치로 기록해봐요.
-            <Tooltip message='매글에서는 러셀 모델을 기반으로 감정을 측정해요. 쾌적함-에너지정도(Balance-Arousal)를 기록하면 현재 느끼는 감정을 "무드컬러"로 알아볼 수 있어요.'>
+            <Tooltip message='오늘 나의 에너지 레벨은 몇 인가요? 활성화 정도를 뜻하는 이 영역에서는 오늘 나의 각성, 흥분 정도를 기록해요.'>
                 <img src={Info} alt="Info" className="inline cursor-pointer" />
                 </Tooltip>
           </p>
@@ -83,8 +83,8 @@ const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit }) 
               onClick={handleSubmit}
               className="bg-scampi-500 dark:bg-scampi-600 text-white py-1 px-10 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
             >
-              측정완료 <Arrow className="w-10 h-5 justify-center" />
-              
+              측정완료 
+              <img src={ArrowWhite} className='w-4 h-4 mr-2'/>
             </button>
           </div>
         </div>

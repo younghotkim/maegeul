@@ -5,8 +5,7 @@ import ImageSrc2 from '../Image/02.jpeg';
 import ImageSrc3 from '../Image/03.jpeg';
 import ImageSrc4 from '../Image/04.jpeg';
 import './Contents.css';
-// ArrowIcon ReactComponent로 불러옵니다.
-import { ReactComponent as ArrowIcon } from '../Icon/Arrow Right.svg';
+import ArrowPurple from '../Icon/Arrow Purple.png';
 
 const Contents: React.FC = () => {
   const cardContents = [
@@ -70,7 +69,7 @@ const Card: React.FC<CardProps> = ({ title, text, tag, src }) => {
             </div>
             <button className="text-stone-50 text-lg py-2 px-6 rounded-full mt-4 hover:bg-stone-300">
               Learn more
-              <ArrowIcon className="inline-block ml-2" />
+              <img src={ArrowPurple} alt="Arrow Icon" className="inline-block ml-2 w-4 h-4" />
             </button>
           </div>
         </div>
@@ -88,7 +87,7 @@ const Card: React.FC<CardProps> = ({ title, text, tag, src }) => {
             </div>
             <button className="text-stone-50 text-lg py-2 px-6 rounded-full mt-4 hover:bg-stone-50 hover:text-scampi-900">
               콘텐츠 탐색하기
-              <ArrowIcon className="inline-block ml-2" />
+              <img src={ArrowPurple} alt="Arrow Icon" className="inline-block ml-2 w-4 h-4" />
             </button>
           </div>
         </div>
@@ -98,4 +97,3 @@ const Card: React.FC<CardProps> = ({ title, text, tag, src }) => {
 };
 
 export default Contents;
-
