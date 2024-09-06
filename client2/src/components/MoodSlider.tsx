@@ -2,42 +2,39 @@
 import React, { useState } from 'react';
 import './MoodSlider.css'; // 커스텀 스타일을 위한 CSS 파일 추가
 import Emoji_1 from '../Icon/emoji_1.gif';
-import Emoji_3 from '../Icon/emoji_3.gif';
+// import Emoji_3 from '../Icon/emoji_3.gif';
 import Emoji_5 from '../Icon/emoji_5.gif';
 import Emoji_7 from '../Icon/emoji_7.gif';
-import Emoji_9 from '../Icon/emoji_9.gif';
+// import Emoji_9 from '../Icon/emoji_9.gif';
 import Info from '../Icon/Info.png'; 
 import Tooltip from './Tooltip';
 
 interface MoodSliderProps {
-  onValueChange: (value: number) => void;
-  onSubmit: () => void;
+  onValueChange: (value: number) => void; // 슬라이더 값 변경 시 상위 컴포넌트에 전달하는 함수
+  onSubmit: () => void; // 슬라이더 제출 시 상위 컴포넌트에 전달하는 함수
 }
 
 const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
-  const [value, setValue] = useState(5);
-  const [submitted, setSubmitted] = useState(false);
+  const [value, setValue] = useState(1); // 슬라이더의 현재 값을 관리하는 상태
+  const [submitted, setSubmitted] = useState(false); // 제출 상태를 관리하는 상태
 
-  // const handleSubmit = () => {
-  //   setSubmitted(true);
-  //   onValueChange(value);
-  //   onSubmit(); // onSubmit을 호출하여 EnergySlider의 상태를 업데이트
-  // };
-
+  // 슬라이더 값을 초기화하고 재측정하는 함수
   const handleRetry = () => {
-    setSubmitted(false);
-    setValue(5); // 초기값을 5로 설정
-    onValueChange(5); // 상위 컴포넌트에 업데이트된 값 전달
+    setSubmitted(false); // 제출 상태를 초기화
+    setValue(1); // 슬라이더 값을 초기값인 5로 재설정
+    onValueChange(1); // 상위 컴포넌트에 초기값 5를 전달
   };
 
+  // 슬라이더 값이 변경될 때마다 호출되는 함수
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(e.target.value);
-    setValue(newValue);
-    onValueChange(newValue);
+    const newValue = Number(e.target.value); // 슬라이더에서 선택한 새 값
+    setValue(newValue); // 슬라이더 값을 상태로 저장
+    onValueChange(newValue); // 상위 컴포넌트에 새로운 값 전달
   };
 
   return (
     <div className="flex flex-col items-center justify-between">
+      {/* 제출되지 않은 경우 슬라이더 UI 렌더링 */}
       {!submitted ? (
         <div className="text-center mt-8">
           <h1 className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mb-4">
@@ -51,22 +48,25 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
             </Tooltip>
           </p>          
           <div className="relative w-full mx-auto py-8">
-            <div className="relative w-10 flex items-center justify-between gap-10">
+            <div className="relative w-10 flex items-center justify-between gap-20">
+              {/* 각 단계에 맞는 이모티콘 표시 */}
               <img src={Emoji_1} className="emoji-style" />
-              <img src={Emoji_3} className="emoji-style" />
+              {/* <img src={Emoji_3} className="emoji-style" /> */}
               <img src={Emoji_5} className="emoji-style" />
               <img src={Emoji_7} className="emoji-style" />
-              <img src={Emoji_9} className="emoji-style" />
+              {/* <img src={Emoji_9} className="emoji-style" /> */}
             </div>
             <div className="relative w-full mt-4">
+              {/* 슬라이더 입력 */}
               <input
                 type="range"
-                min="0"
+                min="1"
                 max="10"
                 value={value}
-                onChange={handleSliderChange}
-                className="mood-slider" // External CSS for custom slider styles
+                onChange={handleSliderChange} // 슬라이더 값 변경 시 호출
+                className="mood-slider" // 외부 CSS에서 스타일 적용
               />
+              {/* 슬라이더 마크 표시 */}
               <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((mark) => (
                   <div key={mark} className="slider-mark" style={{ left: `${(mark / 10) * 100}%` }}>
@@ -79,14 +79,17 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
               <span>10</span>
             </div>
             <div className="text-center mt-4">
+              {/* 현재 슬라이더 값 표시 */}
               <p className="text-4xl text-scampi-600">{value}</p>
             </div>
+            {/* 제출 버튼: 현재 주석 처리된 상태 */}
             {/* <button onClick={handleSubmit} className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
               측정완료
             </button> */}
           </div>
         </div>
       ) : (
+        // 제출된 경우 "다시 측정하기" 버튼 표시
         <div className="text-center mt-8">
           <button onClick={handleRetry} className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
             다시 측정하기

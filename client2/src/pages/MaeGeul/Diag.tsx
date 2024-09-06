@@ -1,5 +1,4 @@
 // src/pages/Diag.tsx
-// src/pages/Diag.tsx
 import React, { useState } from 'react';
 import MoodSlider from '../../components/MoodSlider'; 
 import EnergySlider from '../../components/EnergySlider'; 

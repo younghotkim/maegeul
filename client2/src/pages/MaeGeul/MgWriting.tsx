@@ -1,12 +1,18 @@
+//client2/src/pages/MaeGeul/MgWriting.tsx
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import { analyzeEmotion } from '../../api/analyzeApi'; // 분석 API import
+import WritingGuide from '../../components/WritingGuide';
+import PencilWriting from '../../Icon/Pencil Writing.png';
+import Folder from '../../Icon/Folder.png';
+import MgModal from './MgModal'; // 모달 컴포넌트 임포트
 
 const MgWriting: React.FC = () => {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
     const [formattedDate, setFormattedDate] = useState('');
     const [emotionResult, setEmotionResult] = useState<string | null>(null); // 분석 결과 상태 추가
+    const [showModal, setShowModal] = useState(false); // 모달 상태 추가
     const maxLength = 500;
 
     useEffect(() => {
@@ -60,21 +66,30 @@ const MgWriting: React.FC = () => {
         }
     };
 
+    const handleModalOpen = () => {
+        setShowModal(true); // 모달을 열기 위한 함수
+    };
+
+    const handleModalClose = () => {
+        setShowModal(false); // 모달을 닫기 위한 함수
+    };
     return (
         <>
             <Header />
+            <WritingGuide />
             <div className="BackgroundBorder w-full h-full p-10 bg-white rounded-3xl shadow border border-black/10 flex dark:bg-gray-600 dark:text-white">
                 <div className="Verticalborder flex-grow self-stretch pl-10 pr-11 pt-14 pb-96 border-r border-black/10 flex-col">
-                    <div className="Container w-96 h-72 flex flex-col">
-                        <div className="User w-96 h-11 text-scampi-600 font-bold text-2xl leading-10 dark:text-white">user님의 오늘의 감정 일기</div>
+                    <div className="Container w-full h-72 flex flex-col">
+                        <div className="User w-96 h-11 text-scampi-800 font-bold text-2xl leading-10 dark:text-white">user님의 오늘의 감정 일기</div>
                         <div className="Date w-96 h-11 text-right text-neutral-500 text-sm">{formattedDate}</div>
-                        <div className="HorizontalDivider w-96 h-px my-2 bg-black/10" />
+                        <div className="HorizontalDivider w-full h-px my-2 bg-black/10" />
                         <div className="Container flex flex-col space-y-2">
+                            작성 안내
                             <div className="BackgroundBorder p-5 bg-white rounded-2xl border border-black/10">
-                                <div className="text-zinc-800 text-base">
-                                    1. 작성안내<br />
-                                    2. 작성안내<br />
-                                    3. 작성안내
+                                <div className="text-zinc-800 text-sm">
+                                    1. 감정을 느낀 구체적인"상황"과 그 때 나의 "행동", "생각"을 포함해 적어보세요.<br />
+                                    2. 조금씩이라도 매일 꾸준히 적다보면 나의 마음을 건강하게 변화시켜갈 수 있어요.<br />
+                                    3. 감정을 느꼈을 때 나의 신체적 변화에 대해서 적어보는 것도 도움이 되어요.
                                 </div>
                             </div>
                         </div>
@@ -108,9 +123,12 @@ const MgWriting: React.FC = () => {
                                 <span className="text-sm text-zinc-800">익명 - 작성자 명을 익명으로 표시 합니다.</span>
                             </label>
                         </div>
-                        <div className="flex space-x-4 mt-4">
-                            <button onClick={handleSave} className="w-1/2 py-2 bg-gray-200 rounded-lg">임시 저장</button>
-                            <button onClick={handleSave} className="w-1/2 py-2 bg-blue-500 text-white rounded-lg">작성 완료</button>
+                        <div className="flex space-x-4 mt-4 items-end">
+                            <button onClick={handleSave} className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors"><img src={Folder} />임시 저장</button>
+                            <button onClick={handleSave} className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"><img src={PencilWriting} />작성 완료</button>
+                            <button onClick={handleModalOpen} className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+                                모달 확인용
+                            </button>
                         </div>
                         {/* AI 분석 결과 표시 */}
                         {emotionResult && (
@@ -121,6 +139,9 @@ const MgWriting: React.FC = () => {
                     </div>
                 </div>
             </div>
+                        {/* 모달이 표시될 때만 MgModal 컴포넌트를 렌더링 */}
+                        {showModal && <MgModal message="이것은 모달 메시지입니다!" onClose={handleModalClose} />}
+
         </>
     );
 };
