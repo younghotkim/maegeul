@@ -19,8 +19,8 @@ const WritingGuide: React.FC = () => {
         ),
         diary: (
             <p className="text-scampi-700 text-lg font-bold font-['DM Sans'] leading-7 text-center">
-                가이드2<br />
-                지금 나의 감정은 어떤가요? 나에게 호기심을 가져보아요.
+                오늘 나의 감정을 만든 구체적인 상황과 그때 나의 생각, 행동은<br />
+                어땠나요? 감정일기를 통해 더 세밀하게 나의 마음을 살펴요.
                 <Tooltip message='매글에서는 러셀 모델을 기반으로 감정을 측정해요. 쾌적함-에너지정도(Balance-Arousal)를 기록하면 현재 느끼는 감정을 "무드컬러"로 알아볼 수 있어요.'>
                 <img src={Info} alt="Info" className="inline ml-2 cursor-pointer" />
                 </Tooltip>
@@ -28,8 +28,8 @@ const WritingGuide: React.FC = () => {
         ),
         aiCheck: (
             <p className="text-scampi-700 text-lg font-bold font-['DM Sans'] leading-7 text-center">
-                가이드3<br />
-                지금 나의 감정은 어떤가요? 나에게 호기심을 가져보아요.
+                오늘 나의 감정을 만든 구체적인 상황과 그때 나의 생각, 행동은<br />
+                어땠나요? 감정일기를 통해 더 세밀하게 나의 마음을 살펴요.
                 <Tooltip message='매글에서는 러셀 모델을 기반으로 감정을 측정해요. 쾌적함-에너지정도(Balance-Arousal)를 기록하면 현재 느끼는 감정을 "무드컬러"로 알아볼 수 있어요.'>
                 <img src={Info} alt="Info" className="inline ml-2 cursor-pointer" />
                 </Tooltip>

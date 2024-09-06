@@ -1,5 +1,4 @@
 // src/pages/Diag.tsx
-// src/pages/Diag.tsx
 import React, { useState } from 'react';
 import MoodSlider from '../../components/MoodSlider'; 
 import EnergySlider from '../../components/EnergySlider'; 
@@ -74,8 +73,8 @@ const Diag: React.FC = () => {
     }
     return (
       <div className="flex flex-col items-center">
-        <MoodSlider onValueChange={handleMoodChange} onSubmit={handleSubmit} />
-        <EnergySlider onValueChange={handleEnergyChange} onSubmit={handleSubmit} />
+        <MoodSlider onValueChange={handleMoodChange} onSubmit={handleSubmit} submitted={submitted} setSubmitted={setSubmitted} />
+        <EnergySlider onValueChange={handleEnergyChange} onSubmit={handleSubmit} submitted={submitted} setSubmitted={setSubmitted} />
       </div>
     );
   };

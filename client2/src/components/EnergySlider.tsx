@@ -1,3 +1,4 @@
+// src/components/EnergySlider.tsx
 import React, { useState } from 'react';
 import './MoodSlider.css'; // 커스텀 스타일을 위한 CSS 파일 추가
 import Fire from '../Icon/fire.gif';
@@ -7,11 +8,12 @@ import Tooltip from './Tooltip';
 interface EnergySliderProps {
   onValueChange: (value: number) => void;
   onSubmit: () => void;
+  submitted: boolean;
+  setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit }) => {
-  const [value, setValue] = useState(5);
-  const [submitted, setSubmitted] = useState(false);
+const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit, submitted, setSubmitted }) => {
+  const [value, setValue] = useState(1);
 
   const handleSubmit = () => {
     setSubmitted(true);
@@ -21,8 +23,8 @@ const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit }) 
 
   const handleRetry = () => {
     setSubmitted(false);
-    setValue(5);
-    onValueChange(5);
+    setValue(1);
+    onValueChange(1);
   };
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +61,7 @@ const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit }) 
             <div className="relative w-full mt-4">
               <input
                 type="range"
-                min="0"
+                min="1"
                 max="10"
                 value={value}
                 onChange={handleSliderChange}
