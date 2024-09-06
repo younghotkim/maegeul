@@ -8,11 +8,12 @@ import Tooltip from './Tooltip';
 interface EnergySliderProps {
   onValueChange: (value: number) => void;
   onSubmit: () => void;
+  submitted: boolean;
+  setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit }) => {
+const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit, submitted, setSubmitted }) => {
   const [value, setValue] = useState(1);
-  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = () => {
     setSubmitted(true);

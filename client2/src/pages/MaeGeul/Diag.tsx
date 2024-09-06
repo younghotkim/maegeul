@@ -73,8 +73,8 @@ const Diag: React.FC = () => {
     }
     return (
       <div className="flex flex-col items-center">
-        <MoodSlider onValueChange={handleMoodChange} onSubmit={handleSubmit} />
-        <EnergySlider onValueChange={handleEnergyChange} onSubmit={handleSubmit} />
+        <MoodSlider onValueChange={handleMoodChange} onSubmit={handleSubmit} submitted={submitted} setSubmitted={setSubmitted} />
+        <EnergySlider onValueChange={handleEnergyChange} onSubmit={handleSubmit} submitted={submitted} setSubmitted={setSubmitted} />
       </div>
     );
   };

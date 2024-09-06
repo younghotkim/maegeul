@@ -12,11 +12,13 @@ import Tooltip from './Tooltip';
 interface MoodSliderProps {
   onValueChange: (value: number) => void; // 슬라이더 값 변경 시 상위 컴포넌트에 전달하는 함수
   onSubmit: () => void; // 슬라이더 제출 시 상위 컴포넌트에 전달하는 함수
+  submitted: boolean; // 제출 상태를 부모로부터 전달받음
+  setSubmitted: React.Dispatch<React.SetStateAction<boolean>>; // 제출 상태 업데이트 함수를 부모로부터 전달받음
 }
 
-const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
+const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit, submitted, setSubmitted }) => { //구조분해해서 props를 받음.
   const [value, setValue] = useState(1); // 슬라이더의 현재 값을 관리하는 상태
-  const [submitted, setSubmitted] = useState(false); // 제출 상태를 관리하는 상태
+  // const [submitted, setSubmitted] = useState(false); // 제출 상태를 관리하는 상태
 
   // 슬라이더 값을 초기화하고 재측정하는 함수
   const handleRetry = () => {
