@@ -9,6 +9,7 @@ import MgWriting from './pages/MaeGeul/MgWriting';
 import EmotionForm from './components/EmotionForm';
 import Mypage from './pages/Auth/Mypage';
 import Login from './pages/Auth/Login';
+import EmailLogin from './pages/Auth/EmailLogin';
 import Signup from './pages/Auth/Signup';
 import Logout from './pages/Auth/Logout';
 import LoginSuccess from './pages/Auth/LoginSuccess';
@@ -25,6 +26,7 @@ const App: React.FC = () => {
         <Route path="/article" element={<Article />} />
         <Route path="/mgwriting" element={<MgWriting />} />
         <Route path="/login/success" element={<LoginSuccess />} />
+        <Route path="/email-login" element={<EmailLogin />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
