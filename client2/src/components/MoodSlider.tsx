@@ -37,19 +37,20 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit, submit
       {/* 제출되지 않은 경우 슬라이더 UI 렌더링 */}
       {!submitted ? (
         <div className="text-center mt-8">
-          <h1 className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mb-4">
+          <h1 className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 inline-flex items-center">
             오늘의 편안함 정도는?
+            {/* Tooltip을 h1 옆에 위치시키기 */}
+            <Tooltip 
+              message='오늘 나의 편안함 수치는 몇인가요? 만족감, 쾌적함, 기쁨 등 내가 느낀 긍정 감정의 정도를 기록해 봅시다.'>
+              <img src={Info} alt="Info" className="ml-2 cursor-pointer" />
+            </Tooltip>
           </h1>
           <p className="text-scampi-700 dark:text-scampi-300 text-sm font-medium font-['DM Sans'] leading-10">
-            지금 내가 느끼는 편안한 정도를 수치로 기록해봐요.
-            <Tooltip 
-            message='오늘 나의 편안함 수치는 몇인가요? 만족감, 쾌적함, 기쁨 등 내가 느낀 긍정 감정의 정도를 기록해 봅시다.'>
-                <img src={Info} alt="Info" className="items-end cursor-pointer place-items-end" />
-            </Tooltip>
-          </p>          
+          지금 내가 느끼는 편안한 정도를 수치로 기록해봐요.
+          </p>    
           <div className="relative w-full mx-auto py-8">
             {/* 이모티콘 */}
-            <div className="relative w-10 flex items-center justify-between gap-20">
+            <div className="relative w-10 flex items-center justify-between gap-60">
                 <img src={Emoji_1} className="emoji-style" style={{ left: `${(2 / 10) * 100}%` }} />
                 <img src={Emoji_5} className="emoji-style" style={{ left: `${(5 / 10) * 100}%` }} />
                 <img src={Emoji_7} className="emoji-style" style={{ left: `${(8 / 10) * 100}%` }} />
