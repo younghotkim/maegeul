@@ -1,126 +1,128 @@
-// src/pages/AIWriting/Mypage.tsx
+// src/pages/Auth/Mypage.tsx
+// ant Design 설치
+// npm i antd 
 import React from 'react';
-import Header from '../../components/Header';
+import AppHeader from '../../components/Header'; // Header 이름 중복 충돌 방지를 위해 AppHeader로 이름 변경
+import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons'; // Ant Design 아이콘 사용
+import type { MenuProps } from 'antd'; // Ant Design의 메뉴 속성 타입 정의
+import { Breadcrumb, Layout, Menu, theme, Card, Row, Col, Grid } from 'antd'; // Ant Design 컴포넌트 임포트
+import Footer from '../../components/Footer'; // 사용자 정의 Footer 컴포넌트 임포트
+
+const { Header: AntHeader, Content, Sider } = Layout; // Ant Design Layout 컴포넌트 구조 분해 (Header 별칭 부여)
+const { useBreakpoint } = Grid; // 반응형 디자인을 위한 Grid의 useBreakpoint Hook 사용
+
+// 상단 네비게이션 메뉴 아이템 정의
+const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
+  key,
+  label: `nav ${key}`,
+}));
+
+// 사이드바 메뉴 아이템 정의 (아이콘과 서브메뉴 포함)
+const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
+  (icon, index) => {
+    const key = String(index + 1);
+
+    return {
+      key: `sub${key}`,
+      icon: React.createElement(icon), // 아이콘 생성
+      label: `subnav ${key}`,
+
+      // 각 서브 메뉴의 하위 옵션 항목 생성
+      children: new Array(4).fill(null).map((_, j) => {
+        const subKey = index * 4 + j + 1;
+        return {
+          key: subKey,
+          label: `option${subKey}`,
+        };
+      }),
+    };
+  },
+);
+
 const Mypage: React.FC = () => {
-    return (
-        <>
-        <Header />
-        <div className="FootersV5 w-96 h-96 relative bg-white">
-    <div className="FooterDescription w-96 h-24 left-[109.85px] top-[194.40px] absolute text-slate-400 text-lg font-normal font-['DM Sans'] leading-loose">단단한 나를 만드는 5분 글쓰기 습관, 매글! 간편한 <br/>이메일 가입으로 지금 바로 시작해 볼까요? </div>
-    <div className="NewsletterInput w-96 left-[111px] top-[311.74px] absolute">
-        <div className="MasterInputText w-60 h-16 p-6 left-0 top-0 absolute bg-slate-50 rounded-3xl justify-start items-start gap-60 inline-flex">
-            <div className="Container h-5 justify-start items-center gap-2.5 flex">
-                <div className="TextIcons h-5 justify-start items-center gap-60 flex">
-                    <div className="InputContent h-5 justify-start items-start gap-2 flex">
-                        <div className="InputPlaceholder text-center text-slate-400 text-base font-normal font-['DM Sans'] leading-none">Enter your email</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div className="MasterPrimaryButton w-28 h-14 px-6 py-4 left-[257px] top-[6.54px] absolute bg-slate-500 rounded-3xl justify-start items-start gap-2 inline-flex">
-            <div className="ButtonText text-center text-white text-base font-bold font-['DM Sans'] leading-none">Sign Up</div>
-        </div>
-    </div>
-    <div className="FooterBottom w-96 h-16 left-[103px] top-[431.64px] absolute">
-        <div className="SocialMediaContainer h-9 left-[1028px] top-[26.36px] absolute justify-start items-start gap-4 inline-flex">
-            <div className="SocialMediaIconSquareFacebook w-9 h-9 relative" />
-            <div className="SocialMediaIconSquareInstagram w-9 h-9 relative">
-                <img className="Instagram w-0.5 h-0.5 left-[21.75px] top-[12.01px] absolute" src="https://via.placeholder.com/2x2" />
-            </div>
-            <div className="SocialMediaIconSquareTwitter w-9 h-9 relative" />
-        </div>
-        <div className="Divider w-96 h-px left-[1220px] top-0 absolute origin-top-left rotate-180 border border-gray-300"></div>
-        <div className="Copyright w-96 h-5 left-[6px] top-[34.88px] absolute text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">Copyright © 2024 릿미 | All Rights Reserved</div>
-    </div>
-    <div className="FooterContent w-96 h-80 left-[625.28px] top-[130px] absolute">
-        <div className="FooterSection w-32 h-80 left-0 top-[0.80px] absolute">
-            <div className="FooterTitle w-20 h-5 left-0 top-0 absolute text-slate-500 text-xl font-bold font-['DM Sans'] leading-tight">안내 사항</div>
-            <div className="LinksGroup w-32 h-64 left-0 top-[65.40px] absolute">
-                <div className="Link h-4 left-0 top-0 absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">회사 소개  </div>
-                    </div>
-                </div>
-                <div className="Link h-4 left-0 top-[39.24px] absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">제휴 문의 </div>
-                    </div>
-                </div>
-                <div className="Link h-4 left-0 top-[78.48px] absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">회원 약관</div>
-                    </div>
-                </div>
-                <div className="Link h-4 left-0 top-[117.72px] absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">개인정보처리방침</div>
-                    </div>
-                </div>
-                <div className="Link h-5 left-0 top-[196.20px] absolute" />
-                <div className="Link h-5 left-0 top-[235.44px] absolute" />
-            </div>
-        </div>
-        <div className="FooterSection w-28 h-52 left-[297.72px] top-[1px] absolute">
-            <div className="FooterTitle w-20 h-5 left-0 top-0 absolute text-slate-500 text-xl font-bold font-['DM Sans'] leading-tight">이용 안내</div>
-            <div className="LinksGroup w-28 h-32 left-0 top-[65.40px] absolute">
-                <div className="Link h-4 left-0 top-0 absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">매글 소개</div>
-                    </div>
-                </div>
-                <div className="Link h-4 left-0 top-[39.24px] absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">콘텐츠 제휴</div>
-                    </div>
-                </div>
-                <div className="Link h-4 left-0 top-[78.48px] absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">매글 비즈니스</div>
-                    </div>
-                </div>
-                <div className="Link h-4 left-0 top-[117.72px] absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex" />
-                </div>
-            </div>
-        </div>
-        <div className="FooterSection w-20 h-52 left-[549.72px] top-0 absolute">
-            <div className="FooterTitle w-20 h-5 left-0 top-0 absolute text-slate-500 text-xl font-bold font-['DM Sans'] leading-tight">고객 센터</div>
-            <div className="LinksGroup w-20 h-32 left-0 top-[65.40px] absolute">
-                <div className="Link h-4 left-0 top-0 absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">도움말</div>
-                    </div>
-                </div>
-                <div className="Link h-4 left-0 top-[39.24px] absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">공지사항</div>
-                    </div>
-                </div>
-                <div className="Link h-4 left-0 top-[78.48px] absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">이메일 문의 </div>
-                    </div>
-                </div>
-                <div className="Link h-4 left-0 top-[117.72px] absolute justify-start items-start inline-flex">
-                    <div className="MasterLink justify-start items-center gap-1.5 flex">
-                        <div className=" text-center text-slate-400 text-lg font-normal font-['DM Sans'] leading-none">챗봇 문의</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div className="ImageGroup w-40 h-32 left-[496.87px] top-[89.95px] absolute">
-            <div className="ImageIcon w-8 h-5 left-0 top-0 absolute" />
-            <div className="ImageIcon w-8 h-5 left-[132px] top-[102.77px] absolute" />
-            <div className="ImageIcon w-8 h-5 left-0 top-[102.77px] absolute" />
-        </div>
-    </div>
-    <div className="Group51 w-48 left-[111px] top-[114px] absolute">
-        <div className="Group5Copy w-9 h-7 left-0 top-0 absolute">
-        </div>
-        <div className="Typographystyle w-36 h-8 left-[48px] top-0 absolute text-slate-500 text-3xl font-bold font-['DM Sans'] leading-9">MAEGEUL</div>
-    </div>
-</div>
-</>
-    );
-}
-    export default Mypage;
+  // 테마에서 토큰 값을 추출하여 스타일링에 사용
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
+  const screens = useBreakpoint(); // 현재 화면 크기에 따라 다른 스타일을 적용하기 위해 사용
+
+  return (
+    // Layout 컴포넌트: 전체 페이지의 레이아웃을 잡는 최상위 컨테이너
+    <Layout style={{ minHeight: '100vh', position: 'relative' }}> {/* 화면 높이를 전체에 맞추고, 상대 위치 지정 */}
+      <AppHeader /> {/* 사용자 정의 Header 컴포넌트 */}
+      
+      {/* 메인 콘텐츠 영역 */}
+      <Content style={{ padding: '0 48px' }}>
+        {/* 페이지 경로를 표시하는 Breadcrumb */}
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>My page</Breadcrumb.Item>
+          <Breadcrumb.Item>대시보드</Breadcrumb.Item>
+        </Breadcrumb>
+        
+        {/* 사이드바와 메인 콘텐츠를 포함하는 Layout */}
+        <Layout
+          style={{ padding: '24px 0', background: colorBgContainer, borderRadius: borderRadiusLG }}
+        >
+          {/* 사이드바 (Sider) 컴포넌트 */}
+          <Sider style={{ background: colorBgContainer }} width={200}>
+            <Menu
+              mode="inline" // 사이드바 메뉴 모드: 인라인
+              defaultSelectedKeys={['1']} // 기본 선택된 메뉴 항목
+              defaultOpenKeys={['sub1']} // 기본으로 열려 있는 서브메뉴
+              style={{ height: '100%' }} // 전체 높이로 설정
+              items={items2} // 위에서 정의한 메뉴 아이템 사용
+            />
+          </Sider>
+          
+          {/* 메인 콘텐츠 영역 */}
+          <Content style={{ padding: '0 24px', minHeight: 280 }}>
+            {/* 반응형 디자인을 위한 Row와 Col 컴포넌트 사용 */}
+            <Row gutter={[24, 24]} justify="center"> {/* Row: 각 열 사이의 여백(gutter)을 설정 */}
+              {/* 반응형 디자인: 화면 크기에 따라 열의 너비 조절 */}
+              <Col xs={24} sm={12} md={8}> 
+                <Card title="무드 컬러 그래프" size="small">
+                  <p>Card content</p>
+                </Card>
+              </Col>
+              <Col xs={24} sm={12} md={8}>
+                <Card title="글쓰기 현황" size="small">
+                  <p>Card content</p>
+                </Card>
+              </Col>
+              <Col xs={24} sm={12} md={8}>
+                <Card title="글쓰기 작성 일수" size="small">
+                  <p>Card content</p>
+                </Card>
+              </Col>
+              <Col xs={24} sm={12} md={8}>
+                <Card title="감정 변화 그래프" size="small">
+                  <p>Card content</p>
+                </Card>
+              </Col>
+              <Col xs={24} sm={12} md={8}>
+                <Card title="나의 마음 구름" size="small">
+                  <p>Card content</p>
+                </Card>
+              </Col>
+              <Col xs={24} sm={12} md={8}>
+                <Card title="'user'님을 위한 콘텐츠 추천" size="small">
+                  <p>Card content</p>
+                </Card>
+              </Col>
+            </Row>
+          </Content>
+        </Layout>
+      </Content>
+      
+      {/* Footer 컴포넌트를 감싸는 div를 사용하여 스타일링 적용 */}
+      <div style={{ bottom: 0, width: '100%' }}> 
+        <Footer />
+      </div>
+    </Layout>
+  );
+};
+
+export default Mypage;
+

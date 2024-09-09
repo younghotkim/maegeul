@@ -13,7 +13,8 @@ interface EnergySliderProps {
 }
 
 const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit, submitted, setSubmitted }) => {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(1); // 슬라이더의 초기 값을 1로 설정
+
 
   const handleSubmit = () => {
     setSubmitted(true);
@@ -33,12 +34,17 @@ const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit, su
     onValueChange(newValue);
   };
 
+  // Fire 이모지 크기 조정
+  const fireSize = 20 + (value - 1) * 2; // 슬라이더 값에 따라 이모지 크기 조정
+
   // Fire 이모지가 슬라이더 thumb를 따라 이동하도록 위치 설정
   const fireStyle: React.CSSProperties = {
-    left: `${(value / 1) * 80}%`, // 슬라이더 값에 따라 위치 조정
+    left: `${(value) * 100}%`, // 슬라이더 값에 따라 위치 조정
     transition: 'left 0.2s ease', // 위치 변화에 애니메이션 추가
     position: 'absolute', // CSSProperties 타입으로 인식되도록 수정
     top: '-30px', // Fire 이모지를 슬라이더 위로 위치 조정
+    width: '${fireSize}px',
+    height: '${fireSize}px',
   };
 
   return (

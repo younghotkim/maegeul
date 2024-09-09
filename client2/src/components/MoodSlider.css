@@ -1,57 +1,62 @@
 /* MoodSlider.css */
 .mood-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 12px;
-    background: linear-gradient(to right, #f3f2f7 0%, #8365f7 100%);
-    border-radius: 5px;
-    outline: none;
-    transition: opacity 0.2s;
-    cursor: pointer;
-  }
-  
-  .mood-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    transition: background 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .mood-slider::-webkit-slider-thumb:hover {
-    background: #f1f1f1;
-  }
-  
-  .mood-slider::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    transition: background 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .mood-slider::-moz-range-thumb:hover {
-    background: #f1f1f1;
-  }
-  
-  .slider-mark {
-    width: 2px;
-    height: 12px;
-    background-color: #fff;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.7;
-  }
-  
-  .slider-mark:hover {
-    background-color: #342c52;
-    opacity: 1;
-  }
+  -webkit-appearance: none;
+  appearance: none;
+  width: 628px; /* 슬라이더 길이 수정 */
+  height: 12px;
+  background: linear-gradient(to right, #f3f2f7 0%, #8365f7 100%);
+  border-radius: 5px;
+  outline: none;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.mood-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.mood-slider::-webkit-slider-thumb:hover {
+  background: #f1f1f1;
+}
+
+.mood-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.mood-slider::-moz-range-thumb:hover {
+  background: #f1f1f1;
+}
+
+.slider-mark {
+  width: 2px;
+  height: 12px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+}
+
+.slider-mark:hover {
+  background-color: #342c52;
+  opacity: 1;
+}
+
+#sliderContainer {
+  transition: transform 0.3s ease-out;
+  margin-top: 10px;
+}

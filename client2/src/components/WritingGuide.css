@@ -1,0 +1,93 @@
+/* //src/components/WritingGuide.css */
+.writing-guide-container {
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.guide-button {
+    width: 160px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #B3A5D9;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+}
+
+.guide-button.active {
+    background-color: #5F4B8B;
+}
+
+.guide-button span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+}
+
+.guide-content {
+    width: 0;
+    overflow: hidden;
+    background-color: #F8F8FB;
+    border-radius: 0 16px 16px 0;
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+.guide-content.visible {
+    width: 1000px;
+    opacity: 1;
+    padding: 24px;
+}
+
+.guide-text {
+    color: #5F4B8B;
+    font-size: 16px;
+    font-family: 'DM Sans';
+    line-height: 1.6;
+}
+
+.info-icon {
+    display: inline;
+    cursor: pointer;
+    margin-left: 0;
+    vertical-align: middle;
+}
+
+.relative-tooltip {
+    position: absolute;
+    top: 100%; /* Adjust this to position below the text */
+    left: 0;
+    transform: translateY(4px); /* Adjust this for spacing from text */
+}
+
+.tooltip-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transform: translateY(8px); /* Adjust this for spacing from text */
+    background-color: #5F4B8B;
+    color: white;
+    font-size: 14px;
+    padding: 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.guide-text:hover .tooltip-content {
+    display: block;
+}
