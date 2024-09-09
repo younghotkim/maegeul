@@ -1,18 +1,7 @@
 import React from 'react';
+import KakaoLoginLg from '../../Icon/kakao_login_large_narrow.png';
 
 // 스타일을 추가할 수도 있음
-const buttonStyle: React.CSSProperties = {
-  backgroundColor: '#FEE500',
-  border: 'none',
-  borderRadius: '12px',
-  padding: '10px 20px',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  cursor: 'pointer',
-  color: '#3C1E1E',
-  display: 'flex',
-  alignItems: 'center',
-};
 
 const imageStyle: React.CSSProperties = {
   marginRight: '10px',
@@ -25,13 +14,10 @@ const KakaoLoginButton: React.FC = () => {
   };
 
   return (
-    <button style={buttonStyle} onClick={handleLogin}>
-      <img
-        src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
-        alt="Kakao Login"
-        style={imageStyle}
+    <button onClick={handleLogin}>
+      <img className='w-96 h-20' src={KakaoLoginLg}
+        alt="Kakao Login Button"
       />
-      카카오로 로그인
     </button>
   );
 };
