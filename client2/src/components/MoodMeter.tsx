@@ -47,8 +47,8 @@ const MoodMeter: React.FC = () => {
               <>
                 <div className="mood-label">{mood.label}</div>
                 <div className="mood-details">
-                  Energy: {mood.energy} <br />
-                  Pleasantness: {mood.pleasantness}
+                  {/* Energy: {mood.energy} <br />
+                  Pleasantness: {mood.pleasantness} */}
                 </div>
               </>
             )}

@@ -36,14 +36,14 @@ html, body {
   justify-content: center;
   align-items: center;
   padding: 10px;
-  height: 80px;
+  height: 60px;
   width: 130px;
   color: white;
   font-weight: bold;
   text-align: center;
   border-radius: 5px;
   transition: filter 0.3s ease;   /* 필터 효과 애니메이션 */
-  filter: brightness(0.7);        /* 어둡게 만드는 효과 */
+  filter: brightness(0.3);        /* 어둡게 만드는 효과 */
 }
 
 /* 선택된 영역 및 인접한 영역 강조 스타일 */
