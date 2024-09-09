@@ -51,15 +51,17 @@ const EnergySlider: React.FC<EnergySliderProps> = ({ onValueChange, onSubmit, su
     <div className="flex flex-col items-center justify-between">
       {!submitted ? (
         <div className="text-center">
-          <h1 className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mb-4">
+          <h1 className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 inline-flex items-center">
             오늘의 에너지 레벨은?
+            {/* Tooltip을 h1 옆에 위치시키기 */}
+            <Tooltip 
+              message='오늘 나의 에너지 레벨은 몇인가요? 활성화 정도를 뜻하는 이 영역에서는 오늘 나의 각성, 흥분 정도를 기록해요.'>
+              <img src={Info} alt="Info" className="ml-2 cursor-pointer" />
+            </Tooltip>
           </h1>
           <p className="text-scampi-700 dark:text-scampi-300 text-sm font-medium font-['DM Sans'] leading-10">
-            지금 내가 느끼는 활력 정도를 수치로 기록해봐요.
-            <Tooltip message='오늘 나의 에너지 레벨은 몇 인가요? 활성화 정도를 뜻하는 이 영역에서는 오늘 나의 각성, 흥분 정도를 기록해요.'>
-                <img src={Info} alt="Info" className="inline cursor-pointer" />
-                </Tooltip>
-          </p>
+          지금 내가 활력 정도를 수치로 기록해봐요.
+          </p>  
           <div className="relative w-full mx-auto py-8">
             <div className="relative w-10 flex items-center justify-between">
               <img src={Fire} className="emoji-style" style={fireStyle} />
