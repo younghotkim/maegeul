@@ -51,7 +51,7 @@ const Header: React.FC = () => {
     // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    navigate('/login'); // 로그아웃 후 로그인 페이지로 리다이렉트
+    navigate('/mainlogin'); // 로그아웃 후 로그인 페이지로 리다이렉트
   };
 
   return (
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
             로그아웃
           </button>
         ) : (
-          <Link to="/login">
+          <Link to="/mainlogin">
             <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
               로그인
             </button>
