@@ -5,7 +5,7 @@ import MoodMeter from '../../components/MoodMeter'
 
 const Article: React.FC = () => {
     return (
-        <><Header /><MoodMeter /></>
+        <><Header /></>
     );
 }
     export default Article;

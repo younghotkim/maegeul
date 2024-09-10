@@ -1,33 +1,23 @@
-/* 기본 스타일 설정 */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
-  height: 100%;  /* 화면 전체 높이를 차지 */
-  width: 100%;   /* 화면 전체 너비를 차지 */
-}
-
-.mood-container {
-  display: flex;
-  justify-content: center;  /* 수평 중앙 정렬 */
-  align-items: center;      /* 수직 중앙 정렬 */
-  width: 80vw;             /* 뷰포트 너비 */
-  height: 80vh;            /* 뷰포트 높이 */
-  box-sizing: border-box;    /* 내부 패딩을 포함한 전체 크기 계산 */
-  margin-top: 200px;
+  height: 100%; /* 화면 전체 높이를 차지 */
+  width: 100%; /* 화면 전체 너비를 차지 */
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);  /* 10열 그리드 */
-  grid-template-rows: repeat(10, 1fr);     /* 10행 그리드 */
-  gap: 5px;                                /* 그리드 항목 간 간격 */
-  width: 80vw;                             /* 그리드 전체 너비 */
-  height: 80vw;                            /* 그리드 전체 높이 */
-  max-width: 1000px;                       /* 그리드 최대 너비 */
-  max-height: 1000px;                      /* 그리드 최대 높이 */
-  background-color: #fff;                  /* 그리드 배경 */
-  border-radius: 10px;                     /* 모서리 둥글게 */
-  box-sizing: border-box;                  /* 내부 패딩을 포함한 크기 계산 */
+  grid-template-columns: repeat(10, 1fr); /* 10열 그리드 */
+  grid-template-rows: repeat(10, 1fr); /* 10행 그리드 */
+  gap: 3px; /* 그리드 항목 간 간격을 줄임 */
+  width: 80vw; /* 그리드 전체 너비 */
+  height: 80vh; /* 그리드 전체 높이를 화면 높이에 맞추고 상하 간격을 줄임 */
+  max-width: 1000px; /* 그리드 최대 너비 */
+  max-height: 800px; /* 그리드 최대 높이 줄임 */
+  border-radius: 10px; /* 모서리 둥글게 */
+  box-sizing: border-box; /* 내부 패딩을 포함한 크기 계산 */
+  margin-left: 300px;
 }
 
 .grid-item {
@@ -35,18 +25,18 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  height: 60px;
-  width: 130px;
+  padding: 5px; /* 패딩을 줄여 각 항목 내부 여백 축소 */
+  height: 50px; /* 항목 높이 줄이기 */
+  width: 120px; /* 항목 너비 줄이기 */
   color: white;
   font-weight: bold;
   text-align: center;
   border-radius: 5px;
-  transition: filter 0.3s ease;   /* 필터 효과 애니메이션 */
-  filter: brightness(0.3);        /* 어둡게 만드는 효과 */
+  transition: filter 0.3s ease; /* 필터 효과 애니메이션 */
+  filter: brightness(0.4); /* 어둡게 만드는 효과 */
 }
 
 /* 선택된 영역 및 인접한 영역 강조 스타일 */
 .highlighted {
-  filter: brightness(1) !important;      /* 강조된 박스는 원래 밝기로 유지 */
+  filter: brightness(1) !important; /* 강조된 박스는 원래 밝기로 유지 */
 }
