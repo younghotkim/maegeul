@@ -1,118 +1,131 @@
 //client2/src/pages/Auth/Signup.tsx
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import Header from '../../components/Header';
+import { Link } from 'react-router-dom';
+import CheckIcon from '../../Icon/Check Circle Icon.png';
 
-const SignupForm = () => {
-  const [name, setName] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+// 체크박스의 상태를 관리하기 위한 타입 정의
+type CheckedItems = {
+  all: boolean;
+  personalInfo: boolean;
+  usageTerms: boolean;
+  marketingConsent: boolean;
+};
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
+// 각 섹션의 펼침/접힘 상태를 관리하기 위한 타입 정의
+type OpenSections = {
+  personalInfo: boolean;
+  usageTerms: boolean;
+  marketingConsent: boolean;
+};
 
-  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
-  };
+const Signup: React.FC = () => {
+  // 체크박스 상태를 관리하기 위한 state
+  const [checkedItems, setCheckedItems] = useState<CheckedItems>({
+    all: false,
+    personalInfo: false,
+    usageTerms: false,
+    marketingConsent: false,
+  });
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  // 각 섹션의 펼침/접힘 상태를 관리하기 위한 state
+  const [openSections, setOpenSections] = useState<OpenSections>({
+    personalInfo: false,
+    usageTerms: false,
+    marketingConsent: false,
+  });
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  // 체크박스 상태 변경 함수
+  const handleCheck = (item: keyof CheckedItems) => {
+    setCheckedItems((prevState) => {
+      const updatedState = { ...prevState, [item]: !prevState[item] };
 
-  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError('');
-
-    try {
-      const response = await axios.post('http://localhost:5000/users/join', {
-        name,
-        nickname,
-        email,
-        password
-      });
-
-      // 회원가입 성공 시
-      alert('회원가입이 완료되었습니다!');
-      navigate('/login');
-    } catch (err) {
-      // 에러 객체를 콘솔에 로그로 출력하여 구조 확인
-      console.error('Signup error:', err);
-
-      if (axios.isAxiosError(err)) {
-        // Axios 에러 처리
-        if (err.response) {
-          // 서버 응답의 구조를 확인하고 적절한 필드를 사용
-          const errorMessage = err.response.data.msg || err.response.data.message || '회원가입에 실패했습니다.';
-          setError(errorMessage);
-        } else {
-          setError('서버 응답이 없습니다.');
-        }
-      } else {
-        // Axios 이외의 에러 처리
-        setError('예기치 않은 오류가 발생했습니다.');
+      // 전체 동의가 체크되면 모든 항목을 체크하거나 해제
+      if (item === 'all') {
+        return {
+          all: updatedState.all,
+          personalInfo: updatedState.all,
+          usageTerms: updatedState.all,
+          marketingConsent: updatedState.all,
+        };
       }
-    }
+
+      // 필수 항목이 모두 체크되면 전체 동의도 체크
+      const allChecked = updatedState.personalInfo && updatedState.usageTerms;
+      return {
+        ...updatedState,
+        all: allChecked && updatedState.marketingConsent,
+      };
+    });
+  };
+
+  // 섹션의 펼침/접힘 상태 변경 함수
+  const toggleSection = (section: keyof OpenSections) => {
+    setOpenSections((prevState) => ({
+      ...prevState,
+      [section]: !prevState[section],
+    }));
   };
 
   return (
-    <>
-    <Header/>
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-5">
-      <h1 className="text-xl text-scampi-600 mb-5">
-        이메일과 비밀번호 입력하기
-      </h1>
-    <form onSubmit={handleSignup} className="flex flex-col w-full max-w-lg mx-auto">
-      {error && <div className="text-red-500 mb-2">{error}</div>}
-      <input
-        type="text"
-        placeholder="이름을 입력해 주세요"
-        value={name}
-        onChange={handleNameChange}
-        className="p-3 mb-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300"
-      />
-      <input
-        type="text"
-        placeholder="닉네임을 입력해 주세요"
-        value={nickname}
-        onChange={handleNicknameChange}
-        className="p-3 mb-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300"
-      />
-      <input
-        type="text"
-        placeholder="이메일을 입력해 주세요"
-        value={email}
-        onChange={handleEmailChange}
-        className="p-3 mb-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300"
-      />
-      <input
-        type="password"
-        placeholder="비밀번호를 입력해 주세요"
-        value={password}
-        onChange={handlePasswordChange}
-        className="p-3 mb-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300"
-      />
-      <button
-        type="submit"
-        className="p-3 text-lg font-semibold text-white bg-teal-500 rounded-md shadow-md hover:bg-teal-600 focus:outline-none transition-colors duration-300"
-      >
-        회원가입
-      </button>
-      <div className="flex justify-between mt-4">
-        <Link to="/login" className="text-teal-500 hover:text-teal-700 transition-colors duration-300">로그인</Link>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-5 dark:bg-gray-800 dark:text-white">
+      <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-md dark:bg-gray-900">
+        {/* Step 1 Header */}
+        <h2 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">STEP 1</h2>
+        <h3 className="text-gray-700 dark:text-gray-300 text-lg mb-2">이용 약관 체크하기</h3>
+
+        {/* 전체 동의 항목 */}
+        <div
+          className={`p-4 rounded-md mb-2 flex items-center justify-between cursor-pointer ${
+            checkedItems.all ? 'bg-scampi-100' : 'bg-white'
+          }`}
+          onClick={() => handleCheck('all')}
+        >
+          <img src={CheckIcon} alt="Check Icon" className="w-6 h-6 mr-2" />
+          <span className="flex-grow text-gray-800 dark:text-white">이용약관 전체동의(선택 동의 포함)</span>
+        </div>
+
+        {/* 개별 동의 항목 */}
+        {['personalInfo', 'usageTerms', 'marketingConsent'].map((item, index) => (
+          <div key={index}>
+            <div
+              className={`p-4 rounded-md mb-2 flex items-center justify-between cursor-pointer ${
+                checkedItems[item as keyof CheckedItems] ? 'bg-scampi-100' : 'bg-white'
+              }`}
+              onClick={() => handleCheck(item as keyof CheckedItems)}
+            >
+              <div className="flex items-center">
+                <img src={CheckIcon} alt="Check Icon" className="w-6 h-6 mr-2" />
+                <span className="text-gray-800 dark:text-white">
+                  {item === 'personalInfo' && '(필수) 개인 정보 수집 및 이용'}
+                  {item === 'usageTerms' && '(필수) 매글 사용 약관'}
+                  {item === 'marketingConsent' && '(선택) 매글 마케팅 메시지 수신 동의'}
+                </span>
+              </div>
+              <button onClick={(e) => { e.stopPropagation(); toggleSection(item as keyof OpenSections); }} className="text-gray-500">
+                {openSections[item as keyof OpenSections] ? '🔼' : '🔽'}
+              </button>
+            </div>
+
+            {/* 동의 항목 세부 사항 */}
+            {openSections[item as keyof OpenSections] && (
+              <div className="ml-8 mb-4 text-gray-600 dark:text-gray-400">
+                <p>세부 약관 내용이 여기에 표시됩니다.</p>
+              </div>
+            )}
+          </div>
+        ))}
+
+        {/* 다음 버튼 */}
+        <div className="flex justify-center mt-6">
+          <Link to="/signup2">
+            <button className="w-full p-3 text-lg font-semibold text-white bg-scampi-500 rounded-full shadow-md hover:bg-scampi-600 focus:outline-none transition-colors duration-300">
+              다음
+            </button>
+          </Link>
+        </div>
       </div>
-    </form>
     </div>
-    </>
   );
 };
 
-export default SignupForm;
+export default Signup;
