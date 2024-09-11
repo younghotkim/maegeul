@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import MoodSlider from "../../components/MoodSlider";
 import EnergySlider from "../../components/EnergySlider";
-import MoodMeter from "../../components/MoodMeter"; // MoodMeter 컴포넌트 추가
+import MoodMeter from "../../components/MoodMeter";
 import { Link } from "react-router-dom";
+import { useHighlightContext } from "../../context/HighlightContext"; // Context 임포트
 
 const Diag: React.FC = () => {
-  const [moodValue, setMoodValue] = useState<number>(1); // 초기값 1로 설정
-  const [energyValue, setEnergyValue] = useState<number>(1); // 초기값 1로 설정
+  const [moodValue, setMoodValue] = useState<number>(1);
+  const [energyValue, setEnergyValue] = useState<number>(1);
   const [submitted, setSubmitted] = useState(false);
-  const [highlightedColor, setHighlightedColor] = useState<string | null>(null); // 선택된 color 상태 추가
-  const [highlightedLabels, setHighlightedLabels] = useState<string[]>([]); // highlight된 라벨 상태 추가
+  const {
+    highlightedLabels,
+    setHighlightedLabels,
+    highlightedColor,
+    setHighlightedColor,
+  } = useHighlightContext(); // Context 사용
 
   // RGB 값에 따른 색상 이름 반환 함수
   const getColorName = (rgb: string) => {
@@ -28,31 +33,31 @@ const Diag: React.FC = () => {
   };
 
   const handleMoodChange = (value: number) => {
-    setMoodValue(value); // pleasantness 값 저장
+    setMoodValue(value);
   };
 
   const handleEnergyChange = (value: number) => {
-    setEnergyValue(value); // energy 값 저장
+    setEnergyValue(value);
   };
 
   const handleSubmit = () => {
-    setSubmitted(true); // 값이 있으면 제출
+    setSubmitted(true);
   };
 
   const handleRetry = () => {
-    setSubmitted(false); // 다시 측정할 때 상태 초기화
-    setMoodValue(1); // 초기값 1로 설정
-    setEnergyValue(1); // 초기값 1로 설정
+    setSubmitted(false);
+    setMoodValue(1);
+    setEnergyValue(1);
   };
 
   // MoodMeter에서 전달받은 color를 업데이트하는 함수
   const handleColorChange = (color: string) => {
-    setHighlightedColor(color); // 선택된 color 저장
+    setHighlightedColor(color); // Context의 setHighlightedColor 사용
   };
 
   // MoodMeter에서 highlight된 라벨들을 업데이트하는 함수
   const handleHighlightChange = (labels: string[]) => {
-    setHighlightedLabels(labels); // highlight된 라벨 저장
+    setHighlightedLabels(labels); // Context의 setHighlightedLabels 사용
   };
 
   // 제출된 경우 표시할 내용
@@ -61,7 +66,7 @@ const Diag: React.FC = () => {
 
     return (
       <div className="text-center p-4">
-        <p className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mb-6">
+        <p className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mt-10 mb-5">
           오늘 린다님의 무드 컬러는 {colorName}
           {highlightedColor && (
             <span
@@ -71,7 +76,7 @@ const Diag: React.FC = () => {
                 height: "35px",
                 backgroundColor: highlightedColor,
                 marginLeft: "5px",
-                borderRadius: "3px", // 정사각형 모양의 박스
+                borderRadius: "3px",
               }}
             />
           )}
@@ -79,11 +84,11 @@ const Diag: React.FC = () => {
         </p>
 
         {highlightedLabels.length > 0 && (
-          <p className="text-scampi-700 dark:text-scampi-300 text-2xl font-bold font-['DM Sans'] leading-10 mb-6">
+          <p className="text-scampi-700 dark:text-scampi-300 text-2xl font-bold font-['DM Sans'] leading-10">
             #{highlightedLabels.join("#")}
           </p>
         )}
-        <div className="mt-8 mb-8">
+        <div className="flex justify-center items-center h-screen mb-8">
           <MoodMeter
             pleasantness={moodValue}
             energy={energyValue}
