@@ -1,3 +1,4 @@
+//기존 구현했던 로컬 로그인
 //client2/src/pages/Auth/Signup.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
@@ -67,9 +68,9 @@ const SignupForm4 = () => {
     <>
     <Header/>
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-5">
-      <h1 className="text-xl text-scampi-600 mb-5">
-        이메일과 비밀번호 입력하기
-      </h1>
+    <h3 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">
+        Signup4 기존 로컬로그인구현<br/> 이름/닉네임/이메일/비밀번호
+      </h3>
     <form onSubmit={handleSignup} className="flex flex-col w-full max-w-lg mx-auto">
       {error && <div className="text-red-500 mb-2">{error}</div>}
       <input
