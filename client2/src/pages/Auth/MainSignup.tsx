@@ -1,83 +1,52 @@
-<<<<<<< HEAD:client2/src/pages/Auth/Login.tsx
-//client2/src/pages/Auth/Login.tsx
+//client2/src/pages/Auth/MainLogin.tsx
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LoginForm from "./LoginForm";
-import SocialLogin from "./SocialLogin";
 import Apple from "../../Icon/Apple.png";
 import Facebook from "../../Icon/Facebook.png";
 import Google from "../../Icon/Google.png";
-import ArticleIcon from "../../Icon/Article Ticket.png";
-=======
-//client2/src/pages/Auth/MainSignup.tsx
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import SocialLogin from './SocialLogin';
-import KakaoLoginButton from './SocialLogin';
-import Apple from '../../Icon/Apple.png';
-import Facebook from '../../Icon/Facebook.png';
-import Google from '../../Icon/Google.png';
-import ArticleIcon from '../../Icon/Article Ticket.png';
->>>>>>> 00e04885470e5a3b616171d3a2984a04e5dee652:client2/src/pages/Auth/MainSignup.tsx
+import KakaoIcon from "../../Icon/kakao_login.png.png";
 
-const MainSignup = () => {
-  const navigate = useNavigate(); // useNavigate 훅을 사용합니다.
+const MainLogin = () => {
+  const navigate = useNavigate();
 
   // 이메일 로그인 버튼 클릭 시 이동 함수
   const handleEmailLoginClick = () => {
-    navigate("/email-login"); // '/email-login' 경로로 바로 이동합니다.
+    navigate("/email-login");
   };
 
-  // 카카오 로그인 버튼 클릭 시 이동
-  const handleKakaoLoginClick = () => {
-    window.location.href = 'http://localhost:5000/auth/kakao';
-  }
+  // 회원가입 버튼 클릭 시 이동
+  const handleSignupClick = () => {
+    navigate("/signup");
+  };
+
+  const handleLogin = () => {
+    window.location.href = "http://localhost:5000/auth/kakao";
+  };
 
   return (
     <>
-      {/* 메인 로그인 페이지 */}
       <div className="h-screen flex flex-col items-center justify-center bg-gray-100 p-5 dark:bg-gray-800 dark:text-white">
         <h1 className="text-scampi-700 dark:text-scampi-300 text-5xl font-bold font-['DM Sans'] leading-10 inline-flex items-center cursor-pointer">
           <Link to="/home">MAEGEUL</Link>
         </h1>
-        <div className="grid grid-cols-2 border border-gray-300 HeadingH3 w-400 bg-slate-50 rounded-2xl text-left mt-10 mb-10">
-          <div>
-            <img src={ArticleIcon} alt="Ticket" className="w-20 h-20" />
-          </div>
-          <div className="grid grid-cols-1 text-left">
-            <span className="text-slate-500 text-l font-normal font-['DM Sans'] leading-6">
-              지금 가입하면{" "}
-            </span>
-            <span className="text-indigo-600 text-l font-normal font-['DM Sans'] leading-4">
-              아티클 열람권 3회 티켓
-            </span>
-            <span className="text-slate-500 text-l font-normal font-['DM Sans'] leading-4">
-              을 받을 수 있어요!
-            </span>
-          </div>
-        </div>
 
-        {/* 로그인 유도 버튼 */}
-       <button
-          type="button"
-          onClick={handleKakaoLoginClick} // 이메일 로그인 클릭 시 페이지 이동 함수 호출
-          className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
-        >
-          카카오로 3초안에 시작하기
+        {/* 카카오 로그인 버튼 */}
+        <button onClick={handleLogin} className="w-[486px] h-[73px]">
+          <img
+            className="w-full h-full object-cover"
+            src={KakaoIcon}
+            alt="Kakao Login Button"
+          />
         </button>
+
+        {/* 이메일 로그인 버튼 */}
         <button
           type="button"
-          onClick={handleEmailLoginClick} // 이메일 로그인 클릭 시 페이지 이동 함수 호출
-          className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
+          onClick={handleEmailLoginClick}
+          className="bg-[#eaddff] text-scampi-700 w-[486px] h-[73px] rounded-full mt-4 text-base font-semibold shadow-md transition-colors"
         >
-          이메일로 시작하기
+          이메일 로그인
         </button>
-
-<<<<<<< HEAD:client2/src/pages/Auth/Login.tsx
-        <SocialLogin></SocialLogin>
-=======
-
->>>>>>> 00e04885470e5a3b616171d3a2984a04e5dee652:client2/src/pages/Auth/MainSignup.tsx
 
         {/* 소셜 로그인 버튼들 */}
         <div className="flex gap-4 mt-5">
@@ -91,6 +60,25 @@ const MainSignup = () => {
             <img src={Facebook} alt="Facebook" className="w-6 h-6" />
           </button>
         </div>
+
+        {/* 회원가입, 계정찾기, 비밀번호 찾기 */}
+        <div className="flex items-center gap-4 mt-5">
+          <button
+            type="button"
+            onClick={handleSignupClick}
+            className="text-scampi-500 dark:text-scampi-600 text-sm font-normal"
+          >
+            회원 가입
+          </button>
+          <span className="text-scampi-400 dark:text-scampi-600">|</span>
+          <button className="text-scampi-500 dark:text-scampi-600 text-sm font-normal">
+            계정 찾기
+          </button>
+          <span className="text-scampi-400 dark:text-scampi-600">|</span>
+          <button className="text-scampi-500 dark:text-scampi-600 text-sm font-normal">
+            비밀번호 찾기
+          </button>
+        </div>
       </div>
 
       {/* 하단 부분 */}
@@ -101,8 +89,4 @@ const MainSignup = () => {
   );
 };
 
-<<<<<<< HEAD:client2/src/pages/Auth/Login.tsx
-export default Login;
-=======
-export default MainSignup;
->>>>>>> 00e04885470e5a3b616171d3a2984a04e5dee652:client2/src/pages/Auth/MainSignup.tsx
+export default MainLogin;
