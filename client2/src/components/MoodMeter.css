@@ -17,6 +17,7 @@ body {
   max-height: 800px; /* 그리드 최대 높이 줄임 */
   border-radius: 10px; /* 모서리 둥글게 */
   box-sizing: border-box; /* 내부 패딩을 포함한 크기 계산 */
+  margin-left: 300px;
 }
 
 .grid-item {
@@ -27,9 +28,6 @@ body {
   padding: 5px; /* 패딩을 줄여 각 항목 내부 여백 축소 */
   height: 50px; /* 항목 높이 줄이기 */
   width: 120px; /* 항목 너비 줄이기 */
-  max-width: 100%;
-  max-height: 100%;
-  box-sizing: border-box;
   color: white;
   font-weight: bold;
   text-align: center;
