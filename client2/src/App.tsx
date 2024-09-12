@@ -17,8 +17,12 @@ import SignupForm3 from "./pages/Auth/SignupStep3";
 import SignupForm4 from "./pages/Auth/SignupStep4";
 import Logout from "./pages/Auth/Logout";
 import LoginSuccess from "./pages/Auth/LoginSuccess";
+import LoginTest from "./pages/Auth/LoginTest";
+
+//Context
 import { HighlightProvider } from "./context/HighlightContext"; // PostProvider 임포트
 import { MoodProvider } from "./context/MoodContext";
+import { UserProvider } from "./context/UserContext";
 
 const App: React.FC = () => {
   return (
@@ -37,10 +41,10 @@ const App: React.FC = () => {
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/mainlogin" element={<MainLogin />} />
             <Route path="/mainsignup" element={<MainSignup />} />
-            <Route path="/signupstep1" element={<SignupForm />} />
-            <Route path="/signupstep2" element={<SignupForm2 />} />
-            <Route path="/signupstep3" element={<SignupForm3 />} />
-            <Route path="/signupstep4" element={<SignupForm4 />} />
+            <Route path="/signup" element={<SignupForm />} />
+            <Route path="/signup2" element={<SignupForm2 />} />
+            <Route path="/signup3" element={<SignupForm3 />} />
+            <Route path="/signup4" element={<SignupForm4 />} />
             <Route path="/logout" element={<Logout />} />
           </Routes>
         </Router>

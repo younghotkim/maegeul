@@ -1,92 +1,147 @@
-// LEADME/backend/controllers/user.Controller.js
-// 이 파일에서는 회원 생성과 로그인 로직을 구현 
-// 각각의 요청을 처리하고, 적절한 응답을 클라이언트에게 반환하는 함수
-const User = require("../models/user");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { validationResult } = require("express-validator");
+const userModel = require("../models/user");
+const bcrypt = require("bcrypt");
 
-// 회원 생성
-exports.createUser = async (req, res) => {
-    console.log("회원생성")
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+// 회원가입 컨트롤러
+exports.register = (req, res) => {
+  const {
+    username,
+    email,
+    profile_name,
+    password,
+    age,
+    gender,
+    login_type,
+    profile_picture,
+  } = req.body;
+
+  if (!username || !email || !profile_name || !password) {
+    return res.status(400).json({ message: "필수 필드를 입력해주세요." });
+  }
+
+  // 회원가입 데이터 생성
+  const userData = {
+    username,
+    email,
+    profile_name,
+    password,
+    age,
+    gender,
+    login_type,
+    profile_picture,
+  };
+
+  // 회원가입 처리
+  userModel.insert(userData, (err, user_id) => {
+    if (err) {
+      return res
+        .status(500)
+        .json({ message: "회원가입 중 오류가 발생했습니다.", error: err });
     }
-
-    const { name, nickname, email, password } = req.body;
-
-    try {
-        // 이메일 중복 확인
-        let user = await User.findOne({ email });
-        if (user) {
-            return res.status(400).json({ msg: "이미 등록된 이메일입니다." });
-        }
-
-        // 새 사용자 생성
-        user = new User({
-            name,
-            nickname,
-            email,
-            password
-        });
-
-        // 사용자 저장
-        await user.save();
-        res.status(201).json({ msg: "회원가입 성공!" });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send("서버 오류");
-    }
+    res.status(201).json({ message: "회원가입 성공", user_id });
+  });
 };
 
-// 로그인
-exports.loginUser = async (req, res) => {
-    console.log("test1");
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-    console.log("test2");
+// 로그인 컨트롤러
+exports.login = (req, res) => {
+  console.log("Login request received", req.body); // 로그 추가
+  const { email, password } = req.body;
 
-    const { email, password } = req.body;
-    console.log("test3",email, password);
-    try {
-        // 사용자 확인
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ msg: "잘못된 이메일 또는 비밀번호" });
-        }
-        console.log("test4", user);
-        // 비밀번호 확인
-        const isMatch = await user.comparePassword(password);
-        if (!isMatch) {
-            return res.status(400).json({ msg: "잘못된 이메일 또는 비밀번호" });
-        }
-
-        // JWT 토큰 생성
-        const payload = { user: { id: user.id } };
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
-        console.log("test5", payload, token);
-        res.json({ token });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send("서버 오류");
+  // 로그인 처리
+  userModel.select(email, password, (err, user) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ message: "서버 오류" });
     }
+
+    if (!user) {
+      console.log("Invalid email or password");
+      return res
+        .status(401)
+        .json({ message: "이메일 또는 비밀번호가 잘못되었습니다." });
+    }
+
+    console.log("Login successful for user:", user.profile_name);
+    res.status(200).json({ message: "로그인 성공", user });
+  });
 };
 
-// 로그아웃
-exports.logoutUser = (req, res) => {
-    try {
-        // 클라이언트에서 JWT 토큰을 제거하도록 유도합니다.
-        // 서버 측에서는 기본적으로 JWT 토큰을 "무효화"할 수 없으므로
-        // 클라이언트가 저장된 토큰을 삭제하도록 합니다.
+// 회원 정보 조회 컨트롤러
+exports.getUser = (req, res) => {
+  const { user_id } = req.params;
 
-        // 만약 JWT 블랙리스트가 있다면, 여기에서 추가할 수 있습니다.
-        res.clearCookie('token'); // 쿠키에 토큰을 저장한 경우 사용
-        res.status(200).json({ msg: "로그아웃 성공" });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send("서버 오류");
+  // 회원 정보 조회 처리
+  userModel.get_user(user_id, (err, user) => {
+    if (err) {
+      return res.status(500).json({
+        message: "회원 정보를 가져오는 중 오류가 발생했습니다.",
+        error: err,
+      });
     }
+
+    if (!user) {
+      return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+    }
+
+    res.status(200).json({ message: "회원 정보 조회 성공", user });
+  });
+};
+
+// 회원 정보 수정 컨트롤러
+exports.updateUser = (req, res) => {
+  const {
+    user_id,
+    username,
+    email,
+    profile_name,
+    password,
+    age,
+    gender,
+    login_type,
+    profile_picture,
+  } = req.body;
+
+  if (!user_id) {
+    return res.status(400).json({ message: "사용자 ID가 필요합니다." });
+  }
+
+  // 수정할 회원 정보 생성
+  const userData = {
+    user_id,
+    username,
+    email,
+    profile_name,
+    password, // 수정하려는 비밀번호 (수정하지 않으면 기존 비밀번호 유지)
+    age,
+    gender,
+    login_type,
+    profile_picture,
+  };
+
+  // 회원 정보 수정 처리
+  userModel.update(userData, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: "회원 정보 수정 중 오류가 발생했습니다.",
+        error: err,
+      });
+    }
+
+    res.status(200).json({ message: "회원 정보 수정 성공", result });
+  });
+};
+
+// 회원 탈퇴 컨트롤러
+exports.deleteUser = (req, res) => {
+  const { user_id } = req.params;
+
+  // 회원 탈퇴 처리
+  userModel.delete(user_id, (err, result) => {
+    if (err) {
+      return res
+        .status(500)
+        .json({ message: "회원 탈퇴 중 오류가 발생했습니다.", error: err });
+    }
+
+    res.status(200).json({ message: "회원 탈퇴 성공", result });
+  });
 };
