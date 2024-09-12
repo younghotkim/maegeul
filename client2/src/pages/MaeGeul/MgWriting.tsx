@@ -135,9 +135,6 @@ const MgWriting: React.FC = () => {
                       {label}
                     </span>
                   ))}
-                  <br />
-                  오늘 린다님이 기록한 편안 지수는 {pleasantness}, 에너지 지수는{" "}
-                  {energy}이었어요.
                 </div>
               </div>
             </div>
