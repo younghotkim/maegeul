@@ -56,7 +56,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 flex justify-between items-center w-full p-10 bg-slate-100 dark:bg-scampi-800 shadow-sm">
+    <header className="sticky top-0 z-50 flex justify-between items-center w-full p-10 dark:bg-scampi-800 shadow-sm">
       <Link to="/home">
         <button className="flex items-center text-xl bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">
           <img src={pencilIcon} className="w-8 h-8 mr-2" alt="Pencil Icon"/> {/* 아이콘 크기 조정 및 오른쪽 여백 추가 */}
