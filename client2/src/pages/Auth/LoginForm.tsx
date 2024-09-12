@@ -52,7 +52,7 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleLogin} className="flex flex-col w-full max-w-lg mx-auto dark:bg-gray-800 dark:text-white">
       {error && <div className="text-red-500 mb-2">{error}</div>} {/* 에러 메시지 표시 */}
-      <div className='h-10 text-white py-2 px-4 rounded-full border border-scampi-400'>이메일주소</div>
+      <div className='h-10 text-white py-2 px-4 '>이메일주소</div>
       <input
         type="text"
         placeholder="이메일을 입력해 주세요"
@@ -61,7 +61,7 @@ const LoginForm = () => {
         onChange={handleEmailChange}
         className="p-3 mb-2 text-lg border border-gray-300 dark:border-gray-600 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-scampi-300 dark:bg-gray-800 dark:text-white"
       />
-     <div className='h-10 text-white py-2 px-4 rounded-full border border-scampi-400'>비밀번호</div>
+     <div className='h-10 text-white py-2 px-4 rounded-full'>비밀번호</div>
       <input
         type="password"
         placeholder="숫자, 특수문자, 영문 포함 8자 이상"

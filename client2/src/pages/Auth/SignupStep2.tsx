@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Signup2: React.FC = () => {
+const SignupStep2: React.FC = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -188,7 +188,7 @@ const Signup2: React.FC = () => {
 
         {/* 완료 버튼 */}
         <div className="mt-8">
-          <Link to="/signup3">
+          <Link to="/signupstep3">
             <button className="w-full px-6 py-4 text-base font-bold text-white bg-scampi-600 rounded-3xl">
               회원가입 완료
             </button>
@@ -199,6 +199,6 @@ const Signup2: React.FC = () => {
   );
 };
 
-export default Signup2;
+export default SignupStep2;
 
 

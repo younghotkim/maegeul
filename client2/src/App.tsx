@@ -11,10 +11,10 @@ import Mypage from "./pages/Auth/Mypage";
 import MainLogin from "./pages/Auth/MainLogin";
 import MainSignup from "./pages/Auth/MainSignup";
 import EmailLogin from "./pages/Auth/EmailLogin";
-import SignupForm from "./pages/Auth/Signup";
-import SignupForm2 from "./pages/Auth/Signup2";
-import SignupForm3 from "./pages/Auth/Signup3";
-import SignupForm4 from "./pages/Auth/Signup4";
+import SignupForm from "./pages/Auth/SignupStep1";
+import SignupForm2 from "./pages/Auth/SignupStep2";
+import SignupForm3 from "./pages/Auth/SignupStep3";
+import SignupForm4 from "./pages/Auth/SignupStep4";
 import Logout from "./pages/Auth/Logout";
 import LoginSuccess from "./pages/Auth/LoginSuccess";
 import LoginTest from "./pages/Auth/LoginTest";
@@ -26,33 +26,30 @@ import { UserProvider } from "./context/UserContext";
 
 const App: React.FC = () => {
   return (
-    <UserProvider>
-      <HighlightProvider>
-        <MoodProvider>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/maegeul" element={<MaeGeul />} />
-              <Route path="/emotionForm" element={<EmotionForm />} />
-              <Route path="/article" element={<Article />} />
-              <Route path="/mgwriting" element={<MgWriting />} />
-              <Route path="/login/success" element={<LoginSuccess />} />
-              <Route path="/email-login" element={<EmailLogin />} />
-              <Route path="/logintest" element={<LoginTest />} />
-              <Route path="/mypage" element={<Mypage />} />
-              <Route path="/mainlogin" element={<MainLogin />} />
-              <Route path="/mainsignup" element={<MainSignup />} />
-              <Route path="/signup" element={<SignupForm />} />
-              <Route path="/signup2" element={<SignupForm2 />} />
-              <Route path="/signup3" element={<SignupForm3 />} />
-              <Route path="/signup4" element={<SignupForm4 />} />
-              <Route path="/logout" element={<Logout />} />
-            </Routes>
-          </Router>
-        </MoodProvider>
-      </HighlightProvider>
-    </UserProvider>
+    <HighlightProvider>
+      <MoodProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/maegeul" element={<MaeGeul />} />
+            <Route path="/emotionForm" element={<EmotionForm />} />
+            <Route path="/article" element={<Article />} />
+            <Route path="/mgwriting" element={<MgWriting />} />
+            <Route path="/login/success" element={<LoginSuccess />} />
+            <Route path="/email-login" element={<EmailLogin />} />
+            <Route path="/mypage" element={<Mypage />} />
+            <Route path="/mainlogin" element={<MainLogin />} />
+            <Route path="/mainsignup" element={<MainSignup />} />
+            <Route path="/signup" element={<SignupForm />} />
+            <Route path="/signup2" element={<SignupForm2 />} />
+            <Route path="/signup3" element={<SignupForm3 />} />
+            <Route path="/signup4" element={<SignupForm4 />} />
+            <Route path="/logout" element={<Logout />} />
+          </Routes>
+        </Router>
+      </MoodProvider>
+    </HighlightProvider>
   );
 };
 

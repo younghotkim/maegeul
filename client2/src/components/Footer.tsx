@@ -3,7 +3,7 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative z-10 bg-white pb-10 pt-20 dark:bg-dark lg:pb-20 lg:pt-[120px]">
+    <footer className="relative z-10 pb-10 pt-20 lg:pb-20 lg:pt-[120px]">
       <div className='container'>
         <div className="flex flex-wrap -mx-4">
           {/* Left Side */}

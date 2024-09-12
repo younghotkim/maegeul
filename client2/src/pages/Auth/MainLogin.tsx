@@ -26,10 +26,10 @@ const MainLogin = () => {
     <>
       <div className="h-screen flex flex-col items-center justify-center bg-gray-100 p-5 dark:bg-gray-800 dark:text-white">
         <Link to="/home">
-          <h1 className="text-scampi-700 dark:text-scampi-300 text-5xl font-bold font-['DM Sans'] leading-10 inline-flex items-center cursor-pointer">
+          <h1 className="text-scampi-700 dark:text-scampi-300 text-5xl font-bold font-['DM Sans'] leading-10 text-center">
             MAEGEUL
           </h1>
-          <h2 className="text-scampi-700 text-xl font-bold font-['DM Sans'] leading-10">
+          <h2 className="text-scampi-700 text-xl font-bold font-['DM Sans'] leading-10 text-center">
             매일 감정 글쓰기를 통해 만드는 단단한 나
           </h2>
         </Link>
@@ -50,14 +50,14 @@ const MainLogin = () => {
         <button
           type="button"
           onClick={handleEmailLoginClick}
-          className="bg-[#eaddff] text-scampi-700 w-[286px] h-[59px] rounded-full mt-4 text-base font-extrabold shadow-md transition-colors"
+          className="bg-[#eaddff] text-scampi-700 w-[400px] h-[59px] rounded-full mt-4 text-2xl font-extrabold shadow-md transition-colors cursor-pointer hover:bg-scampi-700 hover:text-scampi-100 flex items-center justify-center"
         >
           <img src={Email} className="w-6 h-6 mr-2" />
           이메일 로그인
         </button>
 
         {/* '또는' 구분선 */}
-        <div className="w-full border-t border-gray-300 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300">
+        <div className="w-[400px] border-t border-gray-300 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300">
           또는
         </div>
 
