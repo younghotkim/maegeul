@@ -18,9 +18,9 @@ const Home: React.FC = () => {
           <Navi />
         </div>
         
-        <div className="flex w-full">
-          <Guide />  {/* 글쓰기 스텝 가이드 */}
-        </div>
+        {/* <div className="flex w-full">
+          <Guide />  글쓰기 스텝 가이드
+        </div> */}
       </div>
       <Contents />
       <Footer />

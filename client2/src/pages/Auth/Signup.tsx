@@ -71,7 +71,11 @@ const Signup: React.FC = () => {
       <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-md dark:bg-gray-900">
         {/* Step 1 Header */}
         <h2 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">STEP 1</h2>
-        <h3 className="text-gray-700 dark:text-gray-300 text-lg mb-2">이용 약관 체크하기</h3>
+         {/*  구분선 */}
+        <div className="w-full border-t-8 border-scampi-500 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300">
+        </div>
+        <h3 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">
+          이용약관 체크하기</h3>
 
         {/* 전체 동의 항목 */}
         <div
@@ -116,9 +120,9 @@ const Signup: React.FC = () => {
         ))}
 
         {/* 다음 버튼 */}
-        <div className="flex justify-center mt-6">
+        <div className="mt-8">
           <Link to="/signup2">
-            <button className="w-full p-3 text-lg font-semibold text-white bg-scampi-500 rounded-full shadow-md hover:bg-scampi-600 focus:outline-none transition-colors duration-300">
+            <button className="w-full px-6 py-4 text-base font-bold text-white bg-scampi-600 rounded-3xl">
               다음
             </button>
           </Link>

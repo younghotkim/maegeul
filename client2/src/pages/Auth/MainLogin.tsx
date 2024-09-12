@@ -5,16 +5,15 @@ import Apple from '../../Icon/Apple.png';
 import Facebook from '../../Icon/Facebook.png';
 import Google from '../../Icon/Google.png';
 import KakaoIcon from '../../Icon/kakao_login.png.png';
+import Email from '../../Icon/Email.png';
 
 const MainLogin = () => {
   const navigate = useNavigate(); 
 
-  // 이메일 로그인 버튼 클릭 시 이동 함수
   const handleEmailLoginClick = () => {
     navigate('/email-login'); 
   };
 
-  // 회원가입 버튼 클릭 시 이동
   const handleSignupClick = () => {
     navigate('/signup'); 
   };
@@ -26,42 +25,52 @@ const MainLogin = () => {
   return (
     <>
       <div className="h-screen flex flex-col items-center justify-center bg-gray-100 p-5 dark:bg-gray-800 dark:text-white">
-        <h1 className="text-scampi-700 dark:text-scampi-300 text-5xl font-bold font-['DM Sans'] leading-10 inline-flex items-center cursor-pointer">
-          <Link to="/home">MAEGEUL</Link>
-        </h1>
+        <Link to="/home">
+          <h1 className="text-scampi-700 dark:text-scampi-300 text-5xl font-bold font-['DM Sans'] leading-10 inline-flex items-center cursor-pointer">
+            MAEGEUL
+          </h1>
+          <h2 className="text-scampi-700 text-xl font-bold font-['DM Sans'] leading-10">
+            매일 감정 글쓰기를 통해 만드는 단단한 나
+          </h2>
+        </Link>
 
         {/* 카카오 로그인 버튼 */}
-        <button onClick={handleLogin} className="w-[486px] h-[73px]">
-          <img className="w-full h-full object-cover" src={KakaoIcon} alt="Kakao Login Button" />
+        <button onClick={handleLogin} className="w-[286px] h-[59px] rounded-full mt-4">
+          <img className="w-full h-full object-cover rounded-full" src={KakaoIcon} alt="Kakao Login Button" />
         </button>
 
         {/* 이메일 로그인 버튼 */}
         <button
           type="button"
           onClick={handleEmailLoginClick}
-          className="bg-[#eaddff] text-scampi-700 w-[486px] h-[73px] rounded-full mt-4 text-base font-semibold shadow-md transition-colors"
+          className="bg-[#eaddff] text-scampi-700 w-[286px] h-[59px] rounded-full mt-4 text-base font-extrabold shadow-md transition-colors"
         >
-          이메일 로그인
+          < img src={Email} className='w-6 h-6 mr-2'/>이메일 로그인
         </button>
 
+        {/* '또는' 구분선 */}
+        <div className="w-full border-t border-gray-300 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300">
+          또는
+        </div>
+
         {/* 소셜 로그인 버튼들 */}
-        <div className='flex gap-4 mt-5'>
-          <button className="flex justify-center items-center rounded-full p-2 border border-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
+        <div className="flex gap-4 mt-5">
+          <button className="w-10 h-10 flex justify-center items-center rounded-full border border-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
             <img src={Google} alt="Google" className="w-6 h-6" />
           </button>
-          <button className="flex justify-center items-center rounded-full p-2 border border-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
+          <button className="w-10 h-10 flex justify-center items-center rounded-full border border-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
             <img src={Apple} alt="Apple" className="w-6 h-6" />
           </button>
-          <button className="flex justify-center items-center rounded-full p-2 border border-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
+          <button className="w-10 h-10 flex justify-center items-center rounded-full border border-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
             <img src={Facebook} alt="Facebook" className="w-6 h-6" />
           </button>
         </div>
 
         {/* 회원가입, 계정찾기, 비밀번호 찾기 */}
-        <div className='flex items-center gap-4 mt-5'>
+        <div className="flex items-center gap-4 mt-5">
           <button
             type="button"
-            onClick={handleSignupClick} 
+            onClick={handleSignupClick}
             className="text-scampi-500 dark:text-scampi-600 text-sm font-normal"
           >
             회원 가입
@@ -74,7 +83,7 @@ const MainLogin = () => {
       </div>
 
       {/* 하단 부분 */}
-      <div className='flex flex-col w-full h-16 justify-center items-center bg-black text-scampi-200'>
+      <div className="flex flex-col w-full h-16 justify-center items-center bg-black text-scampi-200">
         Copyright © 2024 MAEGEUL | All Rights Reserved
       </div>
     </>
@@ -82,3 +91,4 @@ const MainLogin = () => {
 };
 
 export default MainLogin;
+
