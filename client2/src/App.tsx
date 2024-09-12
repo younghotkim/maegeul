@@ -26,30 +26,32 @@ import { UserProvider } from "./context/UserContext";
 
 const App: React.FC = () => {
   return (
-    <HighlightProvider>
-      <MoodProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/maegeul" element={<MaeGeul />} />
-            <Route path="/emotionForm" element={<EmotionForm />} />
-            <Route path="/article" element={<Article />} />
-            <Route path="/mgwriting" element={<MgWriting />} />
-            <Route path="/login/success" element={<LoginSuccess />} />
-            <Route path="/email-login" element={<EmailLogin />} />
-            <Route path="/mypage" element={<Mypage />} />
-            <Route path="/mainlogin" element={<MainLogin />} />
-            <Route path="/mainsignup" element={<MainSignup />} />
-            <Route path="/signup" element={<SignupForm />} />
-            <Route path="/signup2" element={<SignupForm2 />} />
-            <Route path="/signup3" element={<SignupForm3 />} />
-            <Route path="/signup4" element={<SignupForm4 />} />
-            <Route path="/logout" element={<Logout />} />
-          </Routes>
-        </Router>
-      </MoodProvider>
-    </HighlightProvider>
+    <UserProvider>
+      <HighlightProvider>
+        <MoodProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/maegeul" element={<MaeGeul />} />
+              <Route path="/emotionForm" element={<EmotionForm />} />
+              <Route path="/article" element={<Article />} />
+              <Route path="/mgwriting" element={<MgWriting />} />
+              <Route path="/login/success" element={<LoginSuccess />} />
+              <Route path="/email-login" element={<EmailLogin />} />
+              <Route path="/mypage" element={<Mypage />} />
+              <Route path="/mainlogin" element={<MainLogin />} />
+              <Route path="/mainsignup" element={<MainSignup />} />
+              <Route path="/signupstep1" element={<SignupForm />} />
+              <Route path="/signupstep2" element={<SignupForm2 />} />
+              <Route path="/signupstep3" element={<SignupForm3 />} />
+              <Route path="/signupstep4" element={<SignupForm4 />} />
+              <Route path="/logout" element={<Logout />} />
+            </Routes>
+          </Router>
+        </MoodProvider>
+      </HighlightProvider>
+    </UserProvider>
   );
 };
 
