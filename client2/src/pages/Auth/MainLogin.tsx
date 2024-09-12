@@ -1,25 +1,25 @@
 //client2/src/pages/Auth/MainLogin.tsx
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Apple from '../../Icon/Apple.png';
-import Facebook from '../../Icon/Facebook.png';
-import Google from '../../Icon/Google.png';
-import KakaoIcon from '../../Icon/kakao_login.png.png';
-import Email from '../../Icon/Email.png';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Apple from "../../Icon/Apple.png";
+import Facebook from "../../Icon/Facebook.png";
+import Google from "../../Icon/Google.png";
+import KakaoIcon from "../../Icon/kakao_login.png.png";
+import Email from "../../Icon/Email.png";
 
 const MainLogin = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleEmailLoginClick = () => {
-    navigate('/email-login'); 
+    navigate("/email-login");
   };
 
   const handleSignupClick = () => {
-    navigate('/signup'); 
+    navigate("/signup");
   };
 
   const handleLogin = () => {
-    window.location.href = 'http://localhost:5000/auth/kakao';
+    window.location.href = "http://localhost:5000/auth/kakao";
   };
 
   return (
@@ -35,8 +35,15 @@ const MainLogin = () => {
         </Link>
 
         {/* 카카오 로그인 버튼 */}
-        <button onClick={handleLogin} className="w-[286px] h-[59px] rounded-full mt-4">
-          <img className="w-full h-full object-cover rounded-full" src={KakaoIcon} alt="Kakao Login Button" />
+        <button
+          onClick={handleLogin}
+          className="w-[286px] h-[59px] rounded-full mt-4"
+        >
+          <img
+            className="w-full h-full object-cover rounded-full"
+            src={KakaoIcon}
+            alt="Kakao Login Button"
+          />
         </button>
 
         {/* 이메일 로그인 버튼 */}
@@ -45,7 +52,8 @@ const MainLogin = () => {
           onClick={handleEmailLoginClick}
           className="bg-[#eaddff] text-scampi-700 w-[286px] h-[59px] rounded-full mt-4 text-base font-extrabold shadow-md transition-colors"
         >
-          < img src={Email} className='w-6 h-6 mr-2'/>이메일 로그인
+          <img src={Email} className="w-6 h-6 mr-2" />
+          이메일 로그인
         </button>
 
         {/* '또는' 구분선 */}
@@ -76,9 +84,13 @@ const MainLogin = () => {
             회원 가입
           </button>
           <span className="text-scampi-400 dark:text-scampi-600">|</span>
-          <button className="text-scampi-500 dark:text-scampi-600 text-sm font-normal">계정 찾기</button>
+          <button className="text-scampi-500 dark:text-scampi-600 text-sm font-normal">
+            계정 찾기
+          </button>
           <span className="text-scampi-400 dark:text-scampi-600">|</span>
-          <button className="text-scampi-500 dark:text-scampi-600 text-sm font-normal">비밀번호 찾기</button>
+          <button className="text-scampi-500 dark:text-scampi-600 text-sm font-normal">
+            비밀번호 찾기
+          </button>
         </div>
       </div>
 
@@ -91,4 +103,3 @@ const MainLogin = () => {
 };
 
 export default MainLogin;
-

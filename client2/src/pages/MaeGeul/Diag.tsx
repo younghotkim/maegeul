@@ -39,7 +39,7 @@ const Diag: React.FC = () => {
   useEffect(() => {
     const fetchProfileName = async () => {
       try {
-        const response = await fetch("http://localhost:3000/profile/1", {
+        const response = await fetch("http://localhost:5000/profile/2", {
           method: "GET",
           headers: {
             "Cache-Control": "no-cache", // 캐시 무효화

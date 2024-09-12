@@ -1,0 +1,39 @@
+import React, { createContext, useState, useContext, ReactNode } from "react";
+
+// 사용자 정보 타입 정의
+interface User {
+  profile_name: string | null;
+}
+
+// Context의 타입 정의
+interface UserContextType {
+  user: User | null;
+  setUser: (user: User) => void;
+}
+
+// UserContext 생성 (초기값 null로 설정)
+const UserContext = createContext<UserContextType | null>(null);
+
+// UserProvider 컴포넌트
+export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
+
+  console.log(user); // user 객체 확인
+
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+
+// 커스텀 Hook으로 UserContext 사용
+export const useUser = () => {
+  const context = useContext(UserContext);
+
+  if (!context) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
+
+  return context;
+};
