@@ -37,10 +37,10 @@ const MainLogin = () => {
         {/* 카카오 로그인 버튼 */}
         <button
           onClick={handleLogin}
-          className="w-[286px] h-[59px] rounded-full mt-4"
+          className=" rounded-full mt-10  shadow-md  transition-color "
         >
           <img
-            className="w-full h-full object-cover rounded-full"
+            className="w-[300px] h-[60px] object-cover transition-color rounded-full"
             src={KakaoIcon}
             alt="Kakao Login Button"
           />
@@ -50,9 +50,9 @@ const MainLogin = () => {
         <button
           type="button"
           onClick={handleEmailLoginClick}
-          className="bg-[#eaddff] text-scampi-700 w-[400px] h-[59px] rounded-full mt-4 text-2xl font-extrabold shadow-md transition-colors cursor-pointer hover:bg-scampi-700 hover:text-scampi-100 flex items-center justify-center"
+          className="bg-[#eaddff] text-scampi-700 w-[300px] h-[60px] rounded-full mt-4 text-2xl font-bold shadow-md transition-colors cursor-pointer hover:bg-scampi-700 hover:text-scampi-100 flex items-center justify-center"
         >
-          <img src={Email} className="w-6 h-6 mr-2" />
+          <img src={Email} className="w-6 h-6 mr-11" />
           이메일 로그인
         </button>
 
