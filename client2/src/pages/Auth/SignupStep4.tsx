@@ -1,11 +1,11 @@
-// 기존 구현했던 로컬로그인
+//기존 구현했던 로컬 로그인
 //client2/src/pages/Auth/Signup.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 
-const SignupForm3 = () => {
+const SignupStep4 = () => {
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
@@ -69,7 +69,7 @@ const SignupForm3 = () => {
     <Header/>
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-5">
     <h3 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">
-        Signup3 기존 로컬로그인구현<br/> 이름/닉네임/이메일/비밀번호
+        Signup4 기존 로컬로그인구현<br/> 이름/닉네임/이메일/비밀번호
       </h3>
     <form onSubmit={handleSignup} className="flex flex-col w-full max-w-lg mx-auto">
       {error && <div className="text-red-500 mb-2">{error}</div>}
@@ -108,7 +108,8 @@ const SignupForm3 = () => {
         회원가입
       </button>
       <div className="flex justify-between mt-4">
-        <Link to="/signup4" className="text-teal-500 hover:text-teal-700 transition-colors duration-300">로그인</Link>
+        <Link to="/login" className="text-teal-500 hover:text-teal-700 transition-colors duration-300">
+        로그인</Link>
       </div>
     </form>
     </div>
@@ -116,4 +117,4 @@ const SignupForm3 = () => {
   );
 };
 
-export default SignupForm3;
+export default SignupStep4;

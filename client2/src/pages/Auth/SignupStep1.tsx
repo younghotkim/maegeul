@@ -1,4 +1,4 @@
-//client2/src/pages/Auth/Signup.tsx
+//client2/src/pages/Auth/SignupStep1.tsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CheckIcon from '../../Icon/Check Circle Icon.png';
@@ -18,7 +18,7 @@ type OpenSections = {
   marketingConsent: boolean;
 };
 
-const Signup: React.FC = () => {
+const SignupStep1: React.FC = () => {
   // 체크박스 상태를 관리하기 위한 state
   const [checkedItems, setCheckedItems] = useState<CheckedItems>({
     all: false,
@@ -121,7 +121,7 @@ const Signup: React.FC = () => {
 
         {/* 다음 버튼 */}
         <div className="mt-8">
-          <Link to="/signup2">
+          <Link to="/signupstep2">
             <button className="w-full px-6 py-4 text-base font-bold text-white bg-scampi-600 rounded-3xl">
               다음
             </button>
@@ -132,4 +132,4 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup;
+export default SignupStep1;
