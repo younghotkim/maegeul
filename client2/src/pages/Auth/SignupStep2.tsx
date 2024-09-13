@@ -11,6 +11,7 @@ const SignupStep2: React.FC = () => {
     nickname: "",
     gender: "",
     age: "",
+    birthdate: "",
     profileImage: "",
   });
 
@@ -31,6 +32,23 @@ const SignupStep2: React.FC = () => {
     if (name in errors) {
       setErrors({ ...errors, [name]: value.trim() === "" });
     }
+  };
+
+  // 나이를 계산하는 함수
+  const calculateAge = (birthdate: string) => {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    // 생일이 아직 지나지 않았다면 나이에서 1을 뺌
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
   };
 
   // 회원가입 API 호출
@@ -56,6 +74,8 @@ const SignupStep2: React.FC = () => {
       return;
     }
 
+    const age = calculateAge(formData.birthdate);
+
     try {
       const response = await axios.post("http://localhost:5000/api/register", {
         email: formData.email,
@@ -63,7 +83,7 @@ const SignupStep2: React.FC = () => {
         username: formData.name,
         profile_name: formData.nickname,
         gender: formData.gender,
-
+        age,
         profile_picture: formData.profileImage,
       });
 
@@ -184,6 +204,23 @@ const SignupStep2: React.FC = () => {
           </div>
         </div>
 
+        {/* 생년월일 입력 섹션 */}
+        <div className="mb-6">
+          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">
+            생년월일 (YYYY-MM-DD)
+          </div>
+          <div className="w-full bg-slate-50 border border-gray-400 rounded-3xl p-3 flex justify-between items-center">
+            <input
+              type="text" // 텍스트 입력으로 생년월일을 입력받음
+              placeholder="YYYY-MM-DD"
+              name="birthdate"
+              value={formData.birthdate}
+              onChange={handleChange}
+              className="w-full bg-transparent text-gray-800 focus:outline-none"
+            />
+          </div>
+        </div>
+
         {/* 프로필 이미지 업로드 섹션 */}
         <div className="mb-6">
           <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">
@@ -217,7 +254,7 @@ const SignupStep2: React.FC = () => {
               setFormData({ ...formData, gender: e.target.value })
             }
           >
-            <option value="">성별 선택</option>
+            <option value="">선택 안함</option>
             <option value="male">남성</option>
             <option value="female">여성</option>
           </select>

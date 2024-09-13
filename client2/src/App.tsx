@@ -14,10 +14,8 @@ import EmailLogin from "./pages/Auth/EmailLogin";
 import SignupForm from "./pages/Auth/SignupStep1";
 import SignupForm2 from "./pages/Auth/SignupStep2";
 import SignupForm3 from "./pages/Auth/SignupStep3";
-import SignupForm4 from "./pages/Auth/SignupStep4";
 import Logout from "./pages/Auth/Logout";
 import LoginSuccess from "./pages/Auth/LoginSuccess";
-import LoginTest from "./pages/Auth/LoginTest";
 
 //Context
 import { HighlightProvider } from "./context/HighlightContext"; // PostProvider 임포트
@@ -45,7 +43,6 @@ const App: React.FC = () => {
               <Route path="/signupstep1" element={<SignupForm />} />
               <Route path="/signupstep2" element={<SignupForm2 />} />
               <Route path="/signupstep3" element={<SignupForm3 />} />
-              <Route path="/signupstep4" element={<SignupForm4 />} />
               <Route path="/logout" element={<Logout />} />
             </Routes>
           </Router>

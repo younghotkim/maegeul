@@ -14,8 +14,7 @@ const Header: React.FC = () => {
   });
   const navigate = useNavigate();
 
-  const { user } = useUser();
-  console.log(user); // user 객체 확인
+  const { user, setUser } = useUser(); // UserContext에서 user 가져오기
 
   useEffect(() => {
     // 다크 모드 초기 설정 적용
@@ -55,8 +54,9 @@ const Header: React.FC = () => {
   const handleLogout = () => {
     // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
     localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    navigate("/"); // 로그아웃 후 로그인 페이지로 리다이렉트
+    setIsLoggedIn(false); // 로그인 상태를 false로 설정
+    setUser(null); // 사용자 정보를 초기화하여 profile_name 제거
+    navigate("/"); // 로그아웃 후 메인 페이지로 리다이렉트
   };
 
   return (
@@ -94,11 +94,23 @@ const Header: React.FC = () => {
         >
           {isDarkMode ? "🔆" : "🌙"}
         </button>
-        <Link to="/mypage">
-          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full  hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+        {isLoggedIn ? (
+          <Link to="/mypage">
+            <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+              <img
+                className="inline-block w-[46px] h-[46px] rounded-full"
+                src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+                alt="Avatar"
+              />
+              <span className="ml-2">{user?.profile_name || "Guest"}</span>
+            </button>
+          </Link>
+        ) : (
+          <span className="text-sm text-scampi-700 dark:text-scampi-200">
             {user?.profile_name || "Guest"}
-          </button>
-        </Link>
+          </span>
+        )}
+
         {isLoggedIn ? (
           <button
             onClick={handleLogout}

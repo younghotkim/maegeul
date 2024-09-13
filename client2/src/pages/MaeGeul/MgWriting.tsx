@@ -12,6 +12,7 @@ import { useUser } from "../../context/UserContext"; // UserContext 임포트
 const MgWriting: React.FC = () => {
   const [content, setContent] = useState("");
   const [formattedDate, setFormattedDate] = useState("");
+  const [formattedDateOnly, setFormattedDateOnly] = useState(""); // 날짜만 표기할 상태 추가
   const [emotionResult, setEmotionResult] = useState<string | null>(null); // 분석 결과 상태 추가
   const [showModal, setShowModal] = useState(false); // 모달 상태 추가
   const maxLength = 500;
@@ -38,18 +39,26 @@ const MgWriting: React.FC = () => {
 
   useEffect(() => {
     const today = new Date();
+
     const formatted = `${today.getFullYear()}년 ${
       today.getMonth() + 1
     }월 ${today.getDate()}일 ${today.getHours()}시 ${today.getMinutes()}분`;
     setFormattedDate(formatted);
+
+    // 날짜만 포함한 포맷
+    const formattedOnlyDate = `${today.getFullYear()}년 ${
+      today.getMonth() + 1
+    }월 ${today.getDate()}일`;
+    setFormattedDateOnly(formattedOnlyDate);
   }, []);
 
-  const [title, setTitle] = useState(`${formattedDate}의 일기`); // 템플릿 리터럴로 초기값 설정
+  const [title, setTitle] = useState(`${formattedDateOnly}의 일기`); // 템플릿 리터럴로 초기값 설정
+  const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
 
   useEffect(() => {
     // formattedDate가 변경될 때 title도 업데이트
-    setTitle(`${formattedDate}의 일기`);
-  }, [formattedDate]);
+    setTitle(`${formattedDateOnly}의 일기`);
+  }, [formattedDateOnly]);
 
   const handleSave = async () => {
     try {
@@ -81,6 +90,33 @@ const MgWriting: React.FC = () => {
   };
 
   const colorName = highlightedColor ? getColorName(highlightedColor) : "";
+
+  const handleLabelClick = (label: string) => {
+    setSelectedLabels((prevLabels) => {
+      if (prevLabels.includes(label)) {
+        // 이미 포함된 키워드를 제거
+        const updatedLabels = prevLabels.filter(
+          (prevLabel) => prevLabel !== label
+        );
+        updateTitle(updatedLabels); // title 업데이트
+        return updatedLabels;
+      } else {
+        // 키워드를 추가
+        const updatedLabels = [...prevLabels, label];
+        updateTitle(updatedLabels); // title 업데이트
+        return updatedLabels;
+      }
+    });
+  };
+
+  // title 업데이트 함수 (키워드 배열을 기반으로 제목 생성)
+  const updateTitle = (labels: string[]) => {
+    if (labels.length === 0) {
+      setTitle(`${formattedDateOnly}의 일기`); // 선택된 키워드가 없으면 기본 제목
+    } else {
+      setTitle(`${formattedDateOnly}의 일기 #${labels.join("#")}`);
+    }
+  };
 
   return (
     <>
@@ -134,6 +170,7 @@ const MgWriting: React.FC = () => {
                   {highlightedLabels.map((label) => (
                     <span
                       key={label}
+                      onClick={() => handleLabelClick(label)}
                       className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-3 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors ml-1"
                     >
                       {label}

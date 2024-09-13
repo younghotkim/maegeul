@@ -8,7 +8,7 @@ interface User {
 // Context의 타입 정의
 interface UserContextType {
   user: User | null;
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
 }
 
 // UserContext 생성 (초기값 null로 설정)
@@ -16,9 +16,7 @@ const UserContext = createContext<UserContextType | null>(null);
 
 // UserProvider 컴포넌트
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-
-  console.log(user); // user 객체 확인
+  const [user, setUser] = useState<User | null>(null); // 사용자 상태 관리
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

@@ -45,7 +45,6 @@ exports.register = (req, res) => {
 };
 
 exports.login = (req, res) => {
-  console.log("Login request received", req.body); // 로그 추가
   const { email, password } = req.body;
 
   // 로그인 처리
