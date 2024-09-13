@@ -1,5 +1,8 @@
 const userModel = require("../models/user");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
 // 회원가입 컨트롤러
 exports.register = (req, res) => {
@@ -41,7 +44,6 @@ exports.register = (req, res) => {
   });
 };
 
-// 로그인 컨트롤러
 exports.login = (req, res) => {
   console.log("Login request received", req.body); // 로그 추가
   const { email, password } = req.body;
@@ -61,7 +63,24 @@ exports.login = (req, res) => {
     }
 
     console.log("Login successful for user:", user.profile_name);
-    res.status(200).json({ message: "로그인 성공", user });
+
+    // JWT 토큰 생성
+    const token = jwt.sign(
+      { userId: user.id, profileName: user.profile_name }, // 토큰에 포함할 정보
+      JWT_SECRET, // 비밀키
+      { expiresIn: "1h" } // 토큰 유효 기간 설정
+    );
+
+    // 토큰과 사용자 정보를 함께 클라이언트로 반환
+    res.status(200).json({
+      message: "로그인 성공",
+      token, // 생성된 JWT 토큰
+      user: {
+        id: user.id,
+        profileName: user.profile_name,
+        email: user.email,
+      },
+    });
   });
 };
 
