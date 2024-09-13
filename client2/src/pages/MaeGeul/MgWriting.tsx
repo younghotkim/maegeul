@@ -7,6 +7,7 @@ import Folder from "../../Icon/Folder.png";
 import MgModal from "./MgModal"; // 모달 컴포넌트 임포트
 import { useHighlightContext } from "../../context/HighlightContext"; // Context 임포트
 import { useMoodContext } from "../../context/MoodContext"; // Context 훅 임포트
+import { useUser } from "../../context/UserContext"; // UserContext 임포트
 
 const MgWriting: React.FC = () => {
   const [content, setContent] = useState("");
@@ -16,6 +17,8 @@ const MgWriting: React.FC = () => {
   const maxLength = 500;
   const { highlightedLabels, highlightedColor } = useHighlightContext(); // 강조된 라벨과 색상 가져오기
   const { pleasantness, energy } = useMoodContext();
+  // UserContext에서 사용자 정보 가져오기
+  const { user } = useUser();
 
   // RGB 값에 따른 색상 이름 반환 함수
   const getColorName = (rgb: string) => {
@@ -95,6 +98,7 @@ const MgWriting: React.FC = () => {
                 작성 안내
                 <br />
                 <br />
+                {user?.profile_name}님의 일기. <br />
                 1. 감정을 느낀 구체적인"상황"과 그 때 나의 "행동", "생각"을
                 포함해 적어보세요.
                 <br />
@@ -152,7 +156,9 @@ const MgWriting: React.FC = () => {
             </div>
             <textarea
               className="w-full h-[400px] text-lg mt-4 p-4 border border-transparent rounded-lg resize-none dark:bg-gray-600 dark:text-white"
-              placeholder="오늘 하루 어떠셨나요? 오늘 내가 느낀 감정을 일으킨 상황과 함께 구체적으로 작성해보세요."
+              placeholder={`${
+                user?.profile_name || ""
+              }님의 오늘 하루 어떠셨나요? 오늘 내가 느낀 감정을 일으킨 상황과 함께 구체적으로 작성해보세요.`}
               maxLength={maxLength}
               value={content}
               onChange={(e) => setContent(e.target.value)}

@@ -1,34 +1,82 @@
-//client2/src/pages/Auth/Signup2.tsx
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom"; // useNavigate 추가
+import axios from "axios"; // Axios 추가
 
 const SignupStep2: React.FC = () => {
+  const navigate = useNavigate(); // 회원가입 성공 후 페이지 이동을 위한 useNavigate
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: '',
-    nickname: '',
-    gender: '',
-    year: '',
-    month: '',
-    day: '',
-    profileImage: '',
+    email: "",
+    password: "",
+    name: "",
+    nickname: "",
+    gender: "",
+    age: "",
+    profileImage: "",
   });
 
   const [errors, setErrors] = useState({
     email: false,
     password: false,
     name: false,
-    nickname: false
+    nickname: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
     // 필수 입력 값 체크
     if (name in errors) {
-      setErrors({ ...errors, [name]: value.trim() === '' });
+      setErrors({ ...errors, [name]: value.trim() === "" });
+    }
+  };
+
+  // 회원가입 API 호출
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // 필수 값 검증
+    const requiredFields = ["email", "password", "name", "nickname"];
+    const hasErrors = requiredFields.some(
+      (field) => formData[field as keyof typeof formData].trim() === ""
+    );
+
+    if (hasErrors) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        requiredFields.forEach((field) => {
+          if (formData[field as keyof typeof formData].trim() === "") {
+            newErrors[field as keyof typeof errors] = true;
+          }
+        });
+        return newErrors;
+      });
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/register", {
+        email: formData.email,
+        password: formData.password,
+        username: formData.name,
+        profile_name: formData.nickname,
+        gender: formData.gender,
+
+        profile_picture: formData.profileImage,
+      });
+
+      if (response.status === 201) {
+        console.log("회원가입 성공", response.data);
+        // 회원가입 성공 후 다음 단계로 이동
+        navigate("/signupstep3");
+      }
+    } catch (err) {
+      console.error("회원가입 실패:", err);
+      if (axios.isAxiosError(err) && err.response) {
+        console.error("에러 메시지:", err.response.data.message);
+      }
     }
   };
 
@@ -36,20 +84,29 @@ const SignupStep2: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center p-5 dark:bg-gray-800">
+    <form
+      onSubmit={handleSubmit} // Form 제출 시 handleSubmit 호출
+      className="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center p-5 dark:bg-gray-800"
+    >
       <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-md dark:bg-gray-900 relative">
-        {/* Step 1 Header */}
-        <h2 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">STEP 2</h2>
-         {/*  구분선 */}
-        <div className="w-full border-t-8 border-scampi-500 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300">
-        </div>
-        <h3 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">나의 정보 입력하기</h3>
-
+        <h2 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">
+          STEP 2
+        </h2>
+        <div className="w-full border-t-8 border-scampi-500 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300"></div>
+        <h3 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">
+          나의 정보 입력하기
+        </h3>
 
         {/* 이메일 입력 섹션 */}
         <div className="mb-6">
-          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">이메일</div>
-          <div className={`w-full bg-slate-50 border ${errors.email ? 'border-red-500' : 'border-gray-400'} rounded-3xl p-3 flex justify-between items-center`}>
+          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">
+            이메일
+          </div>
+          <div
+            className={`w-full bg-slate-50 border ${
+              errors.email ? "border-red-500" : "border-gray-400"
+            } rounded-3xl p-3 flex justify-between items-center`}
+          >
             <input
               type="text"
               placeholder="example@email.com"
@@ -63,8 +120,14 @@ const SignupStep2: React.FC = () => {
 
         {/* 비밀번호 입력 섹션 */}
         <div className="mb-6">
-          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">비밀번호</div>
-          <div className={`w-full bg-slate-50 border ${errors.password ? 'border-red-500' : 'border-gray-400'} rounded-3xl p-3 flex justify-between items-center`}>
+          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">
+            비밀번호
+          </div>
+          <div
+            className={`w-full bg-slate-50 border ${
+              errors.password ? "border-red-500" : "border-gray-400"
+            } rounded-3xl p-3 flex justify-between items-center`}
+          >
             <input
               type="password"
               placeholder="영문 포함 6자 이상 포함해주세요."
@@ -78,8 +141,14 @@ const SignupStep2: React.FC = () => {
 
         {/* 이름 입력 섹션 */}
         <div className="mb-6">
-          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">이름</div>
-          <div className={`w-full bg-slate-50 border ${errors.name ? 'border-red-500' : 'border-gray-400'} rounded-3xl p-3 flex justify-between items-center`}>
+          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">
+            이름
+          </div>
+          <div
+            className={`w-full bg-slate-50 border ${
+              errors.name ? "border-red-500" : "border-gray-400"
+            } rounded-3xl p-3 flex justify-between items-center`}
+          >
             <input
               type="text"
               placeholder="예> 홍길동"
@@ -93,8 +162,14 @@ const SignupStep2: React.FC = () => {
 
         {/* 닉네임 입력 섹션 */}
         <div className="mb-6">
-          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">닉네임</div>
-          <div className={`w-full bg-slate-50 border ${errors.nickname ? 'border-red-500' : 'border-gray-400'} rounded-3xl p-3 flex justify-between items-center`}>
+          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">
+            닉네임
+          </div>
+          <div
+            className={`w-full bg-slate-50 border ${
+              errors.nickname ? "border-red-500" : "border-gray-400"
+            } rounded-3xl p-3 flex justify-between items-center`}
+          >
             <input
               type="text"
               placeholder="예> Kenzi"
@@ -103,31 +178,44 @@ const SignupStep2: React.FC = () => {
               onChange={handleChange}
               className="w-full bg-transparent text-gray-800 focus:outline-none"
             />
-            <button className="ml-2 px-4 py-1 text-scampi-600 border border-scampi-600 rounded-full text-sm">중복확인</button>
+            <button className="ml-2 px-4 py-1 text-scampi-600 border border-scampi-600 rounded-full text-sm">
+              중복확인
+            </button>
           </div>
         </div>
 
         {/* 프로필 이미지 업로드 섹션 */}
         <div className="mb-6">
-          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">프로필 이미지</div>
+          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">
+            프로필 이미지
+          </div>
           <div className="Input w-64 h-72 bg-slate-50 rounded-3xl border border-gray-400 flex items-center justify-center mb-4">
-            {/* 이미지 미리보기 */}
             {formData.profileImage ? (
-              <img src={formData.profileImage} alt="Profile Preview" className="object-cover w-full h-full rounded-3xl" />
+              <img
+                src={formData.profileImage}
+                alt="Profile Preview"
+                className="object-cover w-full h-full rounded-3xl"
+              />
             ) : (
               <span className="text-gray-400">이미지를 업로드하세요.</span>
             )}
           </div>
-          <button className="px-4 py-2 text-white bg-scampi-600 rounded-3xl">이미지 선택</button>
+          <button className="px-4 py-2 text-white bg-scampi-600 rounded-3xl">
+            이미지 선택
+          </button>
         </div>
 
         {/* 성별 입력 섹션 */}
         <div className="mb-6">
-          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">성별</div>
+          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">
+            성별
+          </div>
           <select
             className="w-full bg-slate-50 border border-gray-400 rounded-3xl p-3 text-gray-800"
             value={formData.gender}
-            onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, gender: e.target.value })
+            }
           >
             <option value="">성별 선택</option>
             <option value="male">남성</option>
@@ -135,70 +223,18 @@ const SignupStep2: React.FC = () => {
           </select>
         </div>
 
-        {/* 생년월일 입력 섹션 */}
-        <div className="mb-6">
-          <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">생년월일</div>
-          <div className="flex space-x-2">
-            {/* 연도 선택 */}
-            <select
-              name="year"
-              value={formData.year}
-              onChange={handleChange}
-              className="w-1/3 bg-slate-50 border border-gray-400 rounded-3xl p-3 text-gray-800"
-            >
-              <option value="">년</option>
-              {[...Array(currentYear - 1945 + 1)].map((_, i) => (
-                <option key={i} value={1945 + i}>
-                  {1945 + i}년
-                </option>
-              ))}
-            </select>
-
-            {/* 월 선택 */}
-            <select
-              name="month"
-              value={formData.month}
-              onChange={handleChange}
-              className="w-1/3 bg-slate-50 border border-gray-400 rounded-3xl p-3 text-gray-800"
-            >
-              <option value="">월</option>
-              {[...Array(12)].map((_, i) => (
-                <option key={i} value={i + 1}>
-                  {i + 1}월
-                </option>
-              ))}
-            </select>
-
-            {/* 일 선택 */}
-            <select
-              name="day"
-              value={formData.day}
-              onChange={handleChange}
-              className="w-1/3 bg-slate-50 border border-gray-400 rounded-3xl p-3 text-gray-800"
-            >
-              <option value="">일</option>
-              {[...Array(31)].map((_, i) => (
-                <option key={i} value={i + 1}>
-                  {i + 1}일
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
         {/* 완료 버튼 */}
         <div className="mt-8">
-          <Link to="/signupstep3">
-            <button className="w-full px-6 py-4 text-base font-bold text-white bg-scampi-600 rounded-3xl">
-              회원가입 완료
-            </button>
-          </Link>
+          <button
+            type="submit"
+            className="w-full px-6 py-4 text-base font-bold text-white bg-scampi-600 rounded-3xl"
+          >
+            회원가입 완료
+          </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
 export default SignupStep2;
-
-

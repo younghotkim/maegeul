@@ -4,20 +4,23 @@ import EnergySlider from "../../components/EnergySlider";
 import MoodMeter from "../../components/MoodMeter";
 import { Link } from "react-router-dom";
 import { useHighlightContext } from "../../context/HighlightContext"; // Context 임포트
+import { useUser } from "../../context/UserContext"; // UserContext 임포트
 
 const Diag: React.FC = () => {
   const [moodValue, setMoodValue] = useState<number>(1);
   const [energyValue, setEnergyValue] = useState<number>(1);
   const [submitted, setSubmitted] = useState(false);
-  const [profileName, setProfileName] = useState(""); // profile_name을 저장할 상태
+
+  // UserContext에서 사용자 정보 가져오기
+  const { user } = useUser();
+
+  // HighlightContext 사용
   const {
     highlightedLabels,
     setHighlightedLabels,
     highlightedColor,
     setHighlightedColor,
-  } = useHighlightContext(); // Context 사용
-
-  const userId = 1;
+  } = useHighlightContext();
 
   // RGB 값에 따른 색상 이름 반환 함수
   const getColorName = (rgb: string) => {
@@ -34,29 +37,6 @@ const Diag: React.FC = () => {
         return "알 수 없는 색상";
     }
   };
-
-  // API 호출해서 profile_name 가져오기
-  useEffect(() => {
-    const fetchProfileName = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/profile/2", {
-          method: "GET",
-          headers: {
-            "Cache-Control": "no-cache", // 캐시 무효화
-          },
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setProfileName(data.profile_name);
-      } catch (error) {
-        console.error("Error fetching profile name:", error);
-      }
-    };
-
-    fetchProfileName();
-  }, [userId]);
 
   const handleMoodChange = (value: number) => {
     setMoodValue(value);
@@ -93,7 +73,7 @@ const Diag: React.FC = () => {
     return (
       <div className="text-center p-4">
         <p className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mt-10 mb-5">
-          오늘 {profileName}님의 무드 컬러는 {colorName}
+          오늘 {user?.profile_name}님의 무드 컬러는 {colorName}
           {highlightedColor && (
             <span
               style={{
