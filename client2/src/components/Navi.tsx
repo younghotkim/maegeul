@@ -49,7 +49,7 @@ const Navi: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-auto p-8 flex flex-col items-center">
+    <div className="relative w-full h-auto p-20 flex flex-col items-center">
       <h1 className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mb-12">
         나를 발견하기 위한 공간
       </h1>
@@ -76,7 +76,7 @@ const Navi: React.FC = () => {
 
         {/* 오른쪽: 큰 카드 */}
         <Link
-          to="/mydiary"
+          to="/mypage"
           className={`group w-[623px] h-full bg-scampi-50 dark:bg-scampi-900 rounded-2xl p-8 flex flex-col justify-between transition-all duration-1000 ${
             isVisible.cards
               ? "opacity-100 translate-x-0"
