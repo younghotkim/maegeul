@@ -56,11 +56,11 @@ const Header: React.FC = () => {
     // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate("/mainlogin"); // 로그아웃 후 로그인 페이지로 리다이렉트
+    navigate("/"); // 로그아웃 후 로그인 페이지로 리다이렉트
   };
 
   return (
-    <header className="sticky top-0 z-50 flex justify-between items-center w-full p-10 dark:bg-scampi-800 shadow-sm">
+    <header className="sticky top-0 z-50 flex justify-between items-center w-full p-10 dark:bg-scampi-800">
       <Link to="/home">
         <button className="flex items-center text-xl bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">
           <img src={pencilIcon} className="w-8 h-8 mr-2" alt="Pencil Icon" />{" "}
@@ -71,23 +71,23 @@ const Header: React.FC = () => {
 
       <nav className="flex gap-2">
         <Link to="/maegeul">
-          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full  hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
             매일 글쓰기
           </button>
         </Link>
         <Link to="/emotionForm">
-          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full  hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
             AI 하루진단
           </button>
         </Link>
         <Link to="/article">
-          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full  hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
             추천 아티클
           </button>
         </Link>
       </nav>
 
-      <nav className="flex gap-2 items-center">
+      <nav className="flex gap-7 items-center">
         <button
           onClick={toggleDarkMode}
           className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
@@ -95,7 +95,7 @@ const Header: React.FC = () => {
           {isDarkMode ? "🔆" : "🌙"}
         </button>
         <Link to="/mypage">
-          <button className="w-8 h-8 p-1 bg-transparent border-0 dark:text-scampi-200">
+          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full  hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
             {user?.profile_name || "Guest"}
           </button>
         </Link>
