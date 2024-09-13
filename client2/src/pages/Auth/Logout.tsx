@@ -1,7 +1,5 @@
-//client2/src/pages/Auth/Logout.tsx
 import React, { useEffect } from "react";
-import axios from "axios";
-import { Link, useNavigate } from 'react-router-dom'; // `useNavigate` 훅을 사용하여 리다이렉트
+import { useNavigate } from "react-router-dom"; // `useNavigate` 훅을 사용하여 리다이렉트
 
 const LogoutForm = () => {
   const navigate = useNavigate(); // 리다이렉트 훅
@@ -9,18 +7,22 @@ const LogoutForm = () => {
   useEffect(() => {
     const handleLogout = async () => {
       try {
-        await axios.post("http://localhost:5000/users/logout");
-        localStorage.removeItem("token"); // 토큰 제거
-        navigate("/"); // 메인 페이지로 리다이렉트
+        // 로컬 스토리지에서 토큰 제거
+        localStorage.removeItem("token");
+        // 로그아웃 성공 시 홈 페이지로 리다이렉트
+        navigate("/");
       } catch (err) {
         console.error("로그아웃에 실패했습니다.", err);
+        // 만약 로그아웃 실패 시 사용자에게 오류 메시지 표시 가능 (예: 에러 페이지 이동)
+        // navigate("/error");
       }
     };
 
     handleLogout();
   }, [navigate]);
 
-  return null; // 이 컴포넌트는 UI를 렌더링하지 않습니다.
+  // 이 컴포넌트는 UI를 렌더링하지 않음 (렌더할 필요 없음)
+  return null;
 };
 
 export default LogoutForm;
