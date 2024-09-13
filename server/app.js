@@ -7,7 +7,6 @@ const dotenv = require("dotenv");
 // 라우트 파일들
 const authRoutes = require("./routes/auth");
 const analyzeRoute = require("./routes/analyze");
-const profileRoutes = require("./routes/profile");
 const userRoutes = require("./routes/user"); // 라우트 파일 임포트
 
 dotenv.config();
@@ -39,7 +38,6 @@ app.use(passport.session());
 // 라우트 설정
 app.use("/auth", authRoutes); // 인증 관련 API
 app.use("/api/analyze", analyzeRoute); // AI 감정 분석 API
-app.use("/", profileRoutes); // 사용자 정보 조회
 
 // 사용자 라우트 등록
 app.use("/api", userRoutes); // '/api' 경로 하위에 사용자 관련 라우트를 등록
