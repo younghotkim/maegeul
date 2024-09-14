@@ -87,7 +87,7 @@ const LoginForm = () => {
       </button>
       <div className="flex justify-between mt-4">
         <Link
-          to="/Signup"
+          to="/MainSignup"
           className="text-scampi-500 hover:text-scampi-700 transition-colors duration-300"
         >
           회원가입
