@@ -1,39 +1,25 @@
 const userModel = require("../models/user");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
 // 회원가입 컨트롤러
 exports.register = (req, res) => {
-  const {
-    username,
-    email,
-    profile_name,
-    password,
-    age,
-    gender,
-    login_type,
-    profile_picture,
-  } = req.body;
+  const { email, password, username, profile_name, age, gender, login_type } =
+    req.body;
 
-  if (!username || !email || !profile_name || !password) {
-    return res.status(400).json({ message: "필수 필드를 입력해주세요." });
-  }
+  const profileImagePath = req.file ? `/uploads/${req.file.filename}` : null; // 업로드된 파일 경로 설정
 
-  // 회원가입 데이터 생성
   const userData = {
-    username,
     email,
-    profile_name,
     password,
+    username,
+    profile_name,
     age,
     gender,
     login_type,
-    profile_picture,
+    profile_picture: profileImagePath,
   };
 
-  // 회원가입 처리
   userModel.insert(userData, (err, user_id) => {
     if (err) {
       return res
@@ -78,6 +64,7 @@ exports.login = (req, res) => {
         id: user.id,
         profileName: user.profile_name,
         email: user.email,
+        profile_picture: user.profile_picture,
       },
     });
   });
@@ -100,7 +87,17 @@ exports.getUser = (req, res) => {
       return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
     }
 
-    res.status(200).json({ message: "회원 정보 조회 성공", user });
+    // 프로필 이미지 경로가 포함된 사용자 정보를 응답
+    res.status(200).json({
+      message: "회원 정보 조회 성공",
+      user: {
+        user_id: user.user_id,
+        username: user.username,
+        email: user.email,
+        profile_name: user.profile_name,
+        profile_picture: user.profile_picture, // 프로필 이미지 경로 포함
+      },
+    });
   });
 };
 

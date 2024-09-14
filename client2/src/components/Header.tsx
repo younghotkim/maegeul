@@ -99,8 +99,12 @@ const Header: React.FC = () => {
             <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
               <img
                 className="inline-block w-[46px] h-[46px] rounded-full"
-                src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                alt="Avatar"
+                src={
+                  user?.profile_picture
+                    ? `http://localhost:5000${user.profile_picture}`
+                    : `${UserPurple}`
+                }
+                alt="프로필 사진"
               />
               <span className="ml-2">{user?.profile_name || "Guest"}</span>
             </button>

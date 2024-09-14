@@ -22,30 +22,41 @@ const LoginForm = () => {
     e.preventDefault();
     setError(""); // 이전 에러 초기화
 
-    console.log("로그인 요청을 보냅니다:", email, password);
-
     try {
-      const response = await axios.post("http://localhost:5000/api/login", {
-        email,
-        password,
-      });
+      // 로그인 API 호출
+      const loginResponse = await axios.post(
+        "http://localhost:5000/api/login",
+        {
+          email,
+          password,
+        }
+      );
 
-      console.log("응답을 받았습니다:", response);
+      console.log("로그인 응답 데이터:", loginResponse.data);
 
-      // 로그인 성공 시
-      if (response.data && response.data.token) {
-        console.log("토큰을 받았습니다:", response.data.token);
+      // 로그인 성공 시 토큰과 사용자 정보 저장
+      if (
+        loginResponse.data &&
+        loginResponse.data.token &&
+        loginResponse.data.user
+      ) {
+        const token = loginResponse.data.token;
 
-        localStorage.setItem("token", response.data.token); // JWT 토큰을 로컬 스토리지에 저장
-        // UserContext에 사용자 정보 저장
+        localStorage.setItem("token", token); // JWT 토큰을 로컬 스토리지에 저장
+
+        // 사용자 정보를 UserContext에 저장
         setUser({
-          profile_name: response.data.user.profileName, // 응답으로 받은 사용자 정보
+          profile_name: loginResponse.data.user.profileName,
+          profile_picture: loginResponse.data.user.profile_picture || null, // 프로필 사진 경로 처리
         });
-        navigate("/"); // 메인 페이지로 리다이렉트
+
+        // 메인 페이지로 리다이렉트
+        navigate("/"); // navigate로 이동
+      } else {
+        setError("로그인 응답에 필요한 데이터가 없습니다.");
       }
     } catch (err: any) {
       console.log("에러가 발생했습니다:", err);
-      // 로그인 실패 시
       if (err.response && err.response.data) {
         setError(err.response.data.msg || "로그인에 실패했습니다.");
       } else {
