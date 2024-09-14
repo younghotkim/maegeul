@@ -1,5 +1,5 @@
 // src/components/Tooltip.tsx
-import React from 'react';
+import React from "react";
 
 interface TooltipProps {
   message: string;

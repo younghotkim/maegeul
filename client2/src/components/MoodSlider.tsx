@@ -18,6 +18,14 @@ interface MoodSliderProps {
   onSubmit: () => void;
 }
 
+const emojis = [
+  { range: [1, 2], gif: Emoji_1, png: Stop_1 },
+  { range: [3, 4], gif: Emoji_3, png: Stop_3 },
+  { range: [5, 6], gif: Emoji_5, png: Stop_5 },
+  { range: [7, 8], gif: Emoji_7, png: Stop_7 },
+  { range: [9, 10], gif: Emoji_9, png: Stop_9 },
+];
+
 const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
   const [value, setValue] = useState<number>(1);
 
@@ -46,86 +54,16 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
         </p>
         <div className="relative w-full mx-auto py-8">
           <div className="relative w-20 flex items-center justify-between gap-20">
-            {
-              //1또는 2일때, 삼항연산자 사용
-              value === 1 || value === 2 ? (
-                <img
-                  src={Emoji_1}
-                  className="emoji-style"
-                  style={{ left: `${(2 / 10) * 100}%` }}
-                /> // GIF
-              ) : (
-                <img
-                  src={Stop_1}
-                  className="emoji-style"
-                  style={{ left: `${(2 / 10) * 100}%` }}
-                />
-              ) // PNG
-            }
-            {
-              //3또는 4일때, 삼항연산자 사용
-              value === 3 || value === 4 ? (
-                <img
-                  src={Emoji_3}
-                  className="emoji-style"
-                  style={{ left: `${(3 / 10) * 100}%` }}
-                /> // GIF
-              ) : (
-                <img
-                  src={Stop_3}
-                  className="emoji-style"
-                  style={{ left: `${(3 / 10) * 100}%` }}
-                />
-              ) // PNG
-            }
-            {
-              //5또는 6일때, 삼항연산자 사용
-              value === 5 || value === 6 ? (
-                <img
-                  src={Emoji_5}
-                  className="emoji-style"
-                  style={{ left: `${(5 / 10) * 100}%` }}
-                /> // GIF
-              ) : (
-                <img
-                  src={Stop_5}
-                  className="emoji-style"
-                  style={{ left: `${(5 / 10) * 100}%` }}
-                />
-              ) // PNG
-            }
-            {
-              //7또는 8일때, 삼항연산자 사용
-              value === 7 || value === 8 ? (
-                <img
-                  src={Emoji_7}
-                  className="emoji-style"
-                  style={{ left: `${(7 / 10) * 100}%` }}
-                /> // GIF
-              ) : (
-                <img
-                  src={Stop_7}
-                  className="emoji-style"
-                  style={{ left: `${(7 / 10) * 100}%` }}
-                />
-              ) // PNG
-            }
-            {
-              //9또는 10일때, 삼항연산자 사용
-              value === 9 || value === 10 ? (
-                <img
-                  src={Emoji_9}
-                  className="emoji-style"
-                  style={{ left: `${(9 / 10) * 100}%` }}
-                /> // GIF
-              ) : (
-                <img
-                  src={Stop_9}
-                  className="emoji-style"
-                  style={{ left: `${(9 / 10) * 100}%` }}
-                />
-              ) // PNG
-            }
+            {/* 배열을 순회하며 삼항연산자 대신 .map() 함수를 사용하여 이미지 소스와 위치를 동적으로 설정 */}
+            {emojis.map(({ range, gif, png }, index) => (
+              <img
+                key={index}
+                src={value >= range[0] && value <= range[1] ? gif : png}
+                className="emoji-style"
+                style={{ left: `${((range[0] + range[1]) / 2 / 10) * 100}%` }}
+                alt={`emoji-${range[0]}`}
+              />
+            ))}
           </div>
           <div className="relative w-full mt-4">
             <input
@@ -136,16 +74,6 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
               onChange={handleSliderChange}
               className="mood-slider"
             />
-            {/* 슬라이더 구분 선 */}
-            {/* <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((mark) => (
-                <div
-                  key={mark}
-                  className="slider-mark"
-                  style={{ left: `${(mark / 11) * 100}%` }}
-                ></div>
-              ))}
-            </div> */}
           </div>
           <div className="flex justify-between text-scampi-700 mt-4">
             <span>1</span>
