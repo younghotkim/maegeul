@@ -46,6 +46,8 @@ const LoginForm = () => {
 
         // 사용자 정보를 UserContext에 저장
         setUser({
+          user_id: loginResponse.data.user_id,
+          email: loginResponse.data.user.email,
           profile_name: loginResponse.data.user.profileName,
           profile_picture: loginResponse.data.user.profile_picture || null, // 프로필 사진 경로 처리
         });

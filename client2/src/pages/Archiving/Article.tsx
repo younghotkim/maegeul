@@ -1,11 +1,13 @@
 // src/pages/Archiving/Article.tsx
-import React from 'react';
-import Header from '../../components/Header';
-import MoodMeter from '../../components/MoodMeter'
+import React from "react";
+import Dashboard from "../../components/DashBoard";
 
 const Article: React.FC = () => {
-    return (
-        <><Header /></>
-    );
-}
-    export default Article;
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
+};
+
+export default Article;

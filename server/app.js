@@ -7,9 +7,11 @@ const fs = require("fs");
 const path = require("path");
 
 // 라우트 파일들
-const authRoutes = require("./routes/auth");
 const analyzeRoute = require("./routes/analyze");
-const userRoutes = require("./routes/user"); // 라우트 파일 임포트
+const userRoutes = require("./routes/user");
+const kakaoAuthRoutes = require("./routes/kakao");
+
+require("./config/passport");
 
 dotenv.config();
 
@@ -40,7 +42,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // 라우트 설정
-app.use("/auth", authRoutes); // 인증 관련 API
 app.use("/api/analyze", analyzeRoute); // AI 감정 분석 API
 
 // 사용자 라우트 등록
@@ -49,20 +50,12 @@ app.use("/api", userRoutes); // '/api' 경로 하위에 사용자 관련 라우�
 // Static file serving (for profile pictures)
 app.use("/uploads", express.static("uploads")); // 정적 파일 경로 설정
 
+app.use("/", kakaoAuthRoutes);
+
 // 기본 라우트
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
-
-// Kakao 인증 콜백 처리
-app.get(
-  "/auth/kakao/callback",
-  passport.authenticate("kakao", { session: false }),
-  (req, res) => {
-    const { token } = req.user;
-    res.redirect(`http://localhost:3000/login/success?token=${token}`);
-  }
-);
 
 // 서버 시작
 const PORT = process.env.PORT || 5000;
