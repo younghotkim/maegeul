@@ -6,6 +6,7 @@ interface User {
   email: string | null;
   profile_name: string | null;
   profile_picture?: string | null; // 프로필 이미지 경로 추가
+  isKakaoUser: boolean;
 }
 
 // Context의 타입 정의
