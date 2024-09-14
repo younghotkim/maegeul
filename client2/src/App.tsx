@@ -16,6 +16,7 @@ import SignupForm2 from "./pages/Auth/SignupStep2";
 import SignupForm3 from "./pages/Auth/SignupStep3";
 import Logout from "./pages/Auth/Logout";
 import LoginSuccess from "./pages/Auth/LoginSuccess";
+import KakaoCallback from "./pages/Auth/KakaoCallback";
 
 //Context
 import { HighlightProvider } from "./context/HighlightContext"; // PostProvider 임포트
@@ -40,6 +41,7 @@ const App: React.FC = () => {
               <Route path="/mypage" element={<Mypage />} />
               <Route path="/mainlogin" element={<MainLogin />} />
               <Route path="/mainsignup" element={<MainSignup />} />
+              <Route path="/kakao/callback" element={<KakaoCallback />} />
               <Route path="/signupstep1" element={<SignupForm />} />
               <Route path="/signupstep2" element={<SignupForm2 />} />
               <Route path="/signupstep3" element={<SignupForm3 />} />

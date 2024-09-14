@@ -6,6 +6,7 @@ import Facebook from "../../Icon/Facebook.png";
 import Google from "../../Icon/Google.png";
 import KakaoIcon from "../../Icon/kakao_login.png.png";
 import Email from "../../Icon/Email.png";
+import axios from "axios";
 
 const MainLogin = () => {
   const navigate = useNavigate();
@@ -18,10 +19,40 @@ const MainLogin = () => {
     navigate("/mainsignup");
   };
 
-  const handleLogin = () => {
-    window.location.href = "http://localhost:5000/auth/kakao";
+  const handleLogin = async () => {
+    try {
+      window.location.href = "http://localhost:5000/auth/kakao"; // 카카오 인증 요청
+    } catch (error) {
+      console.error("카카오 로그인 요청 실패:", error);
+    }
   };
 
+  // 백엔드에서 리다이렉트된 후 토큰과 사용자 정보를 받아서 처리하는 함수
+  const handleKakaoCallback = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/auth/kakao/callback"
+      ); // 카카오 콜백 요청
+
+      if (response.data && response.data.token) {
+        const { token, user } = response.data;
+
+        // 토큰 저장
+        localStorage.setItem("token", token);
+
+        // UserContext에 사용자 정보 저장 (useUser 훅 사용)
+        setUser({
+          userId: user.userId, // 반환된 userId 저장
+          profile_name: user.profileName,
+          profile_picture: user.profilePicture,
+        });
+
+        navigate("/"); // 로그인 후 메인 페이지로 리다이렉트
+      }
+    } catch (error) {
+      console.error("카카오 콜백 처리 오류:", error);
+    }
+  };
   return (
     <>
       <div className="h-screen flex flex-col items-center justify-center bg-gray-100 p-5 dark:bg-gray-800 dark:text-white">
@@ -103,3 +134,10 @@ const MainLogin = () => {
 };
 
 export default MainLogin;
+function setUser(arg0: {
+  userId: any; // 반환된 userId 저장
+  profile_name: any;
+  profile_picture: any;
+}) {
+  throw new Error("Function not implemented.");
+}

@@ -4,21 +4,26 @@ const connection = require("../db"); // MySQL 연결
 // 회원가입 정보 입력
 exports.insert = async (data, cb) => {
   try {
-    // 비밀번호 암호화
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    let hashedPassword = null;
+
+    // 비밀번호가 있을 때만 해시, 카카오 로그인 등 비밀번호가 없는 경우 null 유지
+    if (data.password) {
+      hashedPassword = await bcrypt.hash(data.password, 10);
+    }
+
     const sql = `INSERT INTO User (username, email, profile_name, password, age, gender, login_type, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
     connection.query(
       sql,
       [
-        data.username,
+        data.username || data.profile_name, // username이 없으면 profile_name 사용
         data.email,
         data.profile_name,
-        hashedPassword,
-        data.age,
-        data.gender,
+        hashedPassword, // 비밀번호가 없는 경우 NULL로 저장
+        data.age || null, // 나이가 없으면 null 저장
+        data.gender || null, // 성별이 없으면 null 저장
         data.login_type || "local", // 기본값 'local'
-        data.profile_picture,
+        data.profile_picture || null, // 프로필 사진이 없으면 null 저장
       ],
       (err, rows) => {
         if (err) {
@@ -28,7 +33,7 @@ exports.insert = async (data, cb) => {
       }
     );
   } catch (error) {
-    cb(error); // 암호화 중 에러 발생 시 에러 처리
+    cb(error); // 에러 처리
   }
 };
 
@@ -120,5 +125,34 @@ exports.delete = (user_id, cb) => {
       return cb(err); // 에러 처리
     }
     cb(null, rows); // 삭제된 사용자 정보 반환
+  });
+};
+
+exports.findByKakaoId = (kakaoId, callback) => {
+  const sql = `SELECT * FROM User WHERE kakao_id = ? LIMIT 1`;
+  connection.query(sql, [kakaoId], (err, result) => {
+    if (err) {
+      return callback(err, null);
+    }
+    return callback(null, result[0]); // 사용자 정보 반환
+  });
+};
+
+// 사용자 추가 예시
+exports.insertKakao = (data, callback) => {
+  const sql = `INSERT INTO User (kakao_id, email, profile_name, profile_picture, login_type) VALUES (?, ?, ?, ?, ?)`;
+  const values = [
+    data.kakao_id,
+    data.email,
+    data.profile_name,
+    data.profile_picture,
+    data.login_type,
+  ];
+
+  connection.query(sql, values, (err, result) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, result.insertId); // 새로 생성된 사용자 ID 반환
   });
 };

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("../controllers/userController"); // 여기서 userController가 잘 가져와졌는지 확인
+const userController = require("../controllers/userController");
+const passport = require("../config/passport");
 
 const multer = require("multer");
 const path = require("path");

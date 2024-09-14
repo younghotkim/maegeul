@@ -1,66 +1,59 @@
-require('dotenv').config();
+const passport = require("passport");
+const KakaoStrategy = require("passport-kakao").Strategy;
+const userModel = require("../models/user");
 
-const passport = require('passport');
-const KakaoStrategy = require('passport-kakao').Strategy;
-const jwt = require('jsonwebtoken');
+passport.use(
+  new KakaoStrategy(
+    {
+      clientID: process.env.KAKAO_CLIENT_ID,
+      callbackURL: process.env.KAKAO_REDIRECT_URI,
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const kakaoId = profile.id;
+        const email = profile._json.kakao_account.email;
+        const nickname = profile.displayName; // 카카오에서 제공하는 닉네임
+        const profileImage = profile._json.properties.profile_image;
 
-const User = require('../models/user'); // User 모델 임포트
+        userModel.findByKakaoId(kakaoId, (err, user) => {
+          if (err) return done(err);
 
-passport.use(new KakaoStrategy({
-  clientID: process.env.KAKAO_CLIENT_ID,
-  clientSecret: process.env.KAKAO_CLIENT_SECRET,
-  callbackURL: "http://localhost:5000/auth/kakao/callback"
-},
-async (accessToken, refreshToken, profile, done) => {
-  try {
-    // 사용자 찾기 또는 생성 로직
-    let user = await User.findOne({ 'kakao.kakaoId': profile.id });
+          if (user) {
+            // 기존 사용자가 있는 경우
+            return done(null, user);
+          } else {
+            // 새로운 사용자 회원가입
+            const newUser = {
+              kakao_id: kakaoId,
+              email,
+              username: nickname || "카카오유저", // 닉네임 또는 기본값 설정
+              profile_name: nickname, // profile_name에 닉네임 저장
+              profile_picture: profileImage,
+              login_type: "kakao",
+            };
 
-    if (!user) {
-      user = new User({
-        nickname: profileNickname,
-        kakao: {
-          kakaoId: profile.id,
-          profile_nickname: profileNickname,
-          profileImage: profileImage
-        }
-      });
-      await user.save();
+            userModel.insert(newUser, (err, userId) => {
+              if (err) return done(err);
+
+              newUser.user_id = userId; // 새로 생성된 userId 추가
+              return done(null, newUser);
+            });
+          }
+        });
+      } catch (error) {
+        return done(error);
+      }
     }
+  )
+);
 
-    // JWT 생성
-    const token = jwt.sign(
-      { id: user.id, nickname: user.nickname },
-      process.env.JWT_SECRET, // JWT 비밀 키
-      { expiresIn: '1h' } // 토큰 유효 기간
-    );
-
-    // 사용자 정보와 토큰 반환
-    return done(null, { user, token });
-  } catch (error) {
-    return done(error);
-  }
-}));
-
-// 세션에 사용자 정보를 저장할 때 _id를 저장
+// 사용자 세션에 정보 저장 (세션을 사용할 경우)
 passport.serializeUser((user, done) => {
-  console.log('Serializing user:', user);  // 직렬화할 사용자 객체를 출력하여 확인
-  if (!user.user || !user.user._id) {
-    return done(new Error('User ID is missing'));
-  }
-  done(null, user.user._id);  // 세션에 user.user._id 저장
+  done(null, user);
 });
 
-passport.deserializeUser(async (_id, done) => {
-  console.log('Deserializing user with _id:', _id);  // 세션에서 저장된 _id 출력
-  try {
-    const user = await User.findById(_id);  // _id로 사용자 정보 찾기
-    if (!user) {
-      return done(new Error('User not found'), null);
-    }
-    console.log('Found user:', user);  // 찾은 사용자 정보 출력
-    done(null, user);  // 세션에 사용자 정보를 복원
-  } catch (err) {
-    done(err, null);
-  }
+passport.deserializeUser((user, done) => {
+  done(null, user);
 });
+
+module.exports = passport;
