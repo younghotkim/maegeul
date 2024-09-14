@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import "./MoodSlider.css";
-import Emoji_1 from "../Icon/emoji_1.gif";
-import Stop_1 from "../Icon/emoji_1.png.png";
-import Emoji_3 from "../Icon/emoji_3.gif";
-import Emoji_5 from "../Icon/emoji_5.gif";
-import Emoji_7 from "../Icon/emoji_7.gif";
-import Emoji_9 from "../Icon/emoji_9.gif";
+import Emoji_1 from "../Icon/emoji01.gif";
+import Stop_1 from "../Icon/Emoji01.png";
+import Emoji_3 from "../Icon/emoji03.gif";
+import Stop_3 from "../Icon/Emoji03.png";
+import Emoji_5 from "../Icon/emoji05.gif";
+import Stop_5 from "../Icon/Emoji05.png";
+import Emoji_7 from "../Icon/emoji07.gif";
+import Stop_7 from "../Icon/Emoji07.png";
+import Emoji_9 from "../Icon/emoji09.gif";
+import Stop_9 from "../Icon/Emoji09.png";
 import Info from "../Icon/Info.png";
 import Tooltip from "./Tooltip";
 
@@ -41,9 +45,10 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
           지금 내가 느끼는 편안한 정도를 수치로 기록해봐요.
         </p>
         <div className="relative w-full mx-auto py-8">
-          <div className="relative w-10 flex items-center justify-between gap-20">
+          <div className="relative w-20 flex items-center justify-between gap-20">
             {
-              value === 1 ? (
+              //1또는 2일때, 삼항연산자 사용
+              value === 1 || value === 2 ? (
                 <img
                   src={Emoji_1}
                   className="emoji-style"
@@ -57,26 +62,70 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
                 />
               ) // PNG
             }
-            <img
-              src={Emoji_3}
-              className="emoji-style"
-              style={{ left: `${(3 / 10) * 100}%` }}
-            />
-            <img
-              src={Emoji_5}
-              className="emoji-style"
-              style={{ left: `${(5 / 10) * 100}%` }}
-            />
-            <img
-              src={Emoji_7}
-              className="emoji-style"
-              style={{ left: `${(7 / 10) * 100}%` }}
-            />
-            <img
-              src={Emoji_9}
-              className="emoji-style"
-              style={{ left: `${(9 / 10) * 100}%` }}
-            />
+            {
+              //3또는 4일때, 삼항연산자 사용
+              value === 3 || value === 4 ? (
+                <img
+                  src={Emoji_3}
+                  className="emoji-style"
+                  style={{ left: `${(3 / 10) * 100}%` }}
+                /> // GIF
+              ) : (
+                <img
+                  src={Stop_3}
+                  className="emoji-style"
+                  style={{ left: `${(3 / 10) * 100}%` }}
+                />
+              ) // PNG
+            }
+            {
+              //5또는 6일때, 삼항연산자 사용
+              value === 5 || value === 6 ? (
+                <img
+                  src={Emoji_5}
+                  className="emoji-style"
+                  style={{ left: `${(5 / 10) * 100}%` }}
+                /> // GIF
+              ) : (
+                <img
+                  src={Stop_5}
+                  className="emoji-style"
+                  style={{ left: `${(5 / 10) * 100}%` }}
+                />
+              ) // PNG
+            }
+            {
+              //7또는 8일때, 삼항연산자 사용
+              value === 7 || value === 8 ? (
+                <img
+                  src={Emoji_7}
+                  className="emoji-style"
+                  style={{ left: `${(7 / 10) * 100}%` }}
+                /> // GIF
+              ) : (
+                <img
+                  src={Stop_7}
+                  className="emoji-style"
+                  style={{ left: `${(7 / 10) * 100}%` }}
+                />
+              ) // PNG
+            }
+            {
+              //9또는 10일때, 삼항연산자 사용
+              value === 9 || value === 10 ? (
+                <img
+                  src={Emoji_9}
+                  className="emoji-style"
+                  style={{ left: `${(9 / 10) * 100}%` }}
+                /> // GIF
+              ) : (
+                <img
+                  src={Stop_9}
+                  className="emoji-style"
+                  style={{ left: `${(9 / 10) * 100}%` }}
+                />
+              ) // PNG
+            }
           </div>
           <div className="relative w-full mt-4">
             <input
@@ -87,15 +136,16 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
               onChange={handleSliderChange}
               className="mood-slider"
             />
-            <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between">
+            {/* 슬라이더 구분 선 */}
+            {/* <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((mark) => (
                 <div
                   key={mark}
                   className="slider-mark"
-                  style={{ left: `${(mark / 10) * 100}%` }}
+                  style={{ left: `${(mark / 11) * 100}%` }}
                 ></div>
               ))}
-            </div>
+            </div> */}
           </div>
           <div className="flex justify-between text-scampi-700 mt-4">
             <span>1</span>

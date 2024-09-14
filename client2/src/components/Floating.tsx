@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Arrow from "../Icon/Arrow Purple.png";
-import banner from "../components/Banner";
 
 const Floating: React.FC = () => {
   // 버튼의 가시성 여부를 저장하는 state

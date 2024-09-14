@@ -17,15 +17,17 @@ const Footer: React.FC = () => {
             </div>
 
             {/* Newsletter Input and Button */}
-            <div className="flex items-center">
+            <div className="flex items-center gap-5">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-55 h-12 p-4 bg-gray-100 rounded-l-3xl border-t border-b border-gray-300 placeholder-scampi-500 text-scampi-700"
+                className="w-55 h-12 p-5 bg-gray-100 rounded-full border-gray-300 placeholder-scampi-500 text-scampi-700"
               />
-              <button className="w-55 h-12 p-4 bg-scampi-500 dark:bg-scampi-600 text-white rounded-r-3xl shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
-                Sign up
-              </button>
+              <Link to="/mainsignup">
+                <button className="w-55 h-12 p-3 bg-scampi-500 rounded-full dark:bg-scampi-600 text-white shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+                  Sign up
+                </button>
+              </Link>
             </div>
           </div>
 

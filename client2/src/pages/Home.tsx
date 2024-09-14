@@ -18,11 +18,6 @@ const Home: React.FC = () => {
         <div className="flex justify-center gap-10">
           <Navi />
         </div>
-
-        <div className="flex justify-center gap-10">
-          <Navi />
-        </div>
-
         {/* <div className="flex w-full">
           <Guide />  글쓰기 스텝 이미지
         </div> */}

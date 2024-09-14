@@ -49,7 +49,7 @@ const EnergySlider: React.FC<EnergySliderProps> = ({
           지금 내가 활력 정도를 수치로 기록해봐요.
         </p>
         <div className="relative w-full mx-auto py-8">
-          <div className="relative w-10 flex items-center justify-between">
+          <div className="relative w-10 flex ">
             <img src={Fire} className="emoji-style" style={fireStyle} />
           </div>
           <div className="relative w-full mt-4">
