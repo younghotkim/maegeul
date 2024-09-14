@@ -66,7 +66,7 @@ exports.select = (email, password, cb) => {
 
 // 회원 정보 조회 (ID로 사용자 정보 가져오기)
 exports.get_user = (user_id, cb) => {
-  const sql = `SELECT * FROM User WHERE user_id = ? LIMIT 1`;
+  const sql = `SELECT * FROM User WHERE user_id = ?`;
 
   connection.query(sql, [user_id], (err, rows) => {
     if (err) {

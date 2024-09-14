@@ -3,6 +3,8 @@ const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
 const dotenv = require("dotenv");
+const fs = require("fs");
+const path = require("path");
 
 // 라우트 파일들
 const authRoutes = require("./routes/auth");
@@ -31,6 +33,8 @@ app.use(
   })
 );
 
+app.use("/uploads", express.static("uploads"));
+
 // Passport 초기화 및 세션 설정
 app.use(passport.initialize());
 app.use(passport.session());
@@ -41,6 +45,9 @@ app.use("/api/analyze", analyzeRoute); // AI 감정 분석 API
 
 // 사용자 라우트 등록
 app.use("/api", userRoutes); // '/api' 경로 하위에 사용자 관련 라우트를 등록
+
+// Static file serving (for profile pictures)
+app.use("/uploads", express.static("uploads")); // 정적 파일 경로 설정
 
 // 기본 라우트
 app.get("/", (req, res) => {
@@ -62,3 +69,11 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// 업로드 폴더 경로 설정
+const uploadPath = path.join(__dirname, "uploads");
+
+// 폴더가 존재하지 않으면 생성
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath);
+}

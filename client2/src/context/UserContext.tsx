@@ -3,6 +3,7 @@ import React, { createContext, useState, useContext, ReactNode } from "react";
 // 사용자 정보 타입 정의
 interface User {
   profile_name: string | null;
+  profile_picture?: string | null; // 프로필 이미지 경로 추가
 }
 
 // Context의 타입 정의

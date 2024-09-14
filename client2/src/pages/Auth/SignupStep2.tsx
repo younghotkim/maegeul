@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // useNavigate 추가
+import { useNavigate } from "react-router-dom"; // useNavigate 추가
 import axios from "axios"; // Axios 추가
 
 const SignupStep2: React.FC = () => {
@@ -13,14 +13,34 @@ const SignupStep2: React.FC = () => {
     age: "",
     birthdate: "",
     profileImage: "",
+    profileImageFile: null as File | null, // 실제 파일 저장용
   });
+
+  // 파일 선택 시 처리 함수
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFormData({
+        ...formData,
+        profileImage: URL.createObjectURL(file), // 미리보기 URL 생성
+        profileImageFile: file, // 실제 파일 저장
+      });
+    }
+  };
 
   const [errors, setErrors] = useState({
     email: false,
     password: false,
     name: false,
     nickname: false,
+    birthdate: false, // 생년월일 오류 플래그 추가
   });
+
+  // 생년월일 형식 검증 함수
+  const validateBirthdate = (birthdate: string) => {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(birthdate);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -28,8 +48,10 @@ const SignupStep2: React.FC = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    // 필수 입력 값 체크
-    if (name in errors) {
+    // 필수 입력 값 체크 및 생년월일 형식 확인
+    if (name === "birthdate") {
+      setErrors({ ...errors, birthdate: !validateBirthdate(value) });
+    } else if (name in errors) {
       setErrors({ ...errors, [name]: value.trim() === "" });
     }
   };
@@ -51,57 +73,49 @@ const SignupStep2: React.FC = () => {
     return age;
   };
 
-  // 회원가입 API 호출
+  const age = calculateAge(formData.birthdate);
+  // 현재 연도를 계산
+  const currentYear = new Date().getFullYear();
+
+  // 서버로 데이터를 전송하는 함수
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 필수 값 검증
-    const requiredFields = ["email", "password", "name", "nickname"];
-    const hasErrors = requiredFields.some(
-      (field) => formData[field as keyof typeof formData].trim() === ""
-    );
-
-    if (hasErrors) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        requiredFields.forEach((field) => {
-          if (formData[field as keyof typeof formData].trim() === "") {
-            newErrors[field as keyof typeof errors] = true;
-          }
-        });
-        return newErrors;
-      });
-      return;
-    }
-
-    const age = calculateAge(formData.birthdate);
-
     try {
-      const response = await axios.post("http://localhost:5000/api/register", {
-        email: formData.email,
-        password: formData.password,
-        username: formData.name,
-        profile_name: formData.nickname,
-        gender: formData.gender,
-        age,
-        profile_picture: formData.profileImage,
-      });
+      // FormData 객체 생성
+      const formDataToSend = new FormData();
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("password", formData.password);
+      formDataToSend.append("username", formData.name);
+      formDataToSend.append("profile_name", formData.nickname);
+      formDataToSend.append("gender", formData.gender);
+      formDataToSend.append("age", formData.age);
+      formDataToSend.append("birthdate", formData.birthdate);
+
+      // 파일이 선택된 경우 파일 추가
+      if (formData.profileImageFile) {
+        formDataToSend.append("profile_picture", formData.profileImageFile); // 서버로 전송할 파일
+      }
+
+      // 서버에 데이터 전송
+      const response = await axios.post(
+        "http://localhost:5000/api/register",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (response.status === 201) {
         console.log("회원가입 성공", response.data);
-        // 회원가입 성공 후 다음 단계로 이동
-        navigate("/signupstep3");
+        navigate("/signupstep3"); // 성공 시 리다이렉트
       }
     } catch (err) {
       console.error("회원가입 실패:", err);
-      if (axios.isAxiosError(err) && err.response) {
-        console.error("에러 메시지:", err.response.data.message);
-      }
     }
   };
-
-  // 현재 연도를 계산
-  const currentYear = new Date().getFullYear();
 
   return (
     <form
@@ -219,6 +233,11 @@ const SignupStep2: React.FC = () => {
               className="w-full bg-transparent text-gray-800 focus:outline-none"
             />
           </div>
+          {errors.birthdate && (
+            <div className="text-red-500 text-sm mt-2">
+              생년월일 형식이 올바르지 않습니다. (YYYY-MM-DD)
+            </div>
+          )}
         </div>
 
         {/* 프로필 이미지 업로드 섹션 */}
@@ -237,9 +256,12 @@ const SignupStep2: React.FC = () => {
               <span className="text-gray-400">이미지를 업로드하세요.</span>
             )}
           </div>
-          <button className="px-4 py-2 text-white bg-scampi-600 rounded-3xl">
-            이미지 선택
-          </button>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="mb-4"
+          />
         </div>
 
         {/* 성별 입력 섹션 */}
