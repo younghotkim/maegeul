@@ -25,6 +25,7 @@ const KakaoCallback = () => {
             profile_name: profile_name || null,
             profile_picture: profile_picture || null,
             email: email || null,
+            isKakaoUser: true, // 카카오 사용자 여부 저장
           });
           navigate("/"); // 사용자 정보가 설정된 후 홈으로 리다이렉트
         })

@@ -50,6 +50,7 @@ const LoginForm = () => {
           email: loginResponse.data.user.email,
           profile_name: loginResponse.data.user.profileName,
           profile_picture: loginResponse.data.user.profile_picture || null, // 프로필 사진 경로 처리
+          isKakaoUser: true, // 카카오 사용자 여부 저장
         });
 
         // 메인 페이지로 리다이렉트

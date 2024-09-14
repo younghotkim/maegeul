@@ -127,9 +127,11 @@ const Header: React.FC = () => {
               <img
                 className="inline-block w-[46px] h-[46px] rounded-full"
                 src={
-                  user?.profile_picture
+                  user?.isKakaoUser && user?.profile_picture // 카카오 사용자일 경우 카카오 프로필 사용
+                    ? user.profile_picture
+                    : user?.profile_picture // 일반 사용자일 경우 로컬 프로필 사용
                     ? `http://localhost:5000${user.profile_picture}`
-                    : `${UserPurple}`
+                    : `${UserPurple}` // 기본 이미지
                 }
                 alt="프로필 사진"
               />
