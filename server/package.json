@@ -1,7 +1,7 @@
 {
-  "name": "emotion-diary-backend",
+  "name": "server",
   "version": "1.0.0",
-  "description": "Emotion diary backend",
+  "description": "maegeul backend",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
