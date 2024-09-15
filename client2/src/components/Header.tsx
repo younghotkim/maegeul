@@ -15,6 +15,8 @@ const Header: React.FC = () => {
 
   const { user, setUser } = useUser(); // UserContext에서 user 가져오기
 
+  console.log(user);
+
   useEffect(() => {
     // 다크 모드 초기 설정 적용
     if (isDarkMode) {
@@ -129,8 +131,8 @@ const Header: React.FC = () => {
                 src={
                   user?.isKakaoUser && user?.profile_picture // 카카오 사용자일 경우 카카오 프로필 사용
                     ? user.profile_picture
-                    : user?.profile_picture // 일반 사용자일 경우 로컬 프로필 사용
-                    ? `http://localhost:5000${user.profile_picture}`
+                    : user?.profile_picture // 일반 사용자일 경우 DB에 저장된 로컬 프로필 경로 사용
+                    ? `http://localhost:5000${user.profile_picture}` // DB에 저장된 경로를 그대로 사용
                     : `${UserPurple}` // 기본 이미지
                 }
                 alt="프로필 사진"
