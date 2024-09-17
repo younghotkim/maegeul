@@ -120,25 +120,38 @@ const Header: React.FC = () => {
         >
           {isDarkMode ? "🔆" : "🌙"}
         </button>
+
+        {/* 프로필 사진 */}
+
         {isLoggedIn ? (
-          <div className="relative" id="profileButton">
-            <button
-              onClick={toggleDropdown}
-              className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors"
-            >
+          <div className="relative" id="profileButton" onClick={toggleDropdown}>
+            {user?.isKakaoUser && user?.profile_picture ? (
               <img
-                className="inline-block w-[46px] h-[46px] rounded-full"
-                src={
-                  user?.isKakaoUser && user?.profile_picture // 카카오 사용자일 경우 카카오 프로필 사용
-                    ? user.profile_picture
-                    : user?.profile_picture // 일반 사용자일 경우 DB에 저장된 로컬 프로필 경로 사용
-                    ? `http://localhost:5000${user.profile_picture}` // DB에 저장된 경로를 그대로 사용
-                    : `${UserPurple}` // 기본 이미지
-                }
-                alt="프로필 사진"
+                className="inline-block w-[50px] h-[50px] rounded-full cursor-pointer"
+                src={user.profile_picture}
+                alt="카카오 프로필 사진"
               />
-              <span className="ml-2">{user?.profile_name || "Guest"}</span>
-            </button>
+            ) : user?.profile_picture ? (
+              <img
+                className="inline-block w-[50px] h-[50px] rounded-full cursor-pointer"
+                src={`http://localhost:5000${user.profile_picture}`}
+                alt="로컬 프로필 사진"
+              />
+            ) : (
+              <svg
+                className="inline-block w-[50px] h-[50px] rounded-full bg-gray-200 cursor-pointer"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            )}
+            {/* <span className="ml-2">{user?.profile_name || "Guest"}</span> */}
 
             {/* 드롭다운 메뉴 */}
             {isDropdownVisible && (
@@ -192,11 +205,7 @@ const Header: React.FC = () => {
               </div>
             )}
           </div>
-        ) : (
-          <span className="text-sm text-scampi-700 dark:text-scampi-200">
-            {user?.profile_name || "Guest"}
-          </span>
-        )}
+        ) : null}
 
         {isLoggedIn ? (
           <button
