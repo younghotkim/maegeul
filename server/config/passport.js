@@ -1,44 +1,19 @@
 const passport = require("passport");
 const KakaoStrategy = require("passport-kakao").Strategy;
-const userModel = require("../models/user");
+const userModel = require("../models/user"); // user.js 파일을 불러옴
 
 passport.use(
   new KakaoStrategy(
     {
-      clientID: process.env.KAKAO_CLIENT_ID,
-      callbackURL: process.env.KAKAO_REDIRECT_URI,
+      clientID: process.env.KAKAO_CLIENT_ID, // Kakao App의 REST API 키
+      callbackURL: process.env.KAKAO_REDIRECT_URI, // Kakao 로그인 완료 후 호출되는 콜백 URL
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const kakaoId = profile.id;
-        const email = profile._json.kakao_account.email;
-        const nickname = profile.displayName; // 카카오에서 제공하는 닉네임
-        const profileImage = profile._json.properties.profile_image;
-
-        userModel.findByKakaoId(kakaoId, (err, user) => {
+        // 카카오 로그인 처리 로직 호출
+        userModel.handleKakaoLogin(profile, (err, user) => {
           if (err) return done(err);
-
-          if (user) {
-            // 기존 사용자가 있는 경우
-            return done(null, user);
-          } else {
-            // 새로운 사용자 회원가입
-            const newUser = {
-              kakao_id: kakaoId,
-              email,
-              username: nickname || "카카오유저", // 닉네임 또는 기본값 설정
-              profile_name: nickname, // profile_name에 닉네임 저장
-              profile_picture: profileImage,
-              login_type: "kakao",
-            };
-
-            userModel.insert(newUser, (err, userId) => {
-              if (err) return done(err);
-
-              newUser.user_id = userId; // 새로 생성된 userId 추가
-              return done(null, newUser);
-            });
-          }
+          return done(null, user); // 성공 시 사용자 정보 전달
         });
       } catch (error) {
         return done(error);
@@ -47,13 +22,17 @@ passport.use(
   )
 );
 
-// 사용자 세션에 정보 저장 (세션을 사용할 경우)
+// 세션에 사용자 정보를 저장
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user.user_id); // 세션에 user_id 저장
 });
 
-passport.deserializeUser((user, done) => {
-  done(null, user);
+// 세션에서 사용자 정보를 복원
+passport.deserializeUser((user_id, done) => {
+  userModel.get_user(user_id, (err, user) => {
+    if (err) return done(err);
+    done(null, user); // 사용자 정보를 복원
+  });
 });
 
 module.exports = passport;
