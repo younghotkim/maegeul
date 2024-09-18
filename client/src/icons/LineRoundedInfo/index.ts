@@ -1,1 +1,0 @@
-export { LineRoundedInfo } from "./LineRoundedInfo";
