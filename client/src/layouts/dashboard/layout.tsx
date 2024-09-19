@@ -88,7 +88,7 @@ export function DashboardLayout({
                 <AccountPopover
                   data={[
                     {
-                      label: "Home",
+                      label: "홈",
                       href: "/",
                       icon: (
                         <Iconify
@@ -98,7 +98,7 @@ export function DashboardLayout({
                       ),
                     },
                     {
-                      label: "Profile",
+                      label: "다크모드",
                       href: "#",
                       icon: (
                         <Iconify
@@ -108,7 +108,7 @@ export function DashboardLayout({
                       ),
                     },
                     {
-                      label: "Settings",
+                      label: "회원정보수정",
                       href: "#",
                       icon: (
                         <Iconify
