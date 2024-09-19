@@ -125,13 +125,13 @@ export function OverviewAnalyticsView() {
 
         <Grid xs={12} md={6} lg={4}>
           <AnalyticsCurrentVisits
-            title="Current visits"
+            title="무드 컬러"
             chart={{
               series: [
-                { label: "America", value: 3500 },
-                { label: "Asia", value: 2500 },
-                { label: "Europe", value: 1500 },
-                { label: "Africa", value: 500 },
+                { label: "파란색", value: 9 },
+                { label: "노란색", value: 9 },
+                { label: "초록색", value: 10 },
+                { label: "빨간색", value: 6 },
               ],
             }}
           />
@@ -158,6 +158,18 @@ export function OverviewAnalyticsView() {
                 { name: "Team B", data: [51, 70, 47, 67, 40, 37, 24, 70, 24] },
               ],
             }}
+          />
+        </Grid>
+
+        <Grid xs={12} md={6} lg={4}>
+          <AnalyticsTrafficBySite
+            title="Traffic by site"
+            list={[
+              { value: "facebook", label: "Facebook", total: 323234 },
+              { value: "google", label: "Google", total: 341212 },
+              { value: "linkedin", label: "Linkedin", total: 411213 },
+              { value: "twitter", label: "Twitter", total: 443232 },
+            ]}
           />
         </Grid>
 
@@ -202,18 +214,6 @@ export function OverviewAnalyticsView() {
 
         <Grid xs={12} md={6} lg={4}>
           <AnalyticsOrderTimeline title="Order timeline" list={_timeline} />
-        </Grid>
-
-        <Grid xs={12} md={6} lg={4}>
-          <AnalyticsTrafficBySite
-            title="Traffic by site"
-            list={[
-              { value: "facebook", label: "Facebook", total: 323234 },
-              { value: "google", label: "Google", total: 341212 },
-              { value: "linkedin", label: "Linkedin", total: 411213 },
-              { value: "twitter", label: "Twitter", total: 443232 },
-            ]}
-          />
         </Grid>
 
         <Grid xs={12} md={6} lg={8}>

@@ -3,6 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import pencilIcon from "../Icon/pencil logo purple.png";
 import { useUser } from "../context/UserContext";
 
+import { AccountPopover } from "../layouts/components/account-popover";
+import { Iconify } from "../dashboardComponents/iconify";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+
 const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     return localStorage.getItem("isDarkMode") === "true";
@@ -85,143 +90,106 @@ const Header: React.FC = () => {
     };
   }, [isDropdownVisible]);
 
+  // 다크 모드 토글 함수
+  const DarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  // 다크 모드 및 라이트 모드 테마 생성
+  const theme = createTheme({
+    palette: {
+      mode: isDarkMode ? "dark" : "light",
+    },
+  });
+
   return (
-    <header className="sticky top-0 z-50 flex justify-between items-center w-full p-10 dark:bg-scampi-800">
-      <Link to="/home">
-        <button className="flex items-center text-xl bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">
-          <img src={pencilIcon} className="w-8 h-8 mr-2" alt="Pencil Icon" />{" "}
-          MAEGEUL
-        </button>
-      </Link>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
 
-      <nav className="flex gap-2">
-        <Link to="/maegeul">
-          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
-            매일 글쓰기
+      <header className="sticky top-0 z-50 flex justify-between items-center w-full p-10 dark:bg-scampi-800">
+        <Link to="/home">
+          <button className="flex items-center text-xl bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">
+            <img src={pencilIcon} className="w-8 h-8 mr-2" alt="Pencil Icon" />{" "}
+            MAEGEUL
           </button>
         </Link>
-        <Link to="/emotionForm">
-          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
-            AI 하루진단
-          </button>
-        </Link>
-        <Link to="/blog">
-          <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
-            추천 아티클
-          </button>
-        </Link>
-      </nav>
 
-      <nav className="flex gap-7 items-center">
-        <button
-          onClick={toggleDarkMode}
-          className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
-        >
-          {isDarkMode ? "🔆" : "🌙"}
-        </button>
-
-        {/* 프로필 사진 */}
-
-        {isLoggedIn ? (
-          <div className="relative" id="profileButton" onClick={toggleDropdown}>
-            {user?.isKakaoUser && user?.profile_picture ? (
-              <img
-                className="inline-block w-[50px] h-[50px] rounded-full cursor-pointer"
-                src={user.profile_picture}
-                alt="카카오 프로필 사진"
-              />
-            ) : user?.profile_picture ? (
-              <img
-                className="inline-block w-[50px] h-[50px] rounded-full cursor-pointer"
-                src={`http://localhost:5000${user.profile_picture}`}
-                alt="로컬 프로필 사진"
-              />
-            ) : (
-              <svg
-                className="inline-block w-[50px] h-[50px] rounded-full bg-gray-200 cursor-pointer"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            )}
-            {/* <span className="ml-2">{user?.profile_name || "Guest"}</span> */}
-
-            {/* 드롭다운 메뉴 */}
-            {isDropdownVisible && (
-              <div
-                id="userDropdown"
-                className="absolute right-0 mt-2 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-              >
-                <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                  <div>{user?.profile_name || "Guest"}</div>
-                  <div className="font-medium truncate">
-                    {user?.email || "이메일 없음"}
-                  </div>
-                </div>
-                <ul
-                  className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                  aria-labelledby="avatarButton"
-                >
-                  <li>
-                    <Link
-                      to="/dashboard"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/settings"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Settings
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/earnings"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Earnings
-                    </Link>
-                  </li>
-                </ul>
-                <div className="py-1">
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Sign out
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        ) : null}
-
-        {isLoggedIn ? (
-          <button
-            onClick={handleLogout}
-            className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
-          >
-            로그아웃
-          </button>
-        ) : (
-          <Link to="/mainlogin">
-            <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
-              로그인
+        <nav className="flex gap-2">
+          <Link to="/maegeul">
+            <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+              매일 글쓰기
             </button>
           </Link>
-        )}
-      </nav>
-    </header>
+          <Link to="/emotionForm">
+            <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+              AI 하루진단
+            </button>
+          </Link>
+          <Link to="/blog">
+            <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+              추천 아티클
+            </button>
+          </Link>
+        </nav>
+
+        <nav className="flex gap-7 items-center">
+          <button
+            onClick={toggleDarkMode}
+            className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
+          >
+            {isDarkMode ? "🔆" : "🌙"}
+          </button>
+
+          {isLoggedIn ? (
+            // AccountPopover
+            <AccountPopover
+              data={[
+                {
+                  label: "대시보드",
+                  href: "/dashboard",
+                  icon: (
+                    <Iconify width={22} icon="solar:home-angle-bold-duotone" />
+                  ),
+                },
+                {
+                  label: "다크모드",
+                  href: "#",
+                  icon: (
+                    <Iconify
+                      width={22}
+                      icon="solar:shield-keyhole-bold-duotone"
+                      onClick={DarkMode}
+                    />
+                  ),
+                },
+                {
+                  label: "회원정보수정",
+                  href: "#",
+                  icon: (
+                    <Iconify width={22} icon="solar:settings-bold-duotone" />
+                  ),
+                },
+              ]}
+            />
+          ) : null}
+
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
+            >
+              로그아웃
+            </button>
+          ) : (
+            <Link to="/mainlogin">
+              <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+                로그인
+              </button>
+            </Link>
+          )}
+        </nav>
+      </header>
+    </ThemeProvider>
   );
 };
 
