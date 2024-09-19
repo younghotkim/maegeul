@@ -15,11 +15,34 @@ const Header: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
     return !!localStorage.getItem("token");
   });
-  const navigate = useNavigate();
 
+  const [isHeaderShow, setHeaderShow] = useState(true); // 헤더 가시성 상태
+  const [lastScrollY, setLastScrollY] = useState(0); // 스크롤 마지막 위치 저장
+
+  const navigate = useNavigate();
   const { user, setUser } = useUser(); // UserContext에서 user 가져오기
 
-  console.log(user);
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY; // 현재 스크롤 위치
+
+      if (currentScrollY > lastScrollY && currentScrollY > 30) {
+        // 스크롤을 아래로 내리는 중이며, 30 이상일 때
+        setHeaderShow(false); // 헤더 숨기기
+      } else {
+        // 스크롤을 위로 올리거나, 30 이하일 때
+        setHeaderShow(true); // 헤더 보이기
+      }
+
+      setLastScrollY(currentScrollY); // 마지막 스크롤 위치 업데이트
+    };
+
+    window.addEventListener("scroll", handleScroll); // 스크롤 이벤트 추가
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll); // 컴포넌트 언마운트 시 이벤트 제거
+    };
+  }, [lastScrollY]); // lastScrollY 변화에 따라 스크롤 이벤트 트리거
 
   useEffect(() => {
     // 다크 모드 초기 설정 적용
@@ -105,90 +128,98 @@ const Header: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
-      <header className="sticky top-0 z-50 flex justify-between items-center w-full p-10 dark:bg-scampi-800">
-        <Link to="/home">
-          <button className="flex items-center text-xl bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">
-            <img src={pencilIcon} className="w-8 h-8 mr-2" alt="Pencil Icon" />{" "}
-            MAEGEUL
-          </button>
-        </Link>
-
-        <nav className="flex gap-2">
-          <Link to="/maegeul">
-            <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
-              매일 글쓰기
+      {isHeaderShow && ( // 헤더가 보여질 때만 렌더링
+        <header className="sticky top-0 z-50 flex justify-between items-center w-full p-10 dark:bg-scampi-800">
+          <Link to="/home">
+            <button className="flex items-center text-xl bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">
+              <img
+                src={pencilIcon}
+                className="w-8 h-8 mr-2"
+                alt="Pencil Icon"
+              />{" "}
+              MAEGEUL
             </button>
           </Link>
-          <Link to="/emotionForm">
-            <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
-              AI 하루진단
-            </button>
-          </Link>
-          <Link to="/blog">
-            <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
-              추천 아티클
-            </button>
-          </Link>
-        </nav>
 
-        <nav className="flex gap-7 items-center">
-          <button
-            onClick={toggleDarkMode}
-            className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
-          >
-            {isDarkMode ? "🔆" : "🌙"}
-          </button>
-
-          {isLoggedIn ? (
-            // AccountPopover
-            <AccountPopover
-              data={[
-                {
-                  label: "대시보드",
-                  href: "/dashboard",
-                  icon: (
-                    <Iconify width={22} icon="solar:home-angle-bold-duotone" />
-                  ),
-                },
-                {
-                  label: "다크모드",
-                  href: "#",
-                  icon: (
-                    <Iconify
-                      width={22}
-                      icon="solar:shield-keyhole-bold-duotone"
-                      onClick={DarkMode}
-                    />
-                  ),
-                },
-                {
-                  label: "회원정보수정",
-                  href: "#",
-                  icon: (
-                    <Iconify width={22} icon="solar:settings-bold-duotone" />
-                  ),
-                },
-              ]}
-            />
-          ) : null}
-
-          {isLoggedIn ? (
-            <button
-              onClick={handleLogout}
-              className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
-            >
-              로그아웃
-            </button>
-          ) : (
-            <Link to="/mainlogin">
-              <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
-                로그인
+          <nav className="flex gap-2">
+            <Link to="/maegeul">
+              <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+                매일 글쓰기
               </button>
             </Link>
-          )}
-        </nav>
-      </header>
+            <Link to="/emotionForm">
+              <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+                AI 하루진단
+              </button>
+            </Link>
+            <Link to="/blog">
+              <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+                추천 아티클
+              </button>
+            </Link>
+          </nav>
+
+          <nav className="flex gap-7 items-center">
+            <button
+              onClick={toggleDarkMode}
+              className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
+            >
+              {isDarkMode ? "🔆" : "🌙"}
+            </button>
+
+            {isLoggedIn ? (
+              // AccountPopover
+              <AccountPopover
+                data={[
+                  {
+                    label: "대시보드",
+                    href: "/dashboard",
+                    icon: (
+                      <Iconify
+                        width={22}
+                        icon="solar:home-angle-bold-duotone"
+                      />
+                    ),
+                  },
+                  {
+                    label: "다크모드",
+                    href: "#",
+                    icon: (
+                      <Iconify
+                        width={22}
+                        icon="solar:shield-keyhole-bold-duotone"
+                        onClick={DarkMode}
+                      />
+                    ),
+                  },
+                  {
+                    label: "회원정보수정",
+                    href: "#",
+                    icon: (
+                      <Iconify width={22} icon="solar:settings-bold-duotone" />
+                    ),
+                  },
+                ]}
+              />
+            ) : null}
+
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
+              >
+                로그아웃
+              </button>
+            ) : (
+              <Link to="/mainlogin">
+                <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+                  로그인
+                </button>
+              </Link>
+            )}
+          </nav>
+        </header>
+      )}
     </ThemeProvider>
   );
 };
