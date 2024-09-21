@@ -103,19 +103,19 @@ export function ProductFilters({
 
   const renderColors = (
     <Stack spacing={1}>
-      <Typography variant="subtitle2">Colors</Typography>
+      <Typography variant="subtitle2">Mood Colors</Typography>
       <ColorPicker
         selected={filters.colors}
         onSelectColor={(colors) => onSetFilters({ colors: colors as string[] })}
         colors={options.colors}
-        limit={6}
+        limit={4}
       />
     </Stack>
   );
 
   const renderPrice = (
     <Stack spacing={1}>
-      <Typography variant="subtitle2">Price</Typography>
+      <Typography variant="subtitle2">Age</Typography>
       <RadioGroup>
         {options.price.map((option) => (
           <FormControlLabel

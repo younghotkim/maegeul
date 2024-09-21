@@ -145,7 +145,7 @@ export const _tasks = [...Array(5)].map((_, index) => ({
 export const _notifications = [
   {
     id: _id(1),
-    title: "Your order is placed",
+    title: "무드 미터 진단이 3일 경과됐습니다.",
     description: "waiting for shipping",
     avatarUrl: null,
     type: "order-placed",

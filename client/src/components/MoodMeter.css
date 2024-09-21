@@ -9,8 +9,8 @@ body {
 .grid-container {
   display: grid;
   grid-template-columns: repeat(10, 1fr); /* 10열 그리드 */
-  grid-template-rows: repeat(10, 1fr); /* 10행 그리드 */
-  gap: 3px; /* 그리드 항목 간 간격을 줄임 */
+  grid-template-rows: repeat(10, 50px); /* 10행 그리드 */
+  gap: 1px; /* 그리드 항목 간 간격을 줄임 */
   width: 80vw; /* 그리드 전체 너비 */
   height: 80vh; /* 그리드 전체 높이를 화면 높이에 맞추고 상하 간격을 줄임 */
   max-width: 1000px; /* 그리드 최대 너비 */
@@ -26,7 +26,7 @@ body {
   align-items: center;
   padding: 5px; /* 패딩을 줄여 각 항목 내부 여백 축소 */
   height: 50px; /* 항목 높이 줄이기 */
-  width: 120px; /* 항목 너비 줄이기 */
+  width: 100px; /* 항목 너비 줄이기 */
   max-width: 100%;
   max-height: 100%;
   box-sizing: border-box;

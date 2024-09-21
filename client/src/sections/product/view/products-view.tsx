@@ -18,36 +18,27 @@ import type { FiltersProps } from "../product-filters";
 // ----------------------------------------------------------------------
 
 const GENDER_OPTIONS = [
-  { value: "men", label: "Men" },
-  { value: "women", label: "Women" },
-  { value: "kids", label: "Kids" },
+  { value: "men", label: "남성" },
+  { value: "women", label: "여성" },
+  { value: "kids", label: "무관" },
 ];
 
 const CATEGORY_OPTIONS = [
-  { value: "all", label: "All" },
-  { value: "shose", label: "Shose" },
-  { value: "apparel", label: "Apparel" },
-  { value: "accessories", label: "Accessories" },
+  { value: "all", label: "건강" },
+  { value: "shose", label: "자기계발" },
+  { value: "apparel", label: "뭐뭐" },
+  { value: "accessories", label: "뭐뭐" },
 ];
 
 const RATING_OPTIONS = ["up4Star", "up3Star", "up2Star", "up1Star"];
 
 const PRICE_OPTIONS = [
-  { value: "below", label: "Below $25" },
-  { value: "between", label: "Between $25 - $75" },
-  { value: "above", label: "Above $75" },
+  { value: "below", label: "10대-20대" },
+  { value: "between", label: "30대" },
+  { value: "above", label: "40대 이상" },
 ];
 
-const COLOR_OPTIONS = [
-  "#00AB55",
-  "#000000",
-  "#FFFFFF",
-  "#FFC0CB",
-  "#FF4842",
-  "#1890FF",
-  "#94D82D",
-  "#FFC107",
-];
+const COLOR_OPTIONS = ["#FF4842", "#1890FF", "#94D82D", "#FFC107"];
 
 const defaultFilters = {
   price: "",

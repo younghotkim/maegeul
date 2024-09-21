@@ -66,7 +66,7 @@ export function Searchbar({ sx, ...other }: BoxProps) {
               autoFocus
               fullWidth
               disableUnderline
-              placeholder="Search…"
+              placeholder="검색하기"
               startAdornment={
                 <InputAdornment position="start">
                   <Iconify
@@ -79,7 +79,7 @@ export function Searchbar({ sx, ...other }: BoxProps) {
               sx={{ fontWeight: "fontWeightBold" }}
             />
             <Button variant="contained" onClick={handleClose}>
-              Search
+              검색
             </Button>
           </Box>
         </Slide>
