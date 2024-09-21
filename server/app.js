@@ -10,6 +10,8 @@ const path = require("path");
 const analyzeRoute = require("./routes/analyze");
 const userRoutes = require("./routes/user");
 const kakaoAuthRoutes = require("./routes/kakao");
+const moodmeterRoutes = require("./routes/moodRoutes");
+const diaryRoutes = require("./routes/diaryRoutes");
 
 require("./config/passport");
 
@@ -51,6 +53,10 @@ app.use("/api", userRoutes); // '/api' 경로 하위에 사용자 관련 라우�
 app.use("/uploads", express.static("uploads")); // 정적 파일 경로 설정
 
 app.use("/", kakaoAuthRoutes);
+
+app.use("/api", moodmeterRoutes);
+
+app.use("/api", diaryRoutes);
 
 // 기본 라우트
 app.get("/", (req, res) => {

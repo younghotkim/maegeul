@@ -8,6 +8,7 @@ import MgModal from "./MgModal"; // 모달 컴포넌트 임포트
 import { useHighlightContext } from "../../context/HighlightContext"; // Context 임포트
 import { useMoodContext } from "../../context/MoodContext"; // Context 훅 임포트
 import { useUser } from "../../context/UserContext"; // UserContext 임포트
+import ProgressBar from "../../components/ProgressBar";
 
 const MgWriting: React.FC = () => {
   const [content, setContent] = useState("");
@@ -81,6 +82,72 @@ const MgWriting: React.FC = () => {
     }
   };
 
+  const handleSaveMoodData = async () => {
+    try {
+      const moodData = {
+        user_id: user?.user_id, // 로그인된 사용자 ID
+        pleasantness: pleasantness, // MoodContext에서 가져온 기분 값
+        energy: energy, // MoodContext에서 가져온 에너지 값
+        label: highlightedLabels.join(", "), // 선택된 레이블을 문자열로 변환
+        color: colorName, // 감정 색상 (문자열)
+      };
+
+      console.log(moodData);
+
+      const response = await fetch("http://localhost:5000/api/save-moodmeter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // 반드시 JSON 형식으로 설정
+        },
+        body: JSON.stringify(moodData), // 반드시 JSON.stringify로 직렬화된 데이터 전송
+      });
+
+      if (!response.ok) {
+        throw new Error("데이터 저장 중 오류가 발생했습니다.");
+      }
+
+      const result = await response.json();
+      console.log(
+        `데이터가 성공적으로 저장되었습니다. 저장된 ID: ${result.id}`
+      );
+    } catch (error) {
+      console.error("저장 중 오류가 발생했습니다.", error);
+    }
+  };
+
+  const handleSaveDiary = async () => {
+    try {
+      const diaryData = {
+        user_id: user?.user_id, // 로그인된 사용자 ID
+        title: title,
+        content: content,
+      };
+
+      const response = await fetch("http://localhost:5000/api/diary", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(diaryData),
+      });
+
+      if (!response.ok) {
+        throw new Error("일기 저장 중 오류가 발생했습니다.");
+      }
+
+      const result = await response.json();
+      alert(`일기가 성공적으로 저장되었습니다. 일기 ID: ${result.diary_id}`);
+    } catch (error) {
+      console.error("일기 저장 중 오류 발생:", error);
+    }
+  };
+
+  const handleClick = () => {
+    handleModalOpen(); // 모달 열기
+    handleSaveMoodData(); // 감정 데이터 저장
+    handleSaveDiary();
+  };
+
   const handleModalOpen = () => {
     setShowModal(true); // 모달을 열기 위한 함수
   };
@@ -121,6 +188,16 @@ const MgWriting: React.FC = () => {
   return (
     <>
       <Header />
+
+      <div className="w-[1140px] relative mt-10">
+        {/* 텍스트 (ProgressBar 위에 위치) */}
+        <div className="absolute top-[-2rem] left-0 z-10 font-bold text-scampi-700 dark:text-scampi-300 font-bold font-['DM Sans'] leading-10">
+          1단계: 감정 인식하기
+        </div>
+        {/* Progress Bar */}
+        <ProgressBar value={80} />
+      </div>
+
       <div className="flex w-full h-screen p-10 bg-gray-100 dark:bg-gray-600">
         {/* 왼쪽 가이드 */}
 
@@ -223,7 +300,7 @@ const MgWriting: React.FC = () => {
               임시 저장
             </button>
             <button
-              onClick={handleModalOpen}
+              onClick={handleClick}
               className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-6 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
             >
               <img

@@ -42,14 +42,14 @@ export function UserView() {
     <DashboardContent>
       <Box display="flex" alignItems="center" mb={5}>
         <Typography variant="h4" flexGrow={1}>
-          Users
+          마음 일기
         </Typography>
         <Button
           variant="contained"
           color="inherit"
           startIcon={<Iconify icon="mingcute:add-line" />}
         >
-          New user
+          일기 쓰기
         </Button>
       </Box>
 
@@ -79,11 +79,11 @@ export function UserView() {
                   )
                 }
                 headLabel={[
-                  { id: "name", label: "Name" },
-                  { id: "company", label: "Company" },
-                  { id: "role", label: "Role" },
+                  { id: "name", label: "제목" },
+                  { id: "company", label: "내용" },
+                  { id: "role", label: "무드컬러" },
                   { id: "isVerified", label: "Verified", align: "center" },
-                  { id: "status", label: "Status" },
+                  { id: "status", label: "무드 컬러" },
                   { id: "" },
                 ]}
               />
