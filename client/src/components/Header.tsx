@@ -41,19 +41,6 @@ const Header: React.FC = () => {
     };
   }, []);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => {
-      const newMode = !prevMode;
-      localStorage.setItem("isDarkMode", newMode.toString());
-      if (newMode) {
-        document.body.classList.add("dark");
-      } else {
-        document.body.classList.remove("dark");
-      }
-      return newMode;
-    });
-  };
-
   const handleLogout = () => {
     // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
     localStorage.removeItem("token");
@@ -105,7 +92,7 @@ const Header: React.FC = () => {
       <CssBaseline />
       <header className="sticky top-0 z-50 flex justify-between items-center w-full p-5 bg-slate-50 dark:bg-scampi-800">
         <Link to="/home">
-          <button className="flex items-center text-xl bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">
+          <button className="flex items-center bg-transparent  text-indigo-950 text-l font-extrabold font-['Ubuntu Sans'] dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-200 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">
             <img src={pencilIcon} className="w-8 h-8 mr-2" alt="Pencil Icon" />{" "}
             MAEGEUL
           </button>
@@ -113,30 +100,23 @@ const Header: React.FC = () => {
 
         <nav className="flex gap-2">
           <Link to="/maegeul">
-            <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
-              매일 글쓰기
+            <button className=" text-black text-sm font-normal font-['Plus Jakarta Sans'] leading-normal py-2 px-4 rounded-full hover:bg-scampi-200  cursor-pointer transition-colors">
+              무드일기
             </button>
           </Link>
           <Link to="/emotionForm">
-            <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
+            <button className=" text-black text-sm font-normal font-['Plus Jakarta Sans'] leading-normal py-2 px-4 rounded-full hover:bg-scampi-200  cursor-pointer transition-colors">
               AI 하루진단
             </button>
           </Link>
           <Link to="/blog">
-            <button className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
-              추천 아티클
+            <button className=" text-black text-sm font-normal font-['Plus Jakarta Sans'] leading-normal py-2 px-4 rounded-full hover:bg-scampi-200  cursor-pointer transition-colors">
+              콘텐츠
             </button>
           </Link>
         </nav>
 
         <nav className="flex gap-7 items-center">
-          <button
-            onClick={toggleDarkMode}
-            className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
-          >
-            {isDarkMode ? "🔆" : "🌙"}
-          </button>
-
           {isLoggedIn ? (
             // AccountPopover
             <AccountPopover

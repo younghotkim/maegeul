@@ -4,7 +4,6 @@ import ImageSrc1 from "../Image/01.jpeg";
 import ImageSrc2 from "../Image/02.jpeg";
 import ImageSrc3 from "../Image/03.jpeg";
 import ImageSrc4 from "../Image/04.jpeg";
-import "./Contents.css";
 import ArrowPurple from "../Icon/Arrow Purple.png";
 
 const Contents: React.FC = () => {
@@ -65,26 +64,27 @@ const Contents: React.FC = () => {
   ];
 
   return (
-    <section className="my-16">
-      <h1 className="font-bold text-2xl text-scampi-700 dark:text-scampi-300 mb-4 text-center">
-        매글과 함께 나의 일상 영역을
-      </h1>
-      <h1 className="font-bold text-2xl text-scampi-700 dark:text-scampi-300 mb-4 text-center">
-        더욱 확장해 볼까요?
-      </h1>
-      <p className="text-sm text-scampi-500 dark:text-scampi-400 mb-8 text-center">
-        더 단단한 나를 만드는 4가지 일상 실천 콘텐츠를 확인해보세요.
-      </p>
-      <div className="grid grid-cols-2 gap-6">
-        {cardContents.map((content, index) => (
-          <Card
-            key={index}
-            title={content.title}
-            text={content.text}
-            tag={content.tag}
-            src={content.src}
-          />
-        ))}
+    <section className="py-16 flex justify-center">
+      <div className="max-w-[1140px] w-full">
+        <h2 className="text-center text-blue-950 text-4xl font-extrabold font-['Plus Jakarta Sans'] leading-10 mb-4">
+          마음돌봄 머글을 위한 루틴추천
+        </h2>
+        <p className="text-sm text-scampi-500 dark:text-slate-500 mb-8 text-center">
+          감정 기록을 바탕으로 요즘 나에게 필요한 감정 돌봄 습관과
+          <br />
+          자기돌봄 루틴 콘텐츠를 추천해드릴게요.
+        </p>
+        <div className="grid grid-cols-2 gap-[26px]">
+          {cardContents.map((content, index) => (
+            <Card
+              key={index}
+              title={content.title}
+              text={content.text}
+              tag={content.tag}
+              src={content.src}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -99,52 +99,48 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, text, tag, src }) => {
   return (
-    <div className="card-container">
-      <div className="card">
-        <div className="card-front" style={{ backgroundImage: `url(${src})` }}>
-          {/* 카드 전면 : Learn more버튼 하단 고정 */}
-          <div className="absolute inset-0 flex flex-col justify-between bg-black/20 rounded-md text-white p-4">
-            <div>
-              <h3 className="text-xl font-bold mb-2">{title}</h3>
-              <p className="text-sm text-left">{text}</p>
-            </div>
-            <button className="text-stone-50 text-lg py-2 px-6 rounded-full mt-4 hover:bg-stone-300">
-              Learn more
-              <img
-                src={ArrowPurple}
-                alt="Arrow Icon"
-                className="inline-block ml-2 w-4 h-4"
-              />
-            </button>
+    <div className="w-[553px] h-[293px] relative group overflow-hidden rounded-md">
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+        style={{ backgroundImage: `url(${src})` }}
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-500 group-hover:opacity-0" />
+      <div className="absolute inset-0 flex flex-col justify-between p-6 text-white transition-opacity duration-500 group-hover:opacity-0">
+        <div>
+          <h3 className="text-xl font-bold mb-2">{title}</h3>
+          <p className="text-sm">{text}</p>
+        </div>
+        <button className="self-start text-lg py-2 px-6 rounded-full mt-4 hover:bg-white hover:text-black transition-colors duration-300">
+          Learn more
+          <img
+            src={ArrowPurple}
+            alt="Arrow Icon"
+            className="inline-block ml-2 w-4 h-4"
+          />
+        </button>
+      </div>
+      <div className="absolute inset-0 flex flex-col justify-between p-6 bg-fecaca text-scampi-900 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <div>
+          <h3 className="text-xl font-bold mb-2">{title}</h3>
+          <div className="flex flex-wrap gap-2">
+            {tag.map((t, index) => (
+              <span
+                key={index}
+                className="text-xs bg-white py-1 px-3 rounded-full"
+              >
+                {t}
+              </span>
+            ))}
           </div>
         </div>
-        {/* 카드 후면: 버튼을 하단에 고정 */}
-        <div className="card-back">
-          <div className="flex flex-col justify-between items-start h-full">
-            <div>
-              <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
-              {/* 여러 개의 태그를 렌더링 */}
-              <div className="flex flex-wrap justify-items-start space-x-2">
-                {tag.map((t, index) => (
-                  <span
-                    key={index}
-                    className="text-sm text-scampi-900 bg-stone-50 py-2 px-6 rounded-full mt-4"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <button className="text-stone-50 text-lg py-2 px-6 rounded-full mt-4 hover:bg-stone-50 hover:text-scampi-900">
-              콘텐츠 탐색하기
-              <img
-                src={ArrowPurple}
-                alt="Arrow Icon"
-                className="inline-block ml-2 w-4 h-4"
-              />
-            </button>
-          </div>
-        </div>
+        <button className="self-start text-lg py-2 px-6 rounded-full mt-4 bg-white text-scampi-900 hover:bg-scampi-900 hover:text-white transition-colors duration-300">
+          콘텐츠 탐색하기
+          <img
+            src={ArrowPurple}
+            alt="Arrow Icon"
+            className="inline-block ml-2 w-4 h-4"
+          />
+        </button>
       </div>
     </div>
   );
