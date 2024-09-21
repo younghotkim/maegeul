@@ -14,12 +14,24 @@ import { AnalyticsTrafficBySite } from "../analytics-traffic-by-site";
 import { AnalyticsCurrentSubject } from "../analytics-current-subject";
 import { AnalyticsConversionRates } from "../analytics-conversion-rates";
 import { useUser } from "../../../context/UserContext"; // UserContext 임포트
+import AnalyticsWordCloud from "../../../dashboardComponents/wordcloud/AnalyticsWordCloud";
+
+import D3WordCloud from "../../../layouts/d3/D3WordCloud";
 
 // ----------------------------------------------------------------------
 
 export function OverviewAnalyticsView() {
   // UserContext에서 사용자 정보 가져오기
   const { user } = useUser();
+
+  const words = [
+    { text: "#불쾌한", size: 80 },
+    { text: "#골치 아픈", size: 50 },
+    { text: "#근심하는", size: 30 },
+    { text: "#들뜬", size: 40 },
+    { text: "#만족스러운", size: 100 },
+    { text: "#한가로운", size: 20 },
+  ];
 
   return (
     <DashboardContent maxWidth="xl">
@@ -135,6 +147,10 @@ export function OverviewAnalyticsView() {
               ],
             }}
           />
+        </Grid>
+
+        <Grid xs={12} md={6} lg={8}>
+          <AnalyticsWordCloud title="감정 어휘 클라우드" words={words} />
         </Grid>
 
         <Grid xs={12} md={6} lg={8}>

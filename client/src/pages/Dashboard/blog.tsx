@@ -6,6 +6,8 @@ import { Iconify } from "../../dashboardComponents/iconify"; // 아이콘 컴포
 import { CONFIG } from "../../config-global";
 import { Helmet } from "react-helmet-async";
 
+import { ProductsView } from "../../sections/product/view";
+
 const navItems = [
   {
     title: "홈",
@@ -33,7 +35,7 @@ const Blog: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title> {`Dashboard - ${CONFIG.appName}`}</title>
+        <title> {`${CONFIG.appName}`}</title>
         <meta
           name="description"
           content="The starting point for your next project with Minimal UI Kit, built on the newest version of Material-UI ©, ready to be customized to your style"
@@ -45,7 +47,7 @@ const Blog: React.FC = () => {
       </Helmet>
       <DashboardLayout>
         <NavDesktop data={navItems} layoutQuery={"xs"} />
-        <BlogView />
+        <ProductsView />
       </DashboardLayout>
     </>
   );
