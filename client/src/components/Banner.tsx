@@ -1,73 +1,50 @@
 //client2/src/components/Banner.tsx
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import WritingImage from "../Image/Banner.png";
 
-// className prop을 받을 수 있도록 설정
 interface BannerProps {
   className?: string;
 }
 
 const Banner: React.FC<BannerProps> = ({ className }) => {
-  const slides = [
-    "https://picsum.photos/1257/743?random=1",
-    "https://picsum.photos/1257/743?random=2",
-    "https://picsum.photos/1257/743?random=3",
-  ];
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  useEffect(() => {
-    if (!isPaused) {
-      const slideInterval = setInterval(() => {
-        setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-      }, 5000); // 5초마다 슬라이드 전환
-
-      return () => clearInterval(slideInterval);
-    }
-  }, [isPaused, slides.length]);
-
   return (
-    // 전달받은 className을 추가적으로 적용
     <div
-      className={`flex items-center justify-center min-h-screen ${className}`}
+      className={`w-full bg-white flex justify-center items-center py-16 ${className}`}
     >
-      {" "}
-      {/* Flexbox로 가운데 정렬 */}
-      <div className="relative w-[1257px] h-[743px] bg-neutral-700/40 rounded-3xl overflow-hidden justify-center">
-        <div
-          className="relative w-full h-full justify-center"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          <div
-            className="absolute inset-0 flex transition-transform duration-700"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          >
-            {slides.map((slide, index) => (
-              <img
-                key={index}
-                src={slide}
-                alt={`Slide ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-            ))}
-          </div>
-          {/* 고정된 텍스트와 링크 버튼 */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white text-base font-bold font-['Arial']">
-            <h1 className="mb-4 text-4xl">
-              매일 나를 위한 5분 <br />
-              글쓰기 지원 플랫폼
-            </h1>
-            <p className="text-center text-scampi-100 dark:text-scampi-600 text-base font-normal uppercase leading-none tracking-wider mb-4">
-              감정일기& AI기록 가이드로 소중한 나의 일상을 가꿔요.
-              <br />더 단단한 나를 만드는 하루 5분 글쓰기, 매글
-            </p>
+      <div className="max-w-[1140px] w-full flex flex-col lg:flex-row justify-between items-center relative lg:px-12 md:px-8 sm:px-4">
+        {/* Text area */}
+        <div className="flex-1 flex flex-col justify-start items-start gap-6 mb-8 lg:mb-0">
+          <h1 className="text-blue-950 text-5xl font-extrabold font-['Plus Jakarta Sans'] leading-tight lg:text-4xl md:text-3xl sm:text-2xl">
+            나를 돌보는 하루 5분 <br />
+            마음 챙김 글쓰기 <br />
+            매글과 시작해요!
+          </h1>
+          <p className="text-slate-500 text-base font-medium font-['Plus Jakarta Sans'] leading-loose lg:text-sm md:text-xs">
+            매일 글로 감정을 기록하며 나를 돌보는 루틴을 만들어요.
+            <br />
+            매일 더 편안하고 활기찬 기분이 들 수 있도록 매글이 도울게요!
+          </p>
+          <div className="flex items-center gap-4">
             <Link to="/maegeul">
-              <button className="text-sm bg-white text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-50 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors">
-                지금 쓰러가기
+              <button className="px-7 py-4 bg-indigo-600 rounded-lg text-white text-sm font-bold font-['Plus Jakarta Sans']">
+                무드일기 작성하기
               </button>
             </Link>
+            <button className="px-4 py-2 rounded-xl text-blue-950 text-sm font-medium font-['Plus Jakarta Sans']">
+              가이드 보기
+            </button>
+          </div>
+        </div>
+
+        {/* Image area */}
+        <div className="w-full lg:w-[456px] h-[480px] lg:h-[640px] relative">
+          <div className="w-full h-full rounded-2xl overflow-hidden">
+            <img
+              src={WritingImage}
+              alt="Writing"
+              className="absolute inset-0 w-full h-full object-cover rounded-2xl"
+            />
           </div>
         </div>
       </div>

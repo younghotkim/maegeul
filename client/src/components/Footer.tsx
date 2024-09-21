@@ -1,7 +1,6 @@
 // src/components/Footer.tsx
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Arrow from "../Icon/Arrow Purple.png";
 
 const Footer: React.FC = () => {
   return (
@@ -9,7 +8,7 @@ const Footer: React.FC = () => {
       <div className="container">
         <div className="flex flex-wrap -mx-4">
           {/* Left Side */}
-          <div className="w-full lg:w-1/2 px-2 mb-8 lg:mb-0">
+          <div className="w-full lg:w-1/2 px-10 mb-8 lg:mb-0">
             {/* Footer Description */}
             <div className="text-left text-scampi-500 text-lg font-normal mb-8">
               단단한 나를 만드는 5분 글쓰기 습관, 매글! <br />
