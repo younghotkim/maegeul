@@ -17,6 +17,7 @@ import { useUser } from "../../../context/UserContext"; // UserContext 임포트
 import AnalyticsWordCloud from "../../../dashboardComponents/wordcloud/AnalyticsWordCloud";
 
 import D3WordCloud from "../../../layouts/d3/D3WordCloud";
+import { useEffect, useState } from "react";
 
 // ----------------------------------------------------------------------
 
@@ -32,6 +33,45 @@ export function OverviewAnalyticsView() {
     { text: "#만족스러운", size: 100 },
     { text: "#한가로운", size: 20 },
   ];
+
+  // 무드 컬러 데이터를 저장할 상태
+  const [moodColorData, setMoodColorData] = useState([
+    { label: "파란색", value: 0 },
+    { label: "노란색", value: 0 },
+    { label: "초록색", value: 0 },
+    { label: "빨간색", value: 0 },
+  ]);
+
+  // useEffect를 사용하여 API 호출
+  useEffect(() => {
+    const fetchMoodColorData = async () => {
+      try {
+        // 백엔드에서 특정 user_id로 무드 컬러 데이터를 가져옴
+        const response = await fetch(
+          `http://localhost:5000/api/moodmeter/colorcount/${user?.user_id}`
+        );
+        const data = await response.json();
+
+        // API에서 반환된 데이터를 상태로 업데이트
+        const updatedMoodColorData = moodColorData.map((item) => {
+          const match = data.find(
+            (colorData: { color: string }) => colorData.color === item.label
+          );
+          return match ? { ...item, value: match.count } : item;
+        });
+
+        setMoodColorData(updatedMoodColorData);
+      } catch (error) {
+        console.error(
+          "무드 컬러 데이터를 불러오는 중 오류가 발생했습니다:",
+          error
+        );
+      }
+    };
+
+    // API 호출
+    fetchMoodColorData();
+  }, [user?.user_id]);
 
   return (
     <DashboardContent maxWidth="xl">
@@ -139,12 +179,7 @@ export function OverviewAnalyticsView() {
           <AnalyticsCurrentVisits
             title="무드 컬러"
             chart={{
-              series: [
-                { label: "파란색", value: 9 },
-                { label: "노란색", value: 9 },
-                { label: "초록색", value: 10 },
-                { label: "빨간색", value: 6 },
-              ],
+              series: moodColorData,
             }}
           />
         </Grid>

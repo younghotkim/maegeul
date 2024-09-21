@@ -5,6 +5,7 @@ import MoodMeter from "../../components/MoodMeter";
 import { Link } from "react-router-dom";
 import { useHighlightContext } from "../../context/HighlightContext"; // Context 임포트
 import { useUser } from "../../context/UserContext"; // UserContext 임포트
+import ProgressBar from "../../components/ProgressBar";
 
 const Diag: React.FC = () => {
   const [moodValue, setMoodValue] = useState<number>(1);
@@ -71,57 +72,67 @@ const Diag: React.FC = () => {
     const colorName = highlightedColor ? getColorName(highlightedColor) : "";
 
     return (
-      <div className="text-center p-4">
-        <p className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mt-10 mb-5">
-          오늘 {user?.profile_name}님의 무드 컬러는 {colorName}
-          {highlightedColor && (
-            <span
-              style={{
-                display: "inline-block",
-                width: "35px",
-                height: "35px",
-                backgroundColor: highlightedColor,
-                marginLeft: "5px",
-                borderRadius: "3px",
-              }}
-            />
-          )}
-          이에요.
-        </p>
+      <>
+        <div className="w-[1140px] relative mt-10 justify-center">
+          {/* 텍스트 (ProgressBar 위에 위치) */}
+          <div className="absolute top-[-2rem] left-0 z-10 font-bold text-scampi-700 dark:text-scampi-300 font-bold font-['DM Sans'] leading-10">
+            1단계: 감정 인식하기
+          </div>
+          {/* Progress Bar */}
+          <ProgressBar value={50} />
+        </div>
+        <div className="text-center p-4">
+          <p className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mt-10 mb-5">
+            오늘 {user?.profile_name}님의 무드 컬러는 {colorName}
+            {highlightedColor && (
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "35px",
+                  height: "35px",
+                  backgroundColor: highlightedColor,
+                  marginLeft: "5px",
+                  borderRadius: "3px",
+                }}
+              />
+            )}
+            이에요.
+          </p>
 
-        {highlightedLabels.length > 0 && (
-          <p className="text-scampi-700 dark:text-scampi-300 text-2xl font-bold font-['DM Sans'] leading-10">
-            #{highlightedLabels.join("#")}
-          </p>
-        )}
-        <div className="flex justify-center items-center h-screen mb-8">
-          <MoodMeter
-            pleasantness={moodValue}
-            energy={energyValue}
-            onColorChange={handleColorChange}
-            onHighlightChange={handleHighlightChange}
-          />
-        </div>
-        <div className="w-full p-6 ml-10 mr-10 bg-slate-100 rounded-3xl flex justify-center items-center mt-8">
-          <p className="text-scampi-700 text-lg font-bold font-['DM Sans'] leading-7 text-center">
-            내 감정을 더욱 정확하게 알아보기 위해서, <br />
-            지금 바로 감정 일기를 작성하러 가볼까요?
-          </p>
-        </div>
-        <div className="flex justify-center gap-4 p-6">
-          <button
-            onClick={handleRetry}
-            className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors"
-          >
-            다시 측정하기
-          </button>
-          <Link to="/MgWriting">
-            <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
-              글쓰러가기
+          {highlightedLabels.length > 0 && (
+            <p className="text-scampi-700 dark:text-scampi-300 text-2xl font-bold font-['DM Sans'] leading-10">
+              #{highlightedLabels.join("#")}
+            </p>
+          )}
+          <div className="flex justify-center items-center h-screen mb-8">
+            <MoodMeter
+              pleasantness={moodValue}
+              energy={energyValue}
+              onColorChange={handleColorChange}
+              onHighlightChange={handleHighlightChange}
+            />
+          </div>
+          <div className="w-full p-6 ml-10 mr-10 bg-slate-100 rounded-3xl flex justify-center items-center mt-8">
+            <p className="text-scampi-700 text-lg font-bold font-['DM Sans'] leading-7 text-center">
+              내 감정을 더욱 정확하게 알아보기 위해서, <br />
+              지금 바로 감정 일기를 작성하러 가볼까요?
+            </p>
+          </div>
+          <div className="flex justify-center gap-4 p-6">
+            <button
+              onClick={handleRetry}
+              className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors"
+            >
+              다시 측정하기
             </button>
-          </Link>
+            <Link to="/MgWriting">
+              <button className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+                글쓰러가기
+              </button>
+            </Link>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 

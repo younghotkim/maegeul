@@ -62,7 +62,7 @@ exports.login = (req, res) => {
       message: "로그인 성공",
       token, // 생성된 JWT 토큰
       user: {
-        id: user.id,
+        user_id: user.user_id,
         profileName: user.profile_name,
         email: user.email,
         profile_picture: user.profile_picture,
