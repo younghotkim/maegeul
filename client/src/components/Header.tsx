@@ -15,11 +15,9 @@ const Header: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
     return !!localStorage.getItem("token");
   });
+
   const navigate = useNavigate();
-
   const { user, setUser } = useUser(); // UserContext에서 user 가져오기
-
-  console.log(user);
 
   useEffect(() => {
     // 다크 모드 초기 설정 적용
@@ -105,8 +103,7 @@ const Header: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
-      <header className="sticky top-0 z-50 flex justify-between items-center w-full p-10 dark:bg-scampi-800">
+      <header className="sticky top-0 z-50 flex justify-between items-center w-full p-5 bg-slate-50 dark:bg-scampi-800">
         <Link to="/home">
           <button className="flex items-center text-xl bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">
             <img src={pencilIcon} className="w-8 h-8 mr-2" alt="Pencil Icon" />{" "}

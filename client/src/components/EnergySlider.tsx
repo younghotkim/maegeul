@@ -26,9 +26,9 @@ const EnergySlider: React.FC<EnergySliderProps> = ({
     onSubmit(); // 제출 처리만 부모 컴포넌트에서 실행
   };
 
-  const fireSize = 20 + (value - 1) * 2; // 슬라이더 값에 따라 이모지 크기 조정
+  const fireSize = 20 + (value - 1) * 3; // 슬라이더 값에 따라 이모지 크기 조정
   const fireStyle: React.CSSProperties = {
-    left: `${value * 100}%`,
+    left: `${value * 139}%`,
     transition: "left 0.2s ease",
     position: "absolute",
     top: "-30px",
