@@ -2,7 +2,7 @@ const { saveDiary, getDiariesByUserId } = require("../models/diaryModel");
 
 // 일기를 저장하는 컨트롤러
 const createDiary = (req, res) => {
-  const { user_id, title, content } = req.body;
+  const { user_id, title, content, color } = req.body;
 
   // 필수 필드 확인
   if (!user_id || !title || !content) {
@@ -10,7 +10,7 @@ const createDiary = (req, res) => {
   }
 
   // 모델을 통해 일기 저장
-  saveDiary({ user_id, title, content }, (err, result) => {
+  saveDiary({ user_id, title, content, color }, (err, result) => {
     if (err) {
       console.error("DB 저장 중 오류 발생:", err);
       return res.status(500).json({ error: "DB 저장 중 오류 발생" });
