@@ -5,6 +5,7 @@ import ImageSrc2 from "../Image/02.jpeg";
 import ImageSrc3 from "../Image/03.jpeg";
 import ImageSrc4 from "../Image/04.jpeg";
 import ArrowPurple from "../Icon/Arrow Purple.png";
+import { Link } from "react-router-dom";
 
 const Contents: React.FC = () => {
   const cardContents = [
@@ -64,29 +65,72 @@ const Contents: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 flex justify-center">
-      <div className="max-w-[1140px] w-full">
-        <h2 className="text-center text-blue-950 text-4xl font-extrabold font-['Plus Jakarta Sans'] leading-10 mb-4">
-          마음돌봄 머글을 위한 루틴추천
-        </h2>
-        <p className="text-sm text-scampi-500 dark:text-slate-500 mb-8 text-center">
-          감정 기록을 바탕으로 요즘 나에게 필요한 감정 돌봄 습관과
-          <br />
-          자기돌봄 루틴 콘텐츠를 추천해드릴게요.
-        </p>
-        <div className="grid grid-cols-2 gap-[26px]">
-          {cardContents.map((content, index) => (
-            <Card
-              key={index}
-              title={content.title}
-              text={content.text}
-              tag={content.tag}
-              src={content.src}
-            />
-          ))}
+    <>
+      {/* 카드 컨텐츠 섹션 */}
+      <section className="py-16 flex justify-center">
+        <div className="max-w-[1140px] w-full">
+          <h2 className="text-center text-blue-950 text-4xl font-extrabold font-['Plus Jakarta Sans'] leading-10 mb-4">
+            마음돌봄 머글을 위한 루틴추천
+          </h2>
+          <p className="text-sm text-scampi-500 dark:text-slate-500 mb-8 text-center">
+            감정 기록을 바탕으로 요즘 나에게 필요한 감정 돌봄 습관과
+            <br />
+            자기돌봄 루틴 콘텐츠를 추천해드릴게요.
+          </p>
+          <div className="grid grid-cols-2 gap-[26px]">
+            {cardContents.map((content, index) => (
+              <Card
+                key={index}
+                title={content.title}
+                text={content.text}
+                tag={content.tag}
+                src={content.src}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* 두 섹션 간 여백 150px 추가 */}
+      <div className="h-[150px]" />
+
+      {/* 매글에서 지금 바로 시작해보세요 섹션 */}
+      <section className="w-full flex justify-center items-center py-16">
+        <div className="Cta2 max-w-[1150px] mx-auto justify-center items-start flex">
+          <div className="Contain grow shrink basis-0 h-20 justify-center items-center gap-10 flex">
+            <span className="text-blue-950 text-4xl font-extrabold font-['Plus Jakarta Sans'] leading-10">
+              나를 돌보는 하루 5분 마음챙김
+              <br />
+              매글에서 지금 바로 시작해보세요.
+            </span>
+            {/* Text와 버튼 사이 여백 200px 추가 */}
+            <div style={{ marginBottom: "200px" }} />
+            <div className="Cta grow shrink basis-0 h-14 justify-end items-center gap-4 flex">
+              <Link to="/maegeul">
+                <div
+                  className="Button flex border border-indigo-600 rounded-xl justify-center items-center gap-2.5"
+                  style={{ width: "171px", height: "56px" }}
+                >
+                  <div className="Text text-indigo-600 text-sm font-bold font-['Plus Jakarta Sans'] leading-normal">
+                    지금 바로 시작하기
+                  </div>
+                </div>
+              </Link>
+              <Link to="/mainsignup">
+                <div
+                  className="Button bg-indigo-600 rounded-xl flex justify-center items-center gap-2.5"
+                  style={{ width: "171px", height: "56px" }}
+                >
+                  <div className="Text text-white text-sm font-bold font-['Plus Jakarta Sans'] leading-normal">
+                    회원 가입 하기
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
