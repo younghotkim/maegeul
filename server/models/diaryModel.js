@@ -2,10 +2,10 @@ const db = require("../db"); // MySQL DB 연결 설정
 
 // 일기 저장하는 함수
 const saveDiary = (diaryData, callback) => {
-  const { user_id, title, content } = diaryData;
-  const sql = `INSERT INTO Diary (user_id, title, content, date) VALUES (?, ?, ?, NOW())`;
+  const { user_id, title, content, color } = diaryData; // color 추가
+  const sql = `INSERT INTO Diary (user_id, title, content, color, date) VALUES (?, ?, ?, ?, NOW())`; // color 필드 추가
 
-  db.query(sql, [user_id, title, content], (err, result) => {
+  db.query(sql, [user_id, title, content, color], (err, result) => {
     if (err) {
       return callback(err, null);
     }

@@ -42,6 +42,7 @@ interface Diary {
   title: string;
   content: string;
   date: string; // 날짜는 string 형태로 저장될 수 있습니다 (API에서 JSON으로 받을 경우)
+  color: string;
 }
 
 export function getComparator<Key extends keyof Diary>(

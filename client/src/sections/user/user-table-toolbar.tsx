@@ -42,7 +42,7 @@ export function UserTableToolbar({
           fullWidth
           value={filterName}
           onChange={onFilterName}
-          placeholder="일기 검색"
+          placeholder="감정 태그 검색"
           startAdornment={
             <InputAdornment position="start">
               <Iconify

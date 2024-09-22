@@ -121,6 +121,7 @@ const MgWriting: React.FC = () => {
         user_id: user?.user_id, // 로그인된 사용자 ID
         title: title,
         content: content,
+        color: colorName,
       };
 
       const response = await fetch("http://localhost:5000/api/diary", {

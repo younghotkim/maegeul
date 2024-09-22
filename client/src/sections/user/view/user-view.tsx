@@ -20,6 +20,7 @@ import { TableEmptyRows } from "../table-empty-rows";
 import { UserTableToolbar } from "../user-table-toolbar";
 import { emptyRows, applyFilter, getComparator } from "../utils";
 import { useUser } from "../../../context/UserContext"; // UserContext 임포트
+import { Color } from "antd/es/color-picker";
 
 interface Diary {
   diary_id: number;
@@ -27,6 +28,7 @@ interface Diary {
   title: string;
   content: string;
   date: string;
+  color: string;
 }
 
 export function UserView() {
@@ -107,8 +109,8 @@ export function UserView() {
                 headLabel={[
                   { id: "title", label: "제목" },
                   { id: "content", label: "내용" },
-                  { id: "date", label: "날짜" },
-                  { id: "user_id", label: "작성자 ID" },
+                  { id: "color", label: "무드 컬러" },
+                  { id: "date", label: "작성 시간" },
                   { id: "" },
                 ]}
               />
@@ -166,6 +168,7 @@ interface Diary {
   title: string;
   content: string;
   date: string; // 날짜는 string으로 저장됨
+  color: string;
 }
 
 export function useTable() {

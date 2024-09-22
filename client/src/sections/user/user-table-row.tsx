@@ -18,6 +18,7 @@ interface Diary {
   title: string;
   content: string;
   date: string;
+  color: string;
 }
 
 type UserTableRowProps = {
@@ -46,6 +47,17 @@ export function UserTableRow({
     setOpenPopover(null);
   }, []);
 
+  const colorMap: { [key: string]: string } = {
+    빨간색: "#FF0000",
+    노란색: "#FFFF00",
+    파란색: "#0000FF",
+    초록색: "#00FF00",
+    // 필요한 다른 색상들도 추가 가능
+  };
+
+  // diaryData.color 텍스트를 컬러 코드로 변환
+  const backgroundColor = colorMap[row.color] || "#000000"; // row.color가 전달되도록 수정
+
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
@@ -62,10 +74,21 @@ export function UserTableRow({
         <TableCell>{row.content}</TableCell>
 
         {/* Diary의 date 필드를 테이블에 표시 */}
-        <TableCell>{row.date}</TableCell>
+        {/* color 필드를 배경색으로 표시 */}
+        <TableCell>
+          <span
+            style={{
+              display: "inline-block",
+              width: "20px",
+              height: "20px",
+              backgroundColor: backgroundColor, // 매핑된 색상 코드 적용
+              borderRadius: "50%", // 원형으로 표시 (원형 말고 사각형으로 하려면 이 부분을 제거)
+            }}
+          />
+        </TableCell>
 
-        {/* user_id 필드를 표시 (원하는 대로 수정 가능) */}
-        <TableCell align="center">{row.user_id}</TableCell>
+        {/* Diary의 date 필드를 테이블에 표시 */}
+        <TableCell>{row.date}</TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenPopover}>
