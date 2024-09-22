@@ -18,6 +18,7 @@ import AnalyticsWordCloud from "../../../dashboardComponents/wordcloud/Analytics
 
 import D3WordCloud from "../../../layouts/d3/D3WordCloud";
 import { useEffect, useState } from "react";
+import { useMoodColorData } from "../../../hooks/useMoodColorData";
 
 // ----------------------------------------------------------------------
 
@@ -34,44 +35,8 @@ export function OverviewAnalyticsView() {
     { text: "#한가로운", size: 20 },
   ];
 
-  // 무드 컬러 데이터를 저장할 상태
-  const [moodColorData, setMoodColorData] = useState([
-    { label: "파란색", value: 0 },
-    { label: "노란색", value: 0 },
-    { label: "초록색", value: 0 },
-    { label: "빨간색", value: 0 },
-  ]);
-
-  // useEffect를 사용하여 API 호출
-  useEffect(() => {
-    const fetchMoodColorData = async () => {
-      try {
-        // 백엔드에서 특정 user_id로 무드 컬러 데이터를 가져옴
-        const response = await fetch(
-          `http://localhost:5000/api/moodmeter/colorcount/${user?.user_id}`
-        );
-        const data = await response.json();
-
-        // API에서 반환된 데이터를 상태로 업데이트
-        const updatedMoodColorData = moodColorData.map((item) => {
-          const match = data.find(
-            (colorData: { color: string }) => colorData.color === item.label
-          );
-          return match ? { ...item, value: match.count } : item;
-        });
-
-        setMoodColorData(updatedMoodColorData);
-      } catch (error) {
-        console.error(
-          "무드 컬러 데이터를 불러오는 중 오류가 발생했습니다:",
-          error
-        );
-      }
-    };
-
-    // API 호출
-    fetchMoodColorData();
-  }, [user?.user_id]);
+  //moodColorData Hook
+  const { moodColorData, totalLabels } = useMoodColorData();
 
   return (
     <DashboardContent maxWidth="xl">
@@ -82,9 +47,9 @@ export function OverviewAnalyticsView() {
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
-            title="Weekly sales"
+            title="무드 컬러 진단 횟수"
             percent={2.6}
-            total={714000}
+            total={totalLabels} // totalLabels 값을 total에 적용
             icon={<img alt="icon" src="/assets/icons/glass/ic-glass-bag.svg" />}
             chart={{
               categories: [
@@ -104,7 +69,7 @@ export function OverviewAnalyticsView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
-            title="New users"
+            title="일기 작성 수"
             percent={-0.1}
             total={1352831}
             color="secondary"
@@ -240,31 +205,24 @@ export function OverviewAnalyticsView() {
 
         <Grid xs={12} md={6} lg={4}>
           <AnalyticsCurrentSubject
-            title="Current subject"
+            title="추천 영역"
             chart={{
-              categories: [
-                "English",
-                "History",
-                "Physics",
-                "Geography",
-                "Chinese",
-                "Math",
-              ],
+              categories: ["자기개발", "헬스", "문화", "취미", "언어", "운동"],
               series: [
-                { name: "Series 1", data: [80, 50, 30, 40, 100, 20] },
-                { name: "Series 2", data: [20, 30, 40, 80, 20, 80] },
-                { name: "Series 3", data: [44, 76, 78, 13, 43, 10] },
+                { name: "파란색", data: [80, 50, 30, 40, 100, 20] },
+                { name: "빨간색", data: [20, 30, 40, 80, 20, 80] },
+                { name: "초록색", data: [44, 76, 78, 13, 43, 10] },
               ],
             }}
           />
         </Grid>
 
         <Grid xs={12} md={6} lg={8}>
-          <AnalyticsNews title="News" list={_posts.slice(0, 5)} />
+          <AnalyticsNews title="추천 컨텐츠" list={_posts.slice(0, 5)} />
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
-          <AnalyticsOrderTimeline title="Order timeline" list={_timeline} />
+          <AnalyticsOrderTimeline title="무드 컬러 타임라인" list={_timeline} />
         </Grid>
 
         <Grid xs={12} md={6} lg={8}>

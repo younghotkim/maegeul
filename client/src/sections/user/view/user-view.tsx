@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 
-import { _users } from "../../../_mock";
 import { DashboardContent } from "../../../layouts/dashboard";
 import { Iconify } from "../../../dashboardComponents/iconify";
 import { Scrollbar } from "../../../dashboardComponents/scrollbar";
@@ -20,18 +19,45 @@ import { UserTableHead } from "../user-table-head";
 import { TableEmptyRows } from "../table-empty-rows";
 import { UserTableToolbar } from "../user-table-toolbar";
 import { emptyRows, applyFilter, getComparator } from "../utils";
+import { useUser } from "../../../context/UserContext"; // UserContext 임포트
 
-import type { UserProps } from "../user-table-row";
-
-// ----------------------------------------------------------------------
+interface Diary {
+  diary_id: number;
+  user_id: number;
+  title: string;
+  content: string;
+  date: string;
+}
 
 export function UserView() {
   const table = useTable();
-
+  const [diaryData, setDiaryData] = useState<Diary[]>([]); // Diary 데이터를 저장하는 상태
   const [filterName, setFilterName] = useState("");
+  const { user } = useUser();
 
-  const dataFiltered: UserProps[] = applyFilter({
-    inputData: _users,
+  // Diary 데이터를 API에서 가져오는 함수
+  const fetchDiaryData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/diary/${user?.user_id}`
+      ); // 적절한 API 엔드포인트로 수정
+      const data: Diary[] = await response.json();
+      setDiaryData(data); // 상태에 저장
+    } catch (error) {
+      console.error(
+        "다이어리 데이터를 가져오는 중 오류가 발생했습니다:",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchDiaryData(); // 컴포넌트가 마운트될 때 데이터 가져오기
+  }, []);
+
+  // 테이블에서 사용할 데이터 필터링
+  const dataFiltered = applyFilter({
+    inputData: diaryData,
     comparator: getComparator(table.order, table.orderBy),
     filterName,
   });
@@ -69,21 +95,20 @@ export function UserView() {
               <UserTableHead
                 order={table.order}
                 orderBy={table.orderBy}
-                rowCount={_users.length}
+                rowCount={diaryData.length}
                 numSelected={table.selected.length}
-                onSort={table.onSort}
+                onSort={(id) => table.onSort(id as keyof Diary)} // string을 keyof Diary로 캐스팅
                 onSelectAllRows={(checked) =>
                   table.onSelectAllRows(
                     checked,
-                    _users.map((user) => user.id)
+                    diaryData.map((diary) => String(diary.diary_id))
                   )
                 }
                 headLabel={[
-                  { id: "name", label: "제목" },
-                  { id: "company", label: "내용" },
-                  { id: "role", label: "무드컬러" },
-                  { id: "isVerified", label: "Verified", align: "center" },
-                  { id: "status", label: "무드 컬러" },
+                  { id: "title", label: "제목" },
+                  { id: "content", label: "내용" },
+                  { id: "date", label: "날짜" },
+                  { id: "user_id", label: "작성자 ID" },
                   { id: "" },
                 ]}
               />
@@ -95,10 +120,12 @@ export function UserView() {
                   )
                   .map((row) => (
                     <UserTableRow
-                      key={row.id}
+                      key={row.diary_id}
                       row={row}
-                      selected={table.selected.includes(row.id)}
-                      onSelectRow={() => table.onSelectRow(row.id)}
+                      selected={table.selected.includes(String(row.diary_id))}
+                      onSelectRow={() =>
+                        table.onSelectRow(String(row.diary_id))
+                      }
                     />
                   ))}
 
@@ -107,7 +134,7 @@ export function UserView() {
                   emptyRows={emptyRows(
                     table.page,
                     table.rowsPerPage,
-                    _users.length
+                    diaryData.length
                   )}
                 />
 
@@ -120,7 +147,7 @@ export function UserView() {
         <TablePagination
           component="div"
           page={table.page}
-          count={_users.length}
+          count={diaryData.length}
           rowsPerPage={table.rowsPerPage}
           onPageChange={table.onChangePage}
           rowsPerPageOptions={[5, 10, 25]}
@@ -133,15 +160,24 @@ export function UserView() {
 
 // ----------------------------------------------------------------------
 
+interface Diary {
+  diary_id: number;
+  user_id: number;
+  title: string;
+  content: string;
+  date: string; // 날짜는 string으로 저장됨
+}
+
 export function useTable() {
   const [page, setPage] = useState(0);
-  const [orderBy, setOrderBy] = useState("name");
+  const [orderBy, setOrderBy] = useState<keyof Diary>("title"); // orderBy는 Diary 속성 중 하나
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [selected, setSelected] = useState<string[]>([]);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
 
   const onSort = useCallback(
-    (id: string) => {
+    (id: keyof Diary) => {
+      // id는 Diary 속성 중 하나여야 함
       const isAsc = orderBy === id && order === "asc";
       setOrder(isAsc ? "desc" : "asc");
       setOrderBy(id);

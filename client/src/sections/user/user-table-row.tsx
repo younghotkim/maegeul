@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
 import TableRow from "@mui/material/TableRow";
 import Checkbox from "@mui/material/Checkbox";
@@ -10,23 +9,19 @@ import TableCell from "@mui/material/TableCell";
 import IconButton from "@mui/material/IconButton";
 import MenuItem, { menuItemClasses } from "@mui/material/MenuItem";
 
-import { Label } from "../../dashboardComponents/label";
 import { Iconify } from "../../dashboardComponents/iconify";
 
-// ----------------------------------------------------------------------
-
-export type UserProps = {
-  id: string;
-  name: string;
-  role: string;
-  status: string;
-  company: string;
-  avatarUrl: string;
-  isVerified: boolean;
-};
+// Diary 타입 정의
+interface Diary {
+  diary_id: number;
+  user_id: number;
+  title: string;
+  content: string;
+  date: string;
+}
 
 type UserTableRowProps = {
-  row: UserProps;
+  row: Diary; // Diary 타입으로 변경
   selected: boolean;
   onSelectRow: () => void;
 };
@@ -58,34 +53,19 @@ export function UserTableRow({
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
 
+        {/* Diary의 title 필드를 테이블에 표시 */}
         <TableCell component="th" scope="row">
-          <Box gap={2} display="flex" alignItems="center">
-            <Avatar alt={row.name} src={row.avatarUrl} />
-            {row.name}
-          </Box>
+          {row.title}
         </TableCell>
 
-        <TableCell>{row.company}</TableCell>
+        {/* Diary의 content 필드를 테이블에 표시 */}
+        <TableCell>{row.content}</TableCell>
 
-        <TableCell>{row.role}</TableCell>
+        {/* Diary의 date 필드를 테이블에 표시 */}
+        <TableCell>{row.date}</TableCell>
 
-        <TableCell align="center">
-          {row.isVerified ? (
-            <Iconify
-              width={22}
-              icon="solar:check-circle-bold"
-              sx={{ color: "success.main" }}
-            />
-          ) : (
-            "-"
-          )}
-        </TableCell>
-
-        <TableCell>
-          <Label color={(row.status === "banned" && "error") || "success"}>
-            {row.status}
-          </Label>
-        </TableCell>
+        {/* user_id 필드를 표시 (원하는 대로 수정 가능) */}
+        <TableCell align="center">{row.user_id}</TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenPopover}>
