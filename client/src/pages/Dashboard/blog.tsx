@@ -20,7 +20,7 @@ const navItems = [
     icon: <Iconify icon="ic:baseline-dashboard" />,
   },
   {
-    title: "글 목록",
+    title: "일기장",
     path: "/user",
     icon: <Iconify icon="tabler:writing" />,
   },
