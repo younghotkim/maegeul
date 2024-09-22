@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import pencilIcon from "../Icon/pencil logo purple.png";
 import { useUser } from "../context/UserContext";
-
+import MeageulLogo from "../Icon/MaegeulLogo.png";
 import { AccountPopover } from "../layouts/components/account-popover";
 import { Iconify } from "../dashboardComponents/iconify";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -93,8 +93,7 @@ const Header: React.FC = () => {
       <header className="sticky top-0 z-50 flex justify-between items-center w-full p-5 bg-slate-50 dark:bg-scampi-800">
         <Link to="/home">
           <button className="flex items-center bg-transparent  text-indigo-950 text-l font-extrabold font-['Ubuntu Sans'] dark:text-scampi-200 py-2 px-4 rounded-full hover:bg-scampi-200 dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">
-            <img src={pencilIcon} className="w-8 h-8 mr-2" alt="Pencil Icon" />{" "}
-            MAEGEUL
+            <img src={MeageulLogo} />
           </button>
         </Link>
 

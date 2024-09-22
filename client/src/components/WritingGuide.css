@@ -35,7 +35,7 @@
 
 .guide-button span {
     font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .guide-content {
@@ -87,7 +87,7 @@
     background-color: #5F4B8B;
     color: white;
     font-size: 14px;
-    padding: 8px;
+    padding: 4px;
     border-radius: 4px;
     white-space: nowrap; /* Ensure tooltip text does not wrap */
     z-index: 1010; /* Ensure tooltip appears above guide text */
