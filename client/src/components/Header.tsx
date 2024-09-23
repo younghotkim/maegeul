@@ -10,10 +10,10 @@ import { CssBaseline } from "@mui/material";
 
 const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    return localStorage.getItem("isDarkMode") === "true";
+    return sessionStorage.getItem("isDarkMode") === "true";
   });
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
-    return !!localStorage.getItem("token");
+    return !!sessionStorage.getItem("token");
   });
 
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Header: React.FC = () => {
   useEffect(() => {
     // `storage` 이벤트를 통해 다른 탭에서 토큰이 변경될 때 상태 업데이트
     const handleStorageChange = () => {
-      setIsLoggedIn(!!localStorage.getItem("token"));
+      setIsLoggedIn(!!sessionStorage.getItem("token"));
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
 
   const handleLogout = () => {
     // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setIsLoggedIn(false); // 로그인 상태를 false로 설정
     setUser(null); // 사용자 정보를 초기화하여 profile_name 제거
     navigate("/"); // 로그아웃 후 메인 페이지로 리다이렉트

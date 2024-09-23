@@ -1,60 +1,92 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import aiIcon from "../../Icon/ai.png";
 import { analyzeEmotion } from "../../api/analyzeApi"; // 분석 API import
 import "./MgModal.css";
+import { useUser } from "../../context/UserContext"; // UserContext 임포트
+import { useDiary } from "../../context/DiaryContext"; // DiaryContext 가져오기
 
 interface ModalProps {
   content: string; // content prop 추가
   onClose: () => void;
+  onAnalyzeComplete: (result: string) => void; // 분석 결과를 부모에게 전달하는 콜백
 }
 
-const MgModal: React.FC<ModalProps> = ({ content, onClose }) => {
+const MgModal: React.FC<ModalProps> = ({
+  content,
+  onClose,
+  onAnalyzeComplete,
+}) => {
   const [emotionResult, setEmotionResult] = useState<string | null>(null); // 분석 결과 상태
   const [loading, setLoading] = useState(false); // 로딩 상태 추가
+  const [isChecked, setIsChecked] = useState(false); // 체크박스 상태 추가
+  const { user } = useUser(); // UserContext에서 사용자 정보 가져오기
+  const { diaryCount, fetchDiaryCount } = useDiary(); // DiaryContext에서 일기 갯수 가져오기
+
+  useEffect(() => {
+    if (user?.user_id) {
+      fetchDiaryCount(user.user_id); // 모달이 열릴 때 일기 갯수 불러오기
+    }
+  }, [user, fetchDiaryCount]);
 
   const handleAnalyze = async () => {
+    if (!isChecked) return; // 체크박스가 체크되지 않으면 실행하지 않음
     setLoading(true); // 분석 시작 시 로딩 상태를 true로 설정
     try {
       // AI 분석 호출
       const emotion = await analyzeEmotion(content);
       setEmotionResult(emotion); // 분석 결과 상태 저장
-      alert(`감정 분석 결과: ${emotion}`);
+      onAnalyzeComplete(emotion); // 분석 결과를 부모 컴포넌트로 전달
     } catch (error) {
       console.error("감정 분석 중 오류 발생:", error);
     } finally {
       setLoading(false); // 분석이 완료되면 로딩 상태를 false로 설정
+      onClose(); // 로딩이 끝난 후 모달 닫기
     }
   };
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked); // 체크박스 상태 업데이트
+  };
+
+  // diaryCount 처리 로직
+  const diaryText =
+    diaryCount === 0 ? "첫 번째" : diaryCount ? `${diaryCount}번째` : "N번째"; // 일기 갯수에 따라 표시할 텍스트
+
   return (
-    // 모달 팝업의 배경을 설정하고, 화면 중앙에 나타나도록 스타일링
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      {/* 모달 팝업의 메인 컨테이너 */}
       <div className="Container w-[1000px] h-[500px] relative bg-white rounded-lg shadow-lg p-8 flex flex-col items-center">
         {/* 사용자 안내 문구 */}
-        <div className="Paragraph text-center text-scampi-700 text-2xl font-bold font-['DM Sans'] leading-8 mb-10 mt-20">
-          린다님의 N번째 감정일기 작성이 완료되었어요! <br />
+        <div className="Paragraph text-center text-scampi-700 text-3xl font-bold font-['DM Sans'] leading-8 mt-20">
+          {user?.profile_name}님의 {diaryText} 감정일기 작성이 완료되었어요!{" "}
+        </div>
+        <div className="Paragraph text-center text-scampi-700 text-xl font-bold font-['DM Sans'] leading-8 mt-5 mb-6">
           꾸준히 감정일기를 작성하면, 나의 마음 지도를 <br />
           만들고 자기 돌봄 습관을 만들어 갈 수 있어요.
         </div>
 
-        {/* 아래 부분 - AI 하루진단 안내, 아이콘, 이용 약관 */}
+        {/* AI 하루진단 안내 및 설명 */}
         <div className="flex items-center justify-between w-full">
           {/* 아이콘 이미지 */}
           <div className="flex items-center justify-center w-1/6">
             <img
               src={aiIcon}
               alt="ai_icon"
-              className="w-16 h-16 bg-scampi-500 rounded-full object-cover"
+              className="w-20 h-20 bg-scampi-500 rounded-full object-cover"
             />
           </div>
 
           {/* AI 하루진단 안내 및 설명 */}
           <div className="Paragraph text-left text-slate-400 text-lg font-bold font-['DM Sans'] w-4/6 mt-10">
-            무디타봇에게 [AI 하루진단]을 받아보세요. 린다님이 작성한 일기 내용을
-            바탕으로 오늘 느낀 감정을 분석하고 그에 맞는 기분 가이드를 드려요.
+            무디타봇에게 [AI 하루진단]을 받아보세요. <br /> {user?.profile_name}
+            님이 작성한 일기 내용을 바탕으로 오늘 느낀 감정을 분석하고 그에 맞는
+            기분 가이드를 드려요.
             <div className="text-zinc-500 text-sm font-['Noto Sans KR'] leading-5 mt-10">
-              <input type="checkbox" className="mr-2" />
+              <input
+                type="checkbox"
+                className="mr-2"
+                checked={isChecked} // 체크박스 상태 연결
+                onChange={handleCheckboxChange} // 체크박스 상태 변경 처리
+              />
               AI 분석을 위해 OpenAI에 작성글을 전송하는 것에 동의합니다. <br />
               <a href="#" className="underline text-xs">
                 [이용 약관 자세히 보기]
@@ -66,7 +98,10 @@ const MgModal: React.FC<ModalProps> = ({ content, onClose }) => {
           <div className="flex items-center justify-center w-1/6">
             <button
               onClick={handleAnalyze} // 버튼 클릭 시 감정 분석 실행
-              className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
+              className={`bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors ${
+                isChecked ? "" : "opacity-50 cursor-not-allowed"
+              }`}
+              disabled={!isChecked} // 체크박스가 체크되지 않았으면 버튼 비활성화
             >
               AI 하루진단
             </button>
@@ -77,13 +112,6 @@ const MgModal: React.FC<ModalProps> = ({ content, onClose }) => {
         {loading && (
           <div className="flex justify-center items-center mt-4">
             <div className="loader"></div> {/* 간단한 로딩 애니메이션 */}
-          </div>
-        )}
-
-        {/* 분석 결과 표시 */}
-        {emotionResult && (
-          <div className="mt-4 p-4 bg-blue-100 rounded-lg text-blue-800">
-            분석 결과: {emotionResult}
           </div>
         )}
 

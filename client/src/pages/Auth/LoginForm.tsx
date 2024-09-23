@@ -42,7 +42,7 @@ const LoginForm = () => {
       ) {
         const token = loginResponse.data.token;
 
-        localStorage.setItem("token", token); // JWT 토큰을 로컬 스토리지에 저장
+        sessionStorage.setItem("token", token); // JWT 토큰을 로컬 스토리지에 저장
 
         // 사용자 정보를 UserContext에 저장
         setUser({

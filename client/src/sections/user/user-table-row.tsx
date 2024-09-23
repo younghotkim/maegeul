@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuItem, { menuItemClasses } from "@mui/material/MenuItem";
 
 import { Iconify } from "../../dashboardComponents/iconify";
+import { formatStr } from "../../utils/format-time";
 
 // Diary 타입 정의
 interface Diary {

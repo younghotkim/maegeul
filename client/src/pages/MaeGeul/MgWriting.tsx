@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import { analyzeEmotion } from "../../api/analyzeApi"; // 분석 API import
-import WritingGuide from "../../components/WritingGuide"; // 왼쪽 감정 일기 가이드
 import PencilWriting from "../../Icon/Pencil Writing.png";
 import Folder from "../../Icon/Folder.png";
 import MgModal from "./MgModal"; // 모달 컴포넌트 임포트
+
 import { useHighlightContext } from "../../context/HighlightContext"; // Context 임포트
 import { useMoodContext } from "../../context/MoodContext"; // Context 훅 임포트
 import { useUser } from "../../context/UserContext"; // UserContext 임포트
@@ -41,9 +41,7 @@ const MgWriting: React.FC = () => {
   useEffect(() => {
     const today = new Date();
 
-    const formatted = `${today.getFullYear()}년 ${
-      today.getMonth() + 1
-    }월 ${today.getDate()}일 ${today.getHours()}시 ${today.getMinutes()}분`;
+    const formatted = `${today.getHours()}시 ${today.getMinutes()}분`;
     setFormattedDate(formatted);
 
     // 날짜만 포함한 포맷
@@ -60,6 +58,11 @@ const MgWriting: React.FC = () => {
     // formattedDate가 변경될 때 title도 업데이트
     setTitle(`${formattedDateOnly}의 일기`);
   }, [formattedDateOnly]);
+
+  // 감정 분석 결과를 모달에서 받아오는 콜백 함수
+  const handleAnalyzeComplete = (result: string) => {
+    setEmotionResult(result); // 분석 결과 상태 업데이트
+  };
 
   const handleSave = async () => {
     try {
@@ -186,91 +189,110 @@ const MgWriting: React.FC = () => {
     }
   };
 
+  const [showWarning, setShowWarning] = useState(false); // 경고 메시지 상태 추가
+
   return (
     <>
       <Header />
-
-      <div className="w-[1140px] relative mt-10">
-        {/* 텍스트 (ProgressBar 위에 위치) */}
+      <div className="w-[1140px] relative mt-10 mx-auto">
+        {/* 텍스트 (ProgressBar 왼쪽 끝에 위치) */}
         <div className="absolute top-[-2rem] left-0 z-10 font-bold text-scampi-700 dark:text-scampi-300 font-bold font-['DM Sans'] leading-10">
-          1단계: 감정 인식하기
+          3단계: 감정 표현하기
         </div>
-        {/* Progress Bar */}
-        <ProgressBar value={80} />
+        {/* Progress Bar (가운데에 위치) */}
+        <div className="w-full flex justify-center">
+          <ProgressBar value={80} />
+        </div>
       </div>
 
       <div className="flex w-full h-screen p-10 bg-gray-100 dark:bg-gray-600">
         {/* 왼쪽 가이드 */}
-
         <div className="w-1/2 h-full p-8 bg-white rounded-3xl shadow-md dark:bg-gray-700">
-          <div className="User w-96 h-11 text-scampi-800 font-bold text-2xl leading-10 dark:text-white">
-            무디타의 감정일기 가이드
+          <div className="User w-96 h-11 text-scampi-800 font-bold text-2xl leading-10 dark:text-white mb-5">
+            {user?.profile_name}님의 감정 일기 💖
           </div>
           <div className="Container flex flex-col space-y-2">
             <div className="BackgroundBorder p-5 bg-white rounded-2xl border border-black/10">
               <div className="text-zinc-800 text-lg">
-                작성 안내
-                <br />
-                <br />
-                {user?.profile_name}님의 일기. <br />
-                1. 감정을 느낀 구체적인"상황"과 그 때 나의 "행동", "생각"을
-                포함해 적어보세요.
-                <br />
-                2. 조금씩이라도 매일 꾸준히 적다보면 나의 마음을 건강하게
-                변화시켜갈 수 있어요.
-                <br />
-                3. 감정을 느꼈을 때 나의 신체적 변화에 대해서 적어보는 것도
-                도움이 되어요.
+                <p className="text-scampi-800 font-bold text-xl mb-1">
+                  작성 안내
+                </p>
+                <p className="text-scampi-800 font-bold text-m">
+                  <br />
+                  1. 감정을 느낀 구체적인 "상황"과 그 때 나의 "행동", "생각"을
+                  포함해 적어보세요.
+                  <br />
+                  2. 조금씩이라도 매일 꾸준히 적다보면 나의 마음을 건강하게
+                  변화시켜갈 수 있어요.
+                  <br />
+                  3. 감정을 느꼈을 때 나의 신체적 변화에 대해서 적어보는 것도
+                  도움이 되어요.
+                </p>
               </div>
             </div>
 
             <div className="BackgroundBorder p-5 bg-white rounded-2xl border border-black/10">
               <div className="text-zinc-800 text-lg">
                 <div className="mt-5 text-gray-700 dark:text-gray-300">
-                  나의 무드미터
-                  <br />
-                  오늘의 무드 컬러: {colorName}
-                  {highlightedColor && (
-                    <span
-                      style={{
-                        display: "inline-block",
-                        width: "20px",
-                        height: "20px",
-                        backgroundColor: highlightedColor,
-                        borderRadius: "3px",
-                      }}
-                    />
-                  )}
-                  <br />
-                  감정 키워드:
-                  <br />
-                  <br />
-                  {highlightedLabels.map((label) => (
-                    <span
-                      key={label}
-                      onClick={() => handleLabelClick(label)}
-                      className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-3 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors ml-1"
-                    >
-                      {label}
-                    </span>
-                  ))}
+                  <p className="text-scampi-800 font-bold text-xl mb-5">
+                    오늘의 무드 진단 결과
+                  </p>
+
+                  <p className="text-scampi-800 font-bold text-m">
+                    무드 컬러: {colorName}
+                    {highlightedColor && (
+                      <span
+                        style={{
+                          display: "inline-block",
+                          width: "20px",
+                          height: "20px",
+                          backgroundColor: highlightedColor,
+                          borderRadius: "3px",
+                        }}
+                      />
+                    )}
+                    <br />
+                    감정 키워드:
+                    <br />
+                    <br />
+                    {highlightedLabels.map((label) => (
+                      <span
+                        key={label}
+                        onClick={() => handleLabelClick(label)}
+                        className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-3 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors ml-1"
+                      >
+                        {label}
+                      </span>
+                    ))}
+                  </p>
                 </div>
               </div>
             </div>
+
+            {/* AI 분석 결과를 왼쪽 가이드에 표시 */}
+            {emotionResult && (
+              <div className="BackgroundBorder p-5 bg-blue-100 rounded-2xl border border-blue-300">
+                <div className="text-blue-800 text-lg">
+                  AI 분석 결과:
+                  <br />
+                  {emotionResult}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
         {/* 오른쪽 작성 부분 */}
-        <div className="w-1/2 h-full p-8 bg-white rounded-3xl shadow-md dark:bg-gray-700 flex flex-col justify-between">
+        <div className="w-1/2 h-full p-8 bg-purple-100 rounded-3xl shadow-md dark:bg-gray-700 flex flex-col justify-between">
           <div className="w-full">
             <div className="flex justify-between items-center">
-              <h1 className="text-xl font-bold text-gray-800 dark:text-white">
+              <div className="User w-120 h-11 text-scampi-800 font-bold text-xl dark:text-white">
                 {title}
-              </h1>
+              </div>
               <span className="text-sm text-neutral-500">{formattedDate}</span>
             </div>
             <textarea
-              className="w-full h-[400px] text-lg mt-4 p-4 border border-transparent rounded-lg resize-none dark:bg-gray-600 dark:text-white"
+              className="w-full h-[400px] bg-purple-100 text-lg mt-4 p-4 border border-transparent rounded-lg resize-none dark:bg-gray-600 dark:text-white"
               placeholder={`${
                 user?.profile_name || ""
               }님의 오늘 하루 어떠셨나요? 오늘 내가 느낀 감정을 일으킨 상황과 함께 구체적으로 작성해보세요.`}
@@ -283,9 +305,16 @@ const MgWriting: React.FC = () => {
             </div>
           </div>
 
+          {/* 경고 메시지 표시 */}
+          {showWarning && (
+            <div className="text-red-500 text-xl text-bold">
+              글자 수는 최대 500자까지만 입력 가능합니다.
+            </div>
+          )}
+
           <div className="flex space-x-4 mt-4">
             <button
-              onClick={handleSave}
+              onClick={handleClick}
               className="text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors"
             >
               <img
@@ -302,7 +331,11 @@ const MgWriting: React.FC = () => {
             </button>
             <button
               onClick={handleClick}
-              className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-6 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
+              className={`bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-6 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors ${
+                showWarning ? "bg-gray-400 cursor-not-allowed" : "bg-scampi-500"
+              }
+            `}
+              disabled={showWarning}
             >
               <img
                 src={PencilWriting}
@@ -317,18 +350,17 @@ const MgWriting: React.FC = () => {
               작성 완료
             </button>
           </div>
-
-          {/* AI 분석 결과 표시 */}
-          {emotionResult && (
-            <div className="mt-4 p-4 bg-blue-100 rounded-lg text-blue-800">
-              AI 분석 결과: {emotionResult}
-            </div>
-          )}
         </div>
       </div>
 
       {/* 모달이 표시될 때만 MgModal 컴포넌트를 렌더링 */}
-      {showModal && <MgModal content={content} onClose={handleModalClose} />}
+      {showModal && (
+        <MgModal
+          content={content}
+          onClose={handleModalClose}
+          onAnalyzeComplete={handleAnalyzeComplete} // 콜백 함수 전달
+        />
+      )}
     </>
   );
 };
