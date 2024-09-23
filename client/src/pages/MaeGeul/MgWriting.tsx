@@ -10,6 +10,8 @@ import { useMoodContext } from "../../context/MoodContext"; // Context 훅 임�
 import { useUser } from "../../context/UserContext"; // UserContext 임포트
 import ProgressBar from "../../components/ProgressBar";
 
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+
 const MgWriting: React.FC = () => {
   const [content, setContent] = useState("");
   const [formattedDate, setFormattedDate] = useState("");
@@ -97,7 +99,7 @@ const MgWriting: React.FC = () => {
 
       console.log(moodData);
 
-      const response = await fetch("http://localhost:5000/api/save-moodmeter", {
+      const response = await fetch(`${BASE_URL}/api/save-moodmeter`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // 반드시 JSON 형식으로 설정
@@ -127,7 +129,7 @@ const MgWriting: React.FC = () => {
         color: colorName,
       };
 
-      const response = await fetch("http://localhost:5000/api/diary", {
+      const response = await fetch(`${BASE_URL}/api/diary`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

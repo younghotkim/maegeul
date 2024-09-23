@@ -20,7 +20,8 @@ import { TableEmptyRows } from "../table-empty-rows";
 import { UserTableToolbar } from "../user-table-toolbar";
 import { emptyRows, applyFilter, getComparator } from "../utils";
 import { useUser } from "../../../context/UserContext"; // UserContext 임포트
-import { Color } from "antd/es/color-picker";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
 
 interface Diary {
   diary_id: number;
@@ -40,9 +41,7 @@ export function UserView() {
   // Diary 데이터를 API에서 가져오는 함수
   const fetchDiaryData = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/diary/${user?.user_id}`
-      ); // 적절한 API 엔드포인트로 수정
+      const response = await fetch(`${BASE_URL}/api/diary/${user?.user_id}`); // 적절한 API 엔드포인트로 수정
       const data: Diary[] = await response.json();
       setDiaryData(data); // 상태에 저장
     } catch (error) {

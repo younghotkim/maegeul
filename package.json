@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@mui/material": "^6.1.0",
     "antd": "^5.20.5",
     "concurrently": "^9.0.1",
     "react-icons": "^5.3.0"
@@ -8,7 +7,9 @@
   "scripts": {
     "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
     "start:client": "cd client && npm start",
-    "start:server": "cd server && npm run dev"
+    "start:server": "cd server && npm run dev",
+    "build": "cd client && npm run build",
+    "start:prod": "cd server && npm run start"
   },
   "devDependencies": {
     "@types/d3-cloud": "^1.2.9"

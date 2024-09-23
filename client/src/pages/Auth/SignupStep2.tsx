@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 추가
 import axios from "axios"; // Axios 추가
 
+// 환경 변수에서 BASE_URL을 가져오고, 없으면 기본값으로 localhost 사용
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+
 const SignupStep2: React.FC = () => {
   const navigate = useNavigate(); // 회원가입 성공 후 페이지 이동을 위한 useNavigate
   const [formData, setFormData] = useState({
@@ -99,7 +102,7 @@ const SignupStep2: React.FC = () => {
 
       // 서버에 데이터 전송
       const response = await axios.post(
-        "http://localhost:5000/api/register",
+        `${BASE_URL}/api/register`,
         formDataToSend,
         {
           headers: {
