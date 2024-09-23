@@ -20,13 +20,16 @@ const EnergySlider: React.FC<EnergySliderProps> = ({
     onValueChange(newValue);
   };
 
-  const fireSize = 20 + (value - 1) * 3; // 슬라이더 값에 따라 이모지 크기 조정
+  const fireSize = 48 + value * 3; // 슬라이더 값에 따라 이모지 크기 조정
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-10">
       <div className="text-center mb-8">
         {/* 텍스트 섹션 */}
-        <h1 className="text-black text-6xl font-black font-['Inter'] leading-10 dark:text-scampi-300 inline-flex items-center">
+        <h1
+          className="text-black text-6xl font-black font-['Inter'] leading-10
+            mb-9 dark:text-scampi-300 inline-flex items-center"
+        >
           오늘 나의 에너지 레벨은?
           <Tooltip message="오늘 나의 에너지 레벨은 몇인가요? 활성화 정도를 뜻하는 이 영역에서는 오늘 나의 각성, 흥분 정도를 기록해요.">
             <img src={Info} alt="Info" className="ml-2 cursor-pointer" />

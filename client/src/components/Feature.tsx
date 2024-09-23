@@ -27,13 +27,15 @@ const Feature: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-white flex justify-center items-center py-16">
-      <div className="max-w-[1140px] w-full px-[150px] lg:px-12 md:px-8 sm:px-4">
+    <div className="w-full bg-white flex justify-center items-center py-16 font-['Plus Jakarta Sans']">
+      <div className="max-w-[calc(100%-300px)] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow"
+              className={`flex flex-col items-center text-center p-6 bg-white rounded-2xl w-[375px] transition-shadow duration-300 ease-in-out
+                ${feature.title === "나만의 매글 대시보드" ? "shadow-md" : ""}
+                hover:shadow-lg`}
             >
               <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex justify-center items-center mb-6">
                 <img
@@ -42,10 +44,10 @@ const Feature: React.FC = () => {
                   alt={feature.title}
                 />
               </div>
-              <h3 className="text-blue-950 text-2xl font-extrabold font-['Plus Jakarta Sans'] leading-loose mb-2">
+              <h3 className="text-blue-950 text-2xl font-extrabold leading-loose mb-2">
                 {feature.title}
               </h3>
-              <p className="text-slate-500 text-base font-medium font-['Plus Jakarta Sans'] leading-tight">
+              <p className="text-slate-500 text-base font-medium leading-tight">
                 {feature.description}
               </p>
             </div>

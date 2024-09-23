@@ -12,9 +12,9 @@ const Banner: React.FC<BannerProps> = ({ className }) => {
     <div
       className={`w-full bg-white flex justify-center items-center py-16 ${className}`}
     >
-      <div className="max-w-[1140px] w-full flex flex-col lg:flex-row justify-between items-center relative lg:px-12 md:px-8 sm:px-4">
+      <div className="max-w-[1140px] w-full flex flex-col lg:flex-row justify-between items-center relative">
         {/* Text area */}
-        <div className="flex-1 flex flex-col justify-start items-start gap-6 mb-8 lg:mb-0">
+        <div className="flex-1 flex flex-col justify-start items-start gap-6">
           <h1 className="text-blue-950 text-5xl font-extrabold font-['Plus Jakarta Sans'] leading-tight lg:text-4xl md:text-3xl sm:text-2xl">
             나를 돌보는 하루 5분 <br />
             마음 챙김 글쓰기 <br />
