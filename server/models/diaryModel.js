@@ -24,7 +24,20 @@ const getDiariesByUserId = (user_id, callback) => {
   });
 };
 
+// 특정 유저의 총 일기 갯수를 카운트하는 함수
+const countDiariesByUserId = (user_id, callback) => {
+  const sql = `SELECT COUNT(*) AS totalDiaries FROM Diary WHERE user_id = ?`;
+
+  db.query(sql, [user_id], (err, result) => {
+    if (err) {
+      return callback(err, null);
+    }
+    callback(null, result[0].totalDiaries); // 총 갯수 반환
+  });
+};
+
 module.exports = {
   saveDiary,
   getDiariesByUserId,
+  countDiariesByUserId,
 };

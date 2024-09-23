@@ -38,7 +38,7 @@ const MainLogin = () => {
         const { token, user } = response.data;
 
         // 토큰 저장
-        localStorage.setItem("token", token);
+        sessionStorage.setItem("token", token);
 
         // UserContext에 사용자 정보 저장 (useUser 훅 사용)
         setUser({

@@ -73,13 +73,15 @@ const Diag: React.FC = () => {
 
     return (
       <>
-        <div className="w-[1140px] relative mt-10 justify-center">
-          {/* 텍스트 (ProgressBar 위에 위치) */}
+        <div className="w-[1140px] relative mt-10 mx-auto">
+          {/* 텍스트 (ProgressBar 왼쪽 끝에 위치) */}
           <div className="absolute top-[-2rem] left-0 z-10 font-bold text-scampi-700 dark:text-scampi-300 font-bold font-['DM Sans'] leading-10">
-            1단계: 감정 인식하기
+            2단계: 감정 이해하기
           </div>
-          {/* Progress Bar */}
-          <ProgressBar value={50} />
+          {/* Progress Bar (가운데에 위치) */}
+          <div className="w-full flex justify-center">
+            <ProgressBar value={50} />
+          </div>
         </div>
         <div className="text-center p-4">
           <p className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['DM Sans'] leading-10 mt-10 mb-5">

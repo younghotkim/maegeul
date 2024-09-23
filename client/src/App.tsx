@@ -25,7 +25,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { HighlightProvider } from "./context/HighlightContext";
 import { MoodProvider } from "./context/MoodContext";
 import { UserProvider } from "./context/UserContext";
-
+import { DiaryProvider } from "./context/DiaryContext";
 //Dashboard
 import { ThemeProvider } from "./theme/theme-provider";
 
@@ -33,37 +33,39 @@ const App: React.FC = () => {
   return (
     <UserProvider>
       <HighlightProvider>
-        <HelmetProvider>
-          <ThemeProvider>
-            <MoodProvider>
-              <Router>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/home" element={<Home />} />
-                  <Route path="/maegeul" element={<MaeGeul />} />
-                  <Route path="/emotionForm" element={<EmotionForm />} />
+        <DiaryProvider>
+          <HelmetProvider>
+            <ThemeProvider>
+              <MoodProvider>
+                <Router>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/maegeul" element={<MaeGeul />} />
+                    <Route path="/emotionForm" element={<EmotionForm />} />
 
-                  <Route path="/mgwriting" element={<MgWriting />} />
-                  <Route path="/login/success" element={<LoginSuccess />} />
-                  <Route path="/email-login" element={<EmailLogin />} />
-                  <Route path="/mypage" element={<Mypage />} />
-                  <Route path="/mainlogin" element={<MainLogin />} />
-                  <Route path="/mainsignup" element={<MainSignup />} />
-                  <Route path="/kakao/callback" element={<KakaoCallback />} />
+                    <Route path="/mgwriting" element={<MgWriting />} />
+                    <Route path="/login/success" element={<LoginSuccess />} />
+                    <Route path="/email-login" element={<EmailLogin />} />
+                    <Route path="/mypage" element={<Mypage />} />
+                    <Route path="/mainlogin" element={<MainLogin />} />
+                    <Route path="/mainsignup" element={<MainSignup />} />
+                    <Route path="/kakao/callback" element={<KakaoCallback />} />
 
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/blog" element={<Blog />} />
-                  <Route path="/user" element={<User />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/user" element={<User />} />
 
-                  <Route path="/signupstep1" element={<SignupForm />} />
-                  <Route path="/signupstep2" element={<SignupForm2 />} />
-                  <Route path="/signupstep3" element={<SignupForm3 />} />
-                  <Route path="/logout" element={<Logout />} />
-                </Routes>
-              </Router>
-            </MoodProvider>
-          </ThemeProvider>
-        </HelmetProvider>
+                    <Route path="/signupstep1" element={<SignupForm />} />
+                    <Route path="/signupstep2" element={<SignupForm2 />} />
+                    <Route path="/signupstep3" element={<SignupForm3 />} />
+                    <Route path="/logout" element={<Logout />} />
+                  </Routes>
+                </Router>
+              </MoodProvider>
+            </ThemeProvider>
+          </HelmetProvider>
+        </DiaryProvider>
       </HighlightProvider>
     </UserProvider>
   );
