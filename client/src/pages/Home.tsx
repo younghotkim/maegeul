@@ -14,9 +14,9 @@ const Home: React.FC = () => {
     <>
       <Header />
       <Banner className="banner" />
-      <How />
-      <Feature />
       <Numbers />
+      <Feature />
+      <How />
       <Contents />
       <Footer />
       <Floating />

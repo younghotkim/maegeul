@@ -38,7 +38,7 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
     <>
       <div className="w-[1140px] relative mt-10 mx-auto">
         {/* 텍스트 (ProgressBar 왼쪽 끝에 위치) */}
-        <div className="absolute top-[-2rem] left-0 z-10 font-bold text-scampi-700 dark:text-scampi-300 font-bold font-['DM Sans'] leading-10">
+        <div className="absolute top-[-2rem] left-0 z-10 font-bold text-scampi-700 dark:text-scampi-300 font-['DM Sans'] leading-10">
           1단계: 감정 인식하기
         </div>
         {/* Progress Bar (가운데에 위치) */}
@@ -48,7 +48,10 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
       </div>
       <div className="w-full max-w-4xl mx-auto mt-10">
         <div className="text-center mb-8">
-          <h1 className="text-black text-6xl font-black font-['Inter'] leading-10 dark:text-scampi-300 inline-flex items-center">
+          <h1
+            className="text-black text-6xl font-black font-['Inter'] leading-10
+          mb-9 dark:text-scampi-300 inline-flex items-center"
+          >
             오늘 나의 편안 지수는?
             <Tooltip message="오늘 나의 편안함 수치는 몇인가요? 만족감, 쾌적함, 기쁨 등 내가 느낀 긍정 감정의 정도를 기록해 봅시다.">
               <img src={Info} alt="Info" className="ml-2 cursor-pointer" />
@@ -67,7 +70,7 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
             min={1}
             max={10}
             icon={currentEmoji ? currentEmoji.gif : ""}
-            iconSize={32}
+            iconSize={48}
           />
         </div>
       </div>

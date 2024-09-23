@@ -92,7 +92,7 @@ const CustomSlider: React.FC<CustomSliderProps> = ({
         style={{ left: calculateLeftPosition() }} // 계산된 위치 사용
       >
         <img src={Shape} alt="Slider Shape" className="w-10 h-10 mb-2" />
-        <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold">
+        <span className="absolute top-4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold">
           {value}
         </span>
       </div>
@@ -112,7 +112,7 @@ const CustomSlider: React.FC<CustomSliderProps> = ({
 
       {/* Thumb에 Shadow 효과 추가 및 클릭 가능하게 수정 */}
       <div
-        className="absolute w-[47px] h-[47px] bg-white rounded-full shadow-lg transition-all duration-300 ease-out cursor-pointer"
+        className="absolute w-[47px] h-[47px] bg-violet-300 rounded-full shadow-lg transition-all duration-300 ease-out cursor-pointer"
         style={{ left: `calc(${percentage}% - 23.5px)`, top: "-17px" }}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
