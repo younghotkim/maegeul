@@ -80,12 +80,32 @@ const SignupStep2: React.FC = () => {
   // 현재 연도를 계산
   const currentYear = new Date().getFullYear();
 
+  const uploadFile = async (file: File) => {
+    const formData = new FormData();
+    formData.append("profile_picture", file);
+
+    const response = await axios.post(`${BASE_URL}/api/upload`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data.filePath; // 서버에서 반환된 파일 경로
+  };
+
   // 서버로 데이터를 전송하는 함수
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      // FormData 객체 생성
+      let profileImageUrl = "";
+
+      // 파일 업로드 먼저 처리
+      if (formData.profileImageFile) {
+        profileImageUrl = await uploadFile(formData.profileImageFile);
+      }
+
+      // FormData 객체 생성 (사용자 정보)
       const formDataToSend = new FormData();
       formDataToSend.append("email", formData.email);
       formDataToSend.append("password", formData.password);
@@ -95,9 +115,9 @@ const SignupStep2: React.FC = () => {
       formDataToSend.append("age", formData.age);
       formDataToSend.append("birthdate", formData.birthdate);
 
-      // 파일이 선택된 경우 파일 추가
-      if (formData.profileImageFile) {
-        formDataToSend.append("profile_picture", formData.profileImageFile); // 서버로 전송할 파일
+      // 프로필 이미지 경로 추가
+      if (profileImageUrl) {
+        formDataToSend.append("profile_picture", profileImageUrl);
       }
 
       // 서버에 데이터 전송
@@ -188,7 +208,7 @@ const SignupStep2: React.FC = () => {
           >
             <input
               type="text"
-              placeholder="예> 홍길동"
+              placeholder="이름"
               name="name"
               value={formData.name}
               onChange={handleChange}
@@ -209,15 +229,12 @@ const SignupStep2: React.FC = () => {
           >
             <input
               type="text"
-              placeholder="예> Kenzi"
+              placeholder="닉네임"
               name="nickname"
               value={formData.nickname}
               onChange={handleChange}
               className="w-full bg-transparent text-gray-800 focus:outline-none"
             />
-            <button className="ml-2 px-4 py-1 text-scampi-600 border border-scampi-600 rounded-full text-sm">
-              중복확인
-            </button>
           </div>
         </div>
 
@@ -248,13 +265,29 @@ const SignupStep2: React.FC = () => {
           <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">
             프로필 이미지
           </div>
-          <div className="Input w-64 h-72 bg-slate-50 rounded-3xl border border-gray-400 flex items-center justify-center mb-4">
+          <div className="Input w-64 h-72 bg-slate-50 rounded-3xl border border-gray-400 flex items-center justify-center mb-4 relative">
             {formData.profileImage ? (
-              <img
-                src={formData.profileImage}
-                alt="Profile Preview"
-                className="object-cover w-full h-full rounded-3xl"
-              />
+              <>
+                <img
+                  src={formData.profileImage}
+                  alt="Profile Preview"
+                  className="object-cover w-full h-full rounded-3xl"
+                />
+                {/* 삭제 버튼 */}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFormData({
+                      ...formData,
+                      profileImage: "",
+                      profileImageFile: null,
+                    })
+                  }
+                  className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full"
+                >
+                  삭제
+                </button>
+              </>
             ) : (
               <span className="text-gray-400">이미지를 업로드하세요.</span>
             )}
