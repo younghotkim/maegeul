@@ -19,12 +19,12 @@ const navItems = [
   },
   {
     title: "일기장",
-    path: "/user",
+    path: "/diary",
     icon: <Iconify icon="tabler:writing" />,
   },
   {
     title: "추천 컨텐츠",
-    path: "/blog",
+    path: "/contents",
     icon: <Iconify icon="oui:table-of-contents" />,
   },
 ];

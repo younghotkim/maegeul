@@ -13,6 +13,7 @@ import { Iconify } from "../../../dashboardComponents/iconify";
 import { PostItem } from "../post-item";
 import { PostSort } from "../post-sort";
 import { PostSearch } from "../post-search";
+import { useUser } from "../../../context/UserContext";
 
 // ----------------------------------------------------------------------
 
@@ -23,11 +24,13 @@ export function BlogView() {
     setSortBy(newSort);
   }, []);
 
+  const { user } = useUser();
+
   return (
     <DashboardContent>
       <Box display="flex" alignItems="center" mb={5}>
         <Typography variant="h4" flexGrow={1}>
-          Blog
+          {user?.profile_name}님을 위한 추천 컨텐츠 🎵
         </Typography>
         <Button
           variant="contained"

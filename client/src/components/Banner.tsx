@@ -1,5 +1,4 @@
-//client2/src/components/Banner.tsx
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import WritingImage from "../Image/Banner.png";
 import GuideIcon from "../Icon/guideIcon.png";
@@ -9,6 +8,11 @@ interface BannerProps {
 }
 
 const Banner: React.FC<BannerProps> = ({ className }) => {
+  // 로그인 여부를 sessionStorage에서 확인
+  const [isLoggedIn] = useState<boolean>(() => {
+    return !!sessionStorage.getItem("token");
+  });
+
   return (
     <div
       className={`w-full bg-white flex justify-center items-center ${className}`}
@@ -38,7 +42,8 @@ const Banner: React.FC<BannerProps> = ({ className }) => {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <Link to="/maegeul">
+            {/* 로그인 상태에 따라 링크 경로 변경 */}
+            <Link to={isLoggedIn ? "/maegeul" : "/mainsignup"}>
               <button className="px-7 py-4 bg-indigo-600 rounded-lg text-white text-sm font-bold font-['plus-jakarta-sans']">
                 지금 바로 시작하기
               </button>

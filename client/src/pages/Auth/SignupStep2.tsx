@@ -19,6 +19,43 @@ const SignupStep2: React.FC = () => {
     profileImageFile: null as File | null, // 실제 파일 저장용
   });
 
+  const [errors, setErrors] = useState({
+    email: false,
+    password: false,
+    name: false,
+    nickname: false,
+    birthdate: false, // 생년월일 오류 플래그 추가
+  });
+
+  const [emailChecked, setEmailChecked] = useState(false); // 이메일 중복 체크 완료 여부
+  const [emailCheckMessage, setEmailCheckMessage] = useState(""); // 이메일 중복 체크 메시지
+  const [passwordError, setPasswordError] = useState(""); // 비밀번호 에러 메시지
+  const [emailError, setEmailError] = useState(""); // 이메일 에러 메시지
+
+  // 이메일 중복 체크 함수
+  const checkEmailDuplicate = async (email: string) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/api/check-email`, {
+        email,
+      });
+      if (response.status === 200) {
+        setEmailCheckMessage("사용 가능한 이메일입니다.");
+        setEmailChecked(true); // 중복이 아니면 체크 완료
+        setErrors({ ...errors, email: false });
+      }
+    } catch (err: any) {
+      if (err.response && err.response.status === 409) {
+        setEmailCheckMessage("이미 사용 중인 이메일입니다.");
+        setEmailChecked(false);
+        setErrors({ ...errors, email: true });
+      } else {
+        setEmailCheckMessage("이메일 확인 중 오류가 발생했습니다.");
+        setEmailChecked(false);
+        setErrors({ ...errors, email: true });
+      }
+    }
+  };
+
   // 파일 선택 시 처리 함수
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -31,18 +68,16 @@ const SignupStep2: React.FC = () => {
     }
   };
 
-  const [errors, setErrors] = useState({
-    email: false,
-    password: false,
-    name: false,
-    nickname: false,
-    birthdate: false, // 생년월일 오류 플래그 추가
-  });
-
   // 생년월일 형식 검증 함수
   const validateBirthdate = (birthdate: string) => {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     return regex.test(birthdate);
+  };
+
+  // 이메일 형식 검증 함수
+  const validateEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   };
 
   const handleChange = (
@@ -50,6 +85,32 @@ const SignupStep2: React.FC = () => {
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    // 필수 입력 항목 체크
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value.trim() === "",
+    }));
+
+    // 이메일이 입력될 때마다 중복 체크 상태 초기화
+    if (name === "email") {
+      setEmailChecked(false); // 이메일 변경 시 중복체크 상태 리셋
+      setEmailCheckMessage(""); // 이메일 메시지 리셋
+    }
+
+    // 이메일 형식 검증
+    if (name === "email") {
+      setEmailError(
+        validateEmail(value) ? "" : "올바른 이메일 형식이 아닙니다."
+      );
+    }
+
+    // 비밀번호는 8자 이상이어야 한다는 조건 처리
+    if (name === "password") {
+      setPasswordError(
+        value.length < 8 ? "비밀번호는 최소 8자 이상이어야 합니다." : ""
+      );
+    }
 
     // 필수 입력 값 체크 및 생년월일 형식 확인
     if (name === "birthdate") {
@@ -59,36 +120,18 @@ const SignupStep2: React.FC = () => {
     }
   };
 
-  // 나이를 계산하는 함수
-  const calculateAge = (birthdate: string) => {
-    const today = new Date();
-    const birthDate = new Date(birthdate);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-
-    // 생일이 아직 지나지 않았다면 나이에서 1을 뺌
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birthDate.getDate())
-    ) {
-      age--;
+  // 이메일 중복 체크 버튼 클릭 시 호출
+  const handleEmailCheck = () => {
+    if (formData.email.trim() !== "") {
+      checkEmailDuplicate(formData.email); // 이메일 중복 체크 실행
     }
-    return age;
   };
-
-  const age = calculateAge(formData.birthdate);
-  // 현재 연도를 계산
-  const currentYear = new Date().getFullYear();
 
   const uploadFile = async (file: File) => {
     const formData = new FormData();
     formData.append("profile_picture", file);
 
-    const response = await axios.post(`${BASE_URL}/api/upload`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axios.post(`${BASE_URL}/api/upload`, formData);
 
     return response.data.filePath; // 서버에서 반환된 파일 경로
   };
@@ -96,6 +139,12 @@ const SignupStep2: React.FC = () => {
   // 서버로 데이터를 전송하는 함수
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // 이메일 중복 체크가 완료되지 않았다면 회원가입 막기
+    if (!emailChecked) {
+      setEmailCheckMessage("이메일 중복 체크를 해주세요.");
+      return;
+    }
 
     try {
       let profileImageUrl = "";
@@ -172,7 +221,32 @@ const SignupStep2: React.FC = () => {
               onChange={handleChange}
               className="w-full bg-transparent text-gray-800 focus:outline-none"
             />
+            <button
+              type="button"
+              onClick={handleEmailCheck}
+              className=" w-1/3 px-4 py-2 text-base font-bold text-white rounded-3xl bg-scampi-600"
+            >
+              중복 확인
+            </button>
           </div>
+          {emailCheckMessage && (
+            <div
+              className={`mt-2 ${
+                errors.email ? "text-red-500" : "text-green-500"
+              }`}
+            >
+              {emailCheckMessage}
+            </div>
+          )}
+
+          {errors.email && (
+            <div className="text-red-500 text-sm mt-2">
+              필수 입력 항목입니다.
+            </div>
+          )}
+          {emailError && (
+            <div className="text-red-500 text-sm mt-2">{emailError}</div>
+          )}
         </div>
 
         {/* 비밀번호 입력 섹션 */}
@@ -187,13 +261,21 @@ const SignupStep2: React.FC = () => {
           >
             <input
               type="password"
-              placeholder="영문 포함 6자 이상 포함해주세요."
+              placeholder="비밀번호는 최소 8자 이상 포함해주세요."
               name="password"
               value={formData.password}
               onChange={handleChange}
               className="w-full bg-transparent text-gray-800 focus:outline-none"
             />
           </div>
+          {errors.password && (
+            <div className="text-red-500 text-sm mt-2">
+              필수 입력 항목입니다.
+            </div>
+          )}
+          {passwordError && (
+            <div className="text-red-500 text-sm mt-2">{passwordError}</div>
+          )}
         </div>
 
         {/* 이름 입력 섹션 */}
@@ -215,6 +297,11 @@ const SignupStep2: React.FC = () => {
               className="w-full bg-transparent text-gray-800 focus:outline-none"
             />
           </div>
+          {errors.name && (
+            <div className="text-red-500 text-sm mt-2">
+              필수 입력 항목입니다.
+            </div>
+          )}
         </div>
 
         {/* 닉네임 입력 섹션 */}
@@ -236,6 +323,11 @@ const SignupStep2: React.FC = () => {
               className="w-full bg-transparent text-gray-800 focus:outline-none"
             />
           </div>
+          {errors.nickname && (
+            <div className="text-red-500 text-sm mt-2">
+              필수 입력 항목입니다.
+            </div>
+          )}
         </div>
 
         {/* 생년월일 입력 섹션 */}

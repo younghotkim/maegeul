@@ -183,3 +183,17 @@ exports.deleteUser = (req, res) => {
     res.status(200).json({ message: "회원 탈퇴 성공", result });
   });
 };
+
+// 이메일 중복 검사 함수
+exports.checkDuplicateEmail = (email, callback = () => {}) => {
+  userModel.findByEmail(email, (err, user) => {
+    if (err) {
+      return callback(err, null);
+    }
+    if (user) {
+      // 사용자가 존재하면 중복된 이메일이 있다는 것을 알림
+      return callback(null, true); // true: 중복된 이메일 존재
+    }
+    return callback(null, false); // false: 중복된 이메일 없음
+  });
+};

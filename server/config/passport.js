@@ -6,7 +6,7 @@ passport.use(
   new KakaoStrategy(
     {
       clientID: process.env.KAKAO_CLIENT_ID, // Kakao App의 REST API 키
-      callbackURL: process.env.KAKAO_REDIRECT_URI, // Kakao 로그인 완료 후 호출되는 콜백 URL
+      callbackURL: "https://maegeul.com/auth/kakao/callback", // Kakao 로그인 완료 후 호출되는 콜백 URL
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

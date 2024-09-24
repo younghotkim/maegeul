@@ -66,15 +66,38 @@ const Header: React.FC = () => {
           </Link>
 
           <nav className="flex-grow flex justify-center space-x-8">
-            <Link to="/maegeul" className="nav-link">
-              무드일기
-            </Link>
-            <Link to="/emotionForm" className="nav-link">
-              AI 하루진단
-            </Link>
-            <Link to="/blog" className="nav-link">
-              콘텐츠
-            </Link>
+            {/* 무드일기 링크 - 로그인 상태일 때만 활성화 */}
+            {isLoggedIn ? (
+              <Link to="/maegeul" className="nav-link">
+                무드일기
+              </Link>
+            ) : (
+              <span className="nav-link text-gray-400 cursor-not-allowed">
+                무드일기
+              </span>
+            )}
+
+            {/* AI 진단 가이드 링크 - 로그인 상태일 때만 활성화 */}
+            {isLoggedIn ? (
+              <Link to="#" className="nav-link">
+                AI 진단 가이드
+              </Link>
+            ) : (
+              <span className="nav-link text-gray-400 cursor-not-allowed">
+                AI 진단 가이드
+              </span>
+            )}
+
+            {/* 추천 콘텐츠 링크 - 로그인 상태일 때만 활성화 */}
+            {isLoggedIn ? (
+              <Link to="/contents" className="nav-link">
+                추천 콘텐츠
+              </Link>
+            ) : (
+              <span className="nav-link text-gray-400 cursor-not-allowed">
+                추천 콘텐츠
+              </span>
+            )}
           </nav>
 
           <div className="flex items-center space-x-4">

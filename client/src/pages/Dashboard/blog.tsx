@@ -6,8 +6,6 @@ import { Iconify } from "../../dashboardComponents/iconify"; // 아이콘 컴포
 import { CONFIG } from "../../config-global";
 import { Helmet } from "react-helmet-async";
 
-import { ProductsView } from "../../sections/product/view";
-
 const navItems = [
   {
     title: "홈",
@@ -21,12 +19,12 @@ const navItems = [
   },
   {
     title: "일기장",
-    path: "/user",
+    path: "/diary",
     icon: <Iconify icon="tabler:writing" />,
   },
   {
     title: "추천 컨텐츠",
-    path: "/blog",
+    path: "/contents",
     icon: <Iconify icon="oui:table-of-contents" />,
   },
 ];
@@ -47,7 +45,7 @@ const Blog: React.FC = () => {
       </Helmet>
       <DashboardLayout>
         <NavDesktop data={navItems} layoutQuery={"xs"} />
-        <ProductsView />
+        <BlogView />
       </DashboardLayout>
     </>
   );
