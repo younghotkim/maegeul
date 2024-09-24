@@ -19,12 +19,22 @@ import AnalyticsWordCloud from "../../../dashboardComponents/wordcloud/Analytics
 import D3WordCloud from "../../../layouts/d3/D3WordCloud";
 import { useEffect, useState } from "react";
 import { useMoodColorData } from "../../../hooks/useMoodColorData";
+import { useDiary } from "../../../context/DiaryContext"; // DiaryContext 가져오기
 
 // ----------------------------------------------------------------------
 
 export function OverviewAnalyticsView() {
   // UserContext에서 사용자 정보 가져오기
   const { user } = useUser();
+
+  const { diaryCount, fetchDiaryCount } = useDiary();
+
+  // 컴포넌트가 마운트될 때 일기 개수를 불러오는 로직
+  useEffect(() => {
+    if (user?.user_id) {
+      fetchDiaryCount(user.user_id); // user_id로 일기 작성 개수 불러오기
+    }
+  }, [user, fetchDiaryCount]);
 
   const words = [
     { text: "#불쾌한", size: 80 },
@@ -69,9 +79,9 @@ export function OverviewAnalyticsView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
-            title="일기 작성 수"
-            percent={-0.1}
-            total={1352831}
+            title="마음 일기 수"
+            percent={0.5} // 필요에 따라 작성 수 증감 비율을 계산하여 넣을 수 있음
+            total={diaryCount} // diaryCount 값 적용
             color="secondary"
             icon={
               <img alt="icon" src="/assets/icons/glass/ic-glass-users.svg" />
@@ -87,14 +97,14 @@ export function OverviewAnalyticsView() {
                 "Jul",
                 "Aug",
               ],
-              series: [56, 47, 40, 62, 73, 30, 23, 54],
+              series: [0, 0, 0, 0, 12, 23, 32, 23],
             }}
           />
         </Grid>
 
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
-            title="Purchase orders"
+            title="AI 진단 수"
             percent={2.8}
             total={1723315}
             color="warning"

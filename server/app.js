@@ -24,8 +24,12 @@ app.use(cors());
 app.use(express.json()); // JSON 파싱 미들웨어
 app.use(express.urlencoded({ extended: true })); // URL 인코딩 파싱 미들웨어
 
-// CORS 설정 (개발 시 모든 도메인 허용)
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://maegeul.com", "http://localhost:3000"], // 프로덕션과 개발 환경 둘 다 허용
+    credentials: true, // 쿠키, 인증 정보 포함 여부
+  })
+);
 
 // 세션 설정
 app.use(
@@ -33,7 +37,12 @@ app.use(
     secret: process.env.SESSION_SECRET || "defaultSecret", // 환경 변수 사용
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === "production" }, // 프로덕션에서는 true
+    cookie: {
+      secure: process.env.NODE_ENV === "production", // 프로덕션에서는 true
+      domain: "maegeul.com", // 쿠키 도메인 설정
+      httpOnly: true, // JavaScript에서 쿠키 접근을 막음
+      sameSite: "Strict", // 동일한 사이트에서만 쿠키 전송
+    },
   })
 );
 
