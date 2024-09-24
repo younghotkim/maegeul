@@ -5,30 +5,52 @@ const axios = require("axios");
 
 // 회원가입 컨트롤러
 exports.register = (req, res) => {
-  const { email, password, username, profile_name, age, gender, login_type } =
-    req.body;
+  try {
+    // 로그 추가
+    console.log("req.body:", req.body); // 텍스트 데이터
+    console.log("req.file:", req.file); // 파일 업로드 데이터 (없을 수도 있음)
 
-  const profileImagePath = req.file ? `/uploads/${req.file.filename}` : null; // 업로드된 파일 경로 설정
+    const {
+      email,
+      password,
+      username,
+      profile_name,
+      age,
+      gender,
+      birthdate,
+      profile_picture,
+    } = req.body;
 
-  const userData = {
-    email,
-    password,
-    username,
-    profile_name,
-    age,
-    gender,
-    login_type,
-    profile_picture: profileImagePath,
-  };
-
-  userModel.insert(userData, (err, user_id) => {
-    if (err) {
-      return res
-        .status(500)
-        .json({ message: "회원가입 중 오류가 발생했습니다.", error: err });
+    if (!email || !password || !username) {
+      return res.status(400).json({ message: "필수 항목이 누락되었습니다." });
     }
-    res.status(201).json({ message: "회원가입 성공", user_id });
-  });
+
+    const userData = {
+      email,
+      password,
+      username,
+      profile_name,
+      age,
+      gender,
+      birthdate,
+      profile_picture,
+    };
+
+    userModel.insert(userData, (err, user_id) => {
+      if (err) {
+        console.error("DB 저장 중 오류 발생:", err);
+        return res
+          .status(500)
+          .json({ message: "DB 저장 중 오류 발생", error: err });
+      }
+      res.status(201).json({ message: "회원가입 성공", user_id });
+    });
+  } catch (error) {
+    console.error("회원가입 중 오류 발생:", error);
+    res
+      .status(500)
+      .json({ message: "회원가입 중 오류가 발생했습니다.", error });
+  }
 };
 
 exports.login = (req, res) => {
