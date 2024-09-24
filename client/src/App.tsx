@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import MaeGeul from "./pages/MaeGeul/Maeguel";
 import AIWriting from "./pages/AIWriting/AIWriting";
-import Dashboard from "./pages/Archiving/Dashboard"; // Article 페이지
+import Dashboard from "./pages/Archiving/Dashboard";
 import MgWriting from "./pages/MaeGeul/MgWriting";
-import EmotionForm from "./components/EmotionForm";
+
 import Mypage from "./pages/Auth/Mypage";
 import MainLogin from "./pages/Auth/MainLogin";
 import MainSignup from "./pages/Auth/MainSignup";
@@ -18,7 +18,6 @@ import LoginSuccess from "./pages/Auth/LoginSuccess";
 import KakaoCallback from "./pages/Auth/KakaoCallback";
 import Blog from "./pages/Dashboard/blog";
 import User from "./pages/Dashboard/user";
-import DashboardHome from "./pages/Dashboard/home";
 import { HelmetProvider } from "react-helmet-async";
 
 //Context
@@ -42,7 +41,6 @@ const App: React.FC = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/maegeul" element={<MaeGeul />} />
-                    <Route path="/emotionForm" element={<EmotionForm />} />
 
                     <Route path="/mgwriting" element={<MgWriting />} />
                     <Route path="/login/success" element={<LoginSuccess />} />
@@ -53,8 +51,8 @@ const App: React.FC = () => {
                     <Route path="/kakao/callback" element={<KakaoCallback />} />
 
                     <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/user" element={<User />} />
+                    <Route path="/contents" element={<Blog />} />
+                    <Route path="/diary" element={<User />} />
 
                     <Route path="/signupstep1" element={<SignupForm />} />
                     <Route path="/signupstep2" element={<SignupForm2 />} />

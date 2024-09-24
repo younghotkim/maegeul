@@ -35,4 +35,26 @@ router.put("/user", userController.updateUser);
 // 회원 탈퇴 라우트
 router.delete("/user/:user_id", userController.deleteUser);
 
+router.post("/check-email", (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
+
+  userController.checkDuplicateEmail(email, (err, isDuplicate) => {
+    if (err) {
+      return res
+        .status(500)
+        .json({ message: "Internal server error", error: err });
+    }
+
+    if (isDuplicate) {
+      return res.status(409).json({ message: "Email already exists" }); // 409: Conflict
+    }
+
+    return res.status(200).json({ message: "Email is available" });
+  });
+});
+
 module.exports = router;

@@ -29,6 +29,7 @@ app.use(
   cors({
     origin: ["https://maegeul.com", "http://localhost:3000"], // 프로덕션과 개발 환경 둘 다 허용
     credentials: true, // 쿠키, 인증 정보 포함 여부
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 

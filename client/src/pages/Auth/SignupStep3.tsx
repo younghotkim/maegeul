@@ -1,7 +1,5 @@
-//client2/src/pages/Auth/Signup3.tsx
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import Pencil from "../../Icon/Pencil.png";
 
 const SignupStep3: React.FC = () => {
   return (
@@ -18,17 +16,12 @@ const SignupStep3: React.FC = () => {
         </h3>
 
         {/* 텍스트 섹션 */}
-        <div className="mt-20">
+        <div className="mt-20 mb-20">
           <div className="text-lg text-center text-scampi-800 font-bold font-['DM Sans'] leading-tight">
             회원가입이 완료되었습니다.
             <br />
-            글쓰기를 통해 나를 단단하게 할 준비가 되셨나요?
+            글쓰기를 통해 나를 알아갈 준비가 되셨나요? 🧐
           </div>
-          <img
-            src={Pencil}
-            alt="Pencil Icon"
-            className="w-5 h-5 mx-auto mt-10"
-          />
         </div>
 
         {/* 완료 버튼 */}

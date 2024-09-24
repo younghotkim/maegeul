@@ -5,12 +5,17 @@ const router = express.Router();
 const { uploadFile } = require("../controllers/uploadControllers");
 
 // multer 설정
+const isProduction = process.env.NODE_ENV === "production";
+const uploadPath = isProduction
+  ? "/home/ec2-user/maegeul/server/uploads" // EC2 배포 환경 경로
+  : path.join(__dirname, "../uploads"); // 로컬 개발 환경 경로
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../uploads")); // 업로드 폴더 설정
+    cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
-    const fileName = `${Date.now()}-${file.originalname}`; // 파일 이름 설정
+    const fileName = `${Date.now()}-${file.originalname}`;
     cb(null, fileName);
   },
 });
