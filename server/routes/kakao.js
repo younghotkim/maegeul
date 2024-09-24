@@ -4,6 +4,9 @@ const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
+const CALLBACK_URL =
+  process.env.CALLBACK_URL || "http://localhost:3000/kakao/callback";
+
 // 카카오 로그인 라우트
 router.get("/auth/kakao", passport.authenticate("kakao"));
 
@@ -21,9 +24,7 @@ router.get("/auth/kakao/callback", (req, res, next) => {
     });
 
     // 로그인 성공 시 클라이언트로 리다이렉트 (토큰과 userId 전달)
-    res.redirect(
-      `http://localhost:3000/kakao/callback?userId=${user.user_id}&token=${token}`
-    );
+    res.redirect(`${CALLBACK_URL}?userId=${user.user_id}&token=${token}`);
   })(req, res, next); // 이 부분에 `(req, res, next)`를 반드시 포함해야 합니다.
 });
 

@@ -3,6 +3,9 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // `useNavigate` 훅을 사용하여 리다이렉트
 import { useUser } from "../../context/UserContext"; // UserContext 훅 사용
 
+// 환경 변수에서 BASE_URL을 가져오고, 없으면 기본값으로 localhost 사용
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,13 +27,10 @@ const LoginForm = () => {
 
     try {
       // 로그인 API 호출
-      const loginResponse = await axios.post(
-        "http://localhost:5000/api/login",
-        {
-          email,
-          password,
-        }
-      );
+      const loginResponse = await axios.post(`${BASE_URL}/api/login`, {
+        email,
+        password,
+      });
 
       console.log("로그인 응답 데이터:", loginResponse.data);
 
