@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
 
+// 환경 변수에서 BASE_URL을 가져오고, 없으면 기본값으로 localhost 사용
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+
 const KakaoCallback = () => {
   const location = useLocation();
   const { setUser } = useUser();
@@ -17,7 +20,7 @@ const KakaoCallback = () => {
       sessionStorage.setItem("token", token);
 
       axios
-        .get(`http://localhost:5000/api/user/${userId}`)
+        .get(`${BASE_URL}/api/user/${userId}`)
         .then((response) => {
           const { profile_name, profile_picture, email } = response.data.user;
           setUser({

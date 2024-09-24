@@ -34,6 +34,9 @@ export function AccountPopover({
   const pathname = usePathname();
   const { user, setUser } = useUser(); // UserContext에서 user 가져오기
 
+  const BASE_URL =
+    process.env.REACT_APP_BASE_URL || "http://localhost:5000/api/";
+
   const [openPopover, setOpenPopover] = useState<HTMLButtonElement | null>(
     null
   );
@@ -101,7 +104,7 @@ export function AccountPopover({
             user?.isKakaoUser && user?.profile_picture
               ? user.profile_picture // 카카오 프로필 사진
               : user?.profile_picture
-              ? `http://localhost:5000${user.profile_picture}` // 로컬 프로필 사진
+              ? `${BASE_URL}${user.profile_picture}` // DB에 저장된 경로 사용
               : undefined
           }
           alt={user?.profile_name || "Guest"}
