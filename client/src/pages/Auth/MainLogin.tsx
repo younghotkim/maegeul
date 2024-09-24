@@ -6,6 +6,7 @@ import Facebook from "../../Icon/Facebook.png";
 import Google from "../../Icon/Google.png";
 import KakaoIcon from "../../Icon/kakao_login.png.png";
 import Email from "../../Icon/Email.png";
+import MeageulLogo from "../../Icon/Brand Logo_web ver. (v.1.0) (24.09.22) 1.png";
 import axios from "axios";
 
 const MainLogin = () => {
@@ -57,10 +58,12 @@ const MainLogin = () => {
     <>
       <div className="h-screen flex flex-col items-center justify-center bg-gray-100 p-5 dark:bg-gray-800 dark:text-white">
         <Link to="/home">
-          <h1 className="text-scampi-700 dark:text-scampi-300 text-5xl font-bold font-['DM Sans'] leading-10 text-center">
-            MAEGEUL
-          </h1>
-          <h2 className="text-scampi-700 text-xl font-bold font-['DM Sans'] leading-10 text-center">
+          <img
+            src={MeageulLogo}
+            alt="Maegeul Logo"
+            className="w-[300px] justify-center items-center"
+          />
+          <h2 className="text-scampi-700 text-xl font-bold font-['plus-jakarta-sans'] leading-10 text-center">
             매일 감정 글쓰기를 통해 만드는 단단한 나
           </h2>
         </Link>
@@ -81,9 +84,10 @@ const MainLogin = () => {
         <button
           type="button"
           onClick={handleEmailLoginClick}
-          className="bg-[#eaddff] text-scampi-700 w-[300px] h-[60px] rounded-full mt-4 text-2xl font-bold shadow-md transition-colors cursor-pointer hover:bg-scampi-700 hover:text-scampi-100 flex items-center justify-center"
+          className="bg-[#eaddff] text-scampi-700 w-[300px] h-[60px] rounded-full mt-4 text-xl shadow-md transition-colors cursor-pointer hover:bg-scampi-700 hover:text-scampi-100 
+          flex items-center justify-center font-['plus-jakarta-sans'] font-bold"
         >
-          <img src={Email} className="w-6 h-6 mr-11" />
+          <img src={Email} className="w-6 h-6 mr-10" />
           이메일 로그인
         </button>
 

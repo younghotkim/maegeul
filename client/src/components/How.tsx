@@ -4,14 +4,14 @@ import ArrowIcon from "../Icon/chevron_right.png";
 
 const How: React.FC = () => {
   return (
-    <div className="bg-slate-600 flex justify-center items-center py-16">
-      <div className="max-w-[1140px] px-[150px] w-full bg-white rounded-lg shadow-lg lg:px-12 md:px-8 sm:px-4">
+    <div className="bg-white flex justify-center items-center py-16">
+      <div className="max-w-[1140px] px-[150px] w-full bg-white lg:px-12 md:px-8 sm:px-4">
         <div className="flex flex-col items-center gap-14 py-14">
           <div className="text-center">
-            <h2 className="text-blue-950 text-4xl font-extrabold font-['Plus Jakarta Sans'] leading-10 mb-4">
+            <h2 className="text-blue-950 text-4xl font-extrabold font-['plus-jakarta-sans'] leading-10 mb-4">
               매글 무드 일기는 어떻게 쓰나요?
             </h2>
-            <p className="text-slate-500 text-base font-medium font-['Plus Jakarta Sans'] leading-loose">
+            <p className="text-slate-500 text-base font-medium font-['plus-jakarta-sans'] leading-loose">
               매일 글로 감정을 기록하며 나를 돌보는 루틴을 만들어요. 매일 더
               편안하고 활기찬 기분이 들 수 있도록 매글이 도울게요!
             </p>
@@ -48,10 +48,10 @@ const How: React.FC = () => {
                   <div className="text-base font-bold">{item.step}</div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-blue-950 text-base font-bold font-['Plus Jakarta Sans'] leading-loose">
+                  <h3 className="text-blue-950 text-base font-bold font-['plus-jakarta-sans'] leading-loose">
                     {item.title}
                   </h3>
-                  <p className="text-slate-500 text-base font-medium font-['Plus Jakarta Sans'] leading-loose">
+                  <p className="text-slate-500 text-base font-medium font-['plus-jakarta-sans'] leading-loose">
                     {item.description}
                   </p>
                 </div>

@@ -5,18 +5,22 @@ module.exports = {
   darkMode: 'class', // Enables dark mode support
   theme: {
     extend: {
+      fontFamily: {
+        inter: ['Inter'],
+        'plus-jakarta-sans': ['Plus Jakarta Sans'],
+      },
       colors: {
         scampi: {
           50: '#f5f6f9',
-          100: '#E9E3FF',
-          200: '#B9A2FF',
-          300: '#9374FF',
-          400: '#7551FF',
-          500: '#4318FF',
-          600: '#3311DB',
-          700: '#2100B6',
-          800: '#190793',
-          900: '#11047A',
+          100: '#EFF4FB',
+          200: '#E1E9F8',
+          300: '#C9D4EA',
+          400: '#B0BBD5',
+          500: '#8F9BBA',
+          600: '#68769F',
+          700: '#485585',
+          800: '#2D396B',
+          900: '#1B2559',
           950: '#2f2d3e',
         },
         gray: {

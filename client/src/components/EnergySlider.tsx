@@ -35,7 +35,7 @@ const EnergySlider: React.FC<EnergySliderProps> = ({
             <img src={Info} alt="Info" className="ml-2 cursor-pointer" />
           </Tooltip>
         </h1>
-        <div className="text-center text-slate-500 text-xs font-medium font-['Plus Jakarta Sans'] leading-normal">
+        <div className="text-center text-slate-500 text-xs font-medium font-['plus-jakarta-sans'] leading-normal">
           지금 내가 느끼는 활력 정도를 수치로 기록해봐요.
         </div>
       </div>
@@ -56,7 +56,7 @@ const EnergySlider: React.FC<EnergySliderProps> = ({
           onClick={onSubmit}
           className="rounded-xl border border-violet-500 dark:bg-scampi-600 text-violet-500 py-2 px-10 shadow-md
            hover:bg-scampi-400 hover:text-white dark:hover:bg-scampi-700 transition-colors
-          font-bold font-['Plus Jakarta Sans'] leading-normal"
+          font-bold font-['plus-jakarta-sans'] leading-normal"
         >
           측정 완료하기
         </button>

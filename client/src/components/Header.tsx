@@ -1,6 +1,7 @@
+//client2/src/components/Header.tsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import MeageulLogo from "../Icon/MaegeulLogo.png";
+import MeageulLogo from "../Icon/Brand Logo_web ver. (v.1.0) (24.09.22) 1.png";
 import { AccountPopover } from "../layouts/components/account-popover";
 import { Iconify } from "../dashboardComponents/iconify";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -58,8 +59,8 @@ const Header: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <header className="sticky top-0 z-50 w-full bg-white dark:bg-scampi-800 font-normal font-['Plus Jakarta Sans'] py-4 leading-normal">
-        <div className="max-w-[calc(100%-300px)] mx-auto px-4 flex justify-between items-center">
+      <header className="sticky top-0 z-50 w-full bg-white dark:bg-scampi-800 font-normal font-['plus-jakarta-sans'] py-4 leading-normal">
+        <div className="max-w-[1140px] mx-auto flex justify-between items-center">
           <Link to="/home" className="flex-shrink-0">
             <img src={MeageulLogo} alt="Maegeul Logo" className="h-12" />
           </Link>
@@ -77,60 +78,73 @@ const Header: React.FC = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            {isLoggedIn && (
-              <AccountPopover
-                data={[
-                  {
-                    label: "대시보드",
-                    href: "/dashboard",
-                    icon: (
-                      <Iconify
-                        width={22}
-                        icon="solar:home-angle-bold-duotone"
-                      />
-                    ),
-                  },
-                  {
-                    label: "다크모드",
-                    href: "#",
-                    icon: (
-                      <Iconify
-                        width={22}
-                        icon="solar:shield-keyhole-bold-duotone"
-                        onClick={DarkMode}
-                      />
-                    ),
-                  },
-                  {
-                    label: "회원정보수정",
-                    href: "#",
-                    icon: (
-                      <Iconify width={22} icon="solar:settings-bold-duotone" />
-                    ),
-                  },
-                ]}
-              />
-            )}
-
             {isLoggedIn ? (
-              <button
-                onClick={handleLogout}
-                className="bg-violet-100 dark:bg-scampi-600 py-2 px-4 rounded-lg shadow-md
-                hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors text-indigo-600 text-sm font-bold
-                whitespace-nowrap"
-              >
-                로그아웃
-              </button>
-            ) : (
-              <Link to="/mainlogin">
+              <>
+                <AccountPopover
+                  data={[
+                    {
+                      label: "마이매글",
+                      href: "/dashboard",
+                      icon: (
+                        <Iconify
+                          width={22}
+                          icon="solar:home-angle-bold-duotone"
+                        />
+                      ),
+                    },
+                    {
+                      label: "알림 설정",
+                      href: "#",
+                      icon: (
+                        <Iconify
+                          width={22}
+                          icon="solar:shield-keyhole-bold-duotone"
+                          onClick={DarkMode}
+                        />
+                      ),
+                    },
+                    {
+                      label: "회원정보수정",
+                      href: "#",
+                      icon: (
+                        <Iconify
+                          width={22}
+                          icon="solar:settings-bold-duotone"
+                        />
+                      ),
+                    },
+                  ]}
+                />
                 <button
-                  className="bg-violet-100 dark:bg-scampi-600 py-2 px-4 rounded-lg shadow-md
-                  hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors text-indigo-600 hover:text-white text-sm font-extrabold
-                  whitespace-nowrap"
+                  onClick={handleLogout}
+                  className="bg-violet-100 dark:bg-scampi-600 py-2 px-4 rounded-lg
+                   dark:hover:bg-scampi-700 transition-colors text-indigo-600 text-sm font-bold
+                    whitespace-nowrap"
                 >
-                  로그인
+                  로그아웃
                 </button>
-              </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/mainlogin">
+                  <button
+                    className=" dark:bg-scampi-600 py-2 px-4 rounded-lg 
+                     dark:hover:bg-scampi-700 transition-colors
+                      whitespace-nowrap"
+                  >
+                    로그인
+                  </button>
+                </Link>
+                <Link to="/mainsignup">
+                  <button
+                    className="bg-violet-100 dark:bg-scampi-600 py-2 px-4 rounded-lg shadow-md
+                     dark:hover:bg-scampi-700 transition-colors text-indigo-600 text-sm font-extrabold
+                      whitespace-nowrap"
+                  >
+                    회원가입
+                  </button>
+                </Link>
+              </>
             )}
           </div>
         </div>
