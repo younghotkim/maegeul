@@ -27,7 +27,7 @@ const Feature: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-white flex justify-center items-center py-16 font-['Plus Jakarta Sans']">
+    <div className="w-full bg-white flex justify-center items-center py-16 font-['plus-jakarta-sans']">
       <div className="max-w-[calc(100%-300px)] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
@@ -44,10 +44,10 @@ const Feature: React.FC = () => {
                   alt={feature.title}
                 />
               </div>
-              <h3 className="text-blue-950 text-2xl font-extrabold leading-loose mb-2">
+              <h3 className="text-blue-950 text-2xl font-extrabold font-['plus-jakarta-sans'] leading-loose mb-2">
                 {feature.title}
               </h3>
-              <p className="text-slate-500 text-base font-medium leading-tight">
+              <p className="text-slate-500 text-base font-['plus-jakarta-sans'] font-medium leading-loose">
                 {feature.description}
               </p>
             </div>

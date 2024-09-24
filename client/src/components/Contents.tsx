@@ -69,7 +69,10 @@ const Contents: React.FC = () => {
       {/* 카드 컨텐츠 섹션 */}
       <section className="py-16 flex justify-center">
         <div className="max-w-[1140px] w-full">
-          <h2 className="text-center text-blue-950 text-4xl font-extrabold font-['Plus Jakarta Sans'] leading-10 mb-4">
+          <h2
+            className="text-center text-blue-950 text-4xl font-extrabold font-['plus-jakarta-sans']
+          dark:text-white  leading-10 mb-4"
+          >
             마음돌봄 머글을 위한 루틴추천
           </h2>
           <p className="text-sm text-scampi-500 dark:text-slate-500 mb-8 text-center">
@@ -98,7 +101,10 @@ const Contents: React.FC = () => {
       <section className="w-full flex justify-center items-center py-16">
         <div className="Cta2 max-w-[1150px] mx-auto justify-center items-start flex">
           <div className="Contain grow shrink basis-0 h-20 justify-center items-center gap-10 flex">
-            <span className="text-blue-950 text-4xl font-extrabold font-['Plus Jakarta Sans'] leading-10">
+            <span
+              className="text-blue-950 text-4xl font-extrabold font-['plus-jakarta-sans'] 
+            dark:text-white leading-10"
+            >
               나를 돌보는 하루 5분 마음챙김
               <br />
               매글에서 지금 바로 시작해보세요.
@@ -111,7 +117,10 @@ const Contents: React.FC = () => {
                   className="Button flex border border-indigo-600 rounded-xl justify-center items-center gap-2.5"
                   style={{ width: "171px", height: "56px" }}
                 >
-                  <div className="Text text-indigo-600 text-sm font-bold font-['Plus Jakarta Sans'] leading-normal">
+                  <div
+                    className="Text text-indigo-600 text-sm font-bold font-['plus-jakarta-sans'] 
+                  dark:text-white leading-normal"
+                  >
                     지금 바로 시작하기
                   </div>
                 </div>
@@ -121,7 +130,7 @@ const Contents: React.FC = () => {
                   className="Button bg-indigo-600 rounded-xl flex justify-center items-center gap-2.5"
                   style={{ width: "171px", height: "56px" }}
                 >
-                  <div className="Text text-white text-sm font-bold font-['Plus Jakarta Sans'] leading-normal">
+                  <div className="Text text-white text-sm font-bold font-['plus-jakarta-sans'] leading-normal">
                     회원 가입 하기
                   </div>
                 </div>

@@ -5,8 +5,10 @@ import Apple from "../../Icon/Apple.png";
 import Facebook from "../../Icon/Facebook.png";
 import Google from "../../Icon/Google.png";
 import Ticket from "../../Icon/Article Ticket.png";
+import MeageulLogo from "../../Icon/Brand Logo_web ver. (v.1.0) (24.09.22) 1.png";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+
 
 const MainSignup = () => {
   const navigate = useNavigate();
@@ -27,6 +29,11 @@ const MainSignup = () => {
     <>
       <div className="h-screen flex flex-col items-center justify-center bg-gray-100 p-5 dark:bg-gray-800 dark:text-white">
         <Link to="/home">
+          <img
+            src={MeageulLogo}
+            alt="Maegeul Logo"
+            className="w-[300px] justify-center items-center"
+          />
           <h1 className="text-scampi-700 dark:text-scampi-300 text-5xl font-bold font-['DM Sans'] leading-10 inline-flex items-center cursor-pointer">
             MAEGEUL
           </h1>
