@@ -84,16 +84,27 @@ const MainLogin = () => {
         <button
           type="button"
           onClick={handleEmailLoginClick}
-          className="bg-[#eaddff] text-scampi-700 w-[300px] h-[60px] rounded-full mt-4 text-xl shadow-md transition-colors cursor-pointer hover:bg-scampi-700 hover:text-scampi-100 
-          flex items-center justify-center font-['plus-jakarta-sans'] font-bold"
+          className="w-[300px] h-[60px] rounded-full mt-4 shadow-md transition-colors cursor-pointer  
+                     bg-indigo-700 text-white hover:bg-white hover:text-indigo-700 overflow-hidden"
         >
-          <img src={Email} className="w-6 h-6 mr-10" />
-          이메일 로그인
+          <div className="w-full h-full flex items-center justify-center">
+            <img src={Email} className="w-6 h-6 mr-10" alt="Email icon" />
+            <span
+              className="text-xl ml-5 mr-10 font-bold font-['plus-jakarta-sans'] 
+                             group-hover:text-scampi-100"
+            >
+              이메일 로그인
+            </span>
+          </div>
         </button>
 
         {/* '또는' 구분선 */}
-        <div className="w-[400px] border-t border-gray-300 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300">
-          또는
+        <div className="w-[300px] flex items-center mt-8">
+          <div className="flex-grow border-t border-gray-300"></div>
+          <span className="px-4 text-scampi-700 dark:text-scampi-300">
+            또는
+          </span>
+          <div className="flex-grow border-t border-gray-300"></div>
         </div>
 
         {/* 소셜 로그인 버튼들 */}

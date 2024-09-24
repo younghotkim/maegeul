@@ -186,7 +186,7 @@ const Card: React.FC<CardProps> = ({ title, text, tag, src }) => {
             ))}
           </div>
         </div>
-        <button className="self-start text-lg py-2 px-6 rounded-full mt-4 bg-white text-scampi-900 hover:bg-scampi-900 hover:text-white transition-colors duration-300">
+        <button className="self-start text-lg py-2 px-6 rounded-lg mt-4 bg-white text-scampi-900 hover:bg-indigo-600 hover:text-white transition-colors duration-300">
           콘텐츠 탐색하기
           <img
             src={ArrowPurple}

@@ -28,7 +28,7 @@ const Numbers: React.FC = () => {
   ];
 
   return (
-    <div className="flex justify-center py-10">
+    <div className="flex justify-center py-20 bg-white">
       <div className="max-w-[1140px] w-full flex flex-col lg:flex-row items-start gap-[110px]">
         <div className="flex-1 flex-col justify-start items-start gap-14 inline-flex">
           <div className="self-stretch flex-col justify-start items-start gap-2.5 flex">
