@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Apple from "../../Icon/Apple.png";
 import Facebook from "../../Icon/Facebook.png";
 import Google from "../../Icon/Google.png";
-import KakaoIcon from "../../Icon/kakao_login.png.png";
-import Email from "../../Icon/Email.png";
+import KakaoIcon from "../../Icon/kakao_login_large_wide.png";
+import Email from "../../Icon/email_login.png";
 import MeageulLogo from "../../Icon/Brand Logo_web ver. (v.1.0) (24.09.22) 1.png";
 import axios from "axios";
 
@@ -61,7 +61,7 @@ const MainLogin = () => {
           <img
             src={MeageulLogo}
             alt="Maegeul Logo"
-            className="w-[300px] justify-center items-center"
+            className="w-[300px] justify-center items-center ml-7"
           />
           <h2 className="text-scampi-700 text-xl font-bold font-plus-jakarta-sans leading-10 text-center">
             매일 감정 글쓰기를 통해 만드는 단단한 나
@@ -69,33 +69,21 @@ const MainLogin = () => {
         </Link>
 
         {/* 카카오 로그인 버튼 */}
-        <button
-          onClick={handleLogin}
-          className=" rounded-full mt-10  shadow-md  transition-color "
-        >
+        <button onClick={handleLogin} className="">
           <img
-            className="w-[300px] h-[60px] object-cover transition-color rounded-full"
+            className="w-[486px] h-[72px]  object-cover transition-color mt-10  rounded-lg transition-color hover:shadow-lg"
             src={KakaoIcon}
             alt="Kakao Login Button"
           />
         </button>
 
         {/* 이메일 로그인 버튼 */}
-        <button
-          type="button"
-          onClick={handleEmailLoginClick}
-          className="w-[300px] h-[60px] rounded-full mt-4 shadow-md transition-colors cursor-pointer  
-                     bg-indigo-700 text-white hover:bg-white hover:text-indigo-700 overflow-hidden"
-        >
-          <div className="w-full h-full flex items-center justify-center">
-            <img src={Email} className="w-6 h-6 mr-10" alt="Email icon" />
-            <span
-              className="text-xl ml-5 mr-10 font-bold font-plus-jakarta-sans 
-                             group-hover:text-scampi-100"
-            >
-              이메일 로그인
-            </span>
-          </div>
+        <button type="button" onClick={handleEmailLoginClick} className="">
+          <img
+            src={Email}
+            className="w-[486px] h-[72px]  object-cover transition-color mt-5  rounded-lg transition-color hover:shadow-lg"
+            alt="Email icon"
+          />
         </button>
 
         {/* '또는' 구분선 */}
@@ -138,11 +126,10 @@ const MainLogin = () => {
             비밀번호 찾기
           </button>
         </div>
-      </div>
-
-      {/* 하단 부분 */}
-      <div className="flex flex-col w-full h-16 justify-center items-center bg-black text-scampi-200">
-        Copyright © 2024 MAEGEUL | All Rights Reserved
+        {/* 하단 부분 */}
+        <div className=" text-center text-slate-500 text-sm font-medium font-plus-jakarta-sans leading-loose">
+          Copyright © Litme Team. All rights reserved.
+        </div>
       </div>
     </>
   );

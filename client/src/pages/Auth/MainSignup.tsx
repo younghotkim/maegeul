@@ -107,11 +107,10 @@ const MainSignup = () => {
             비밀번호 찾기
           </button>
         </div>
-      </div>
-
-      {/* 하단 부분 */}
-      <div className="flex flex-col w-full h-16 justify-center items-center bg-black text-scampi-200">
-        Copyright © 2024 MAEGEUL | All Rights Reserved
+        {/* 하단 부분 */}
+        <div className=" text-center text-slate-500 text-sm font-medium font-plus-jakarta-sans leading-loose">
+          © 2024, Maegeul Team. All rights reserved.
+        </div>
       </div>
     </>
   );

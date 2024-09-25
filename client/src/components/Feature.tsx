@@ -27,7 +27,7 @@ const Feature: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-white flex justify-center items-center py-16 font-plus-jakarta-sans">
+    <div className="w-full bg-white flex justify-center items-center py-30 font-plus-jakarta-sans">
       <div className="max-w-[calc(100%-300px)] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
