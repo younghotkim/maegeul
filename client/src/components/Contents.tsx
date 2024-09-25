@@ -94,9 +94,6 @@ const Contents: React.FC = () => {
         </div>
       </section>
 
-      {/* 두 섹션 간 여백 150px 추가 */}
-      <div className="h-[120px] bg-white" />
-
       {/* 매글에서 지금 바로 시작해보세요 섹션 */}
       <section className="w-full flex justify-center items-center py-16 bg-white">
         <div className="Cta2 max-w-[1150px] mx-auto justify-center items-start flex">

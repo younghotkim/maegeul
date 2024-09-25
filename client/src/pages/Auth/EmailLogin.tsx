@@ -8,9 +8,9 @@ const EmailLogin = () => {
   return (
     <>
       {/* 상단 광고 줄 */}
-      <div className="flex items-center justify-between w-full bg-scampi-950 p-1">
+      <div className="font-plus-jakarta-sans flex items-center justify-between w-full bg-violet-400 p-1">
         <Link to="/home" className="flex-shrink-0">
-          <img src={MeageulLogo} alt="Maegeul Logo" className="h-12" />
+          <img src={MeageulLogo} alt="Maegeul Logo" className="w-[150px]" />
         </Link>
         <div className="text-scampi-200">
           꾸준히 감정일기를 작성하면 나에게 맞는 콘텐츠를 추천받을 확률이
@@ -24,10 +24,10 @@ const EmailLogin = () => {
       </div>
 
       {/* 이메일 로그인 페이지 */}
-      <div className="grid grid-cols-2 h-screen bg-gray-100 dark:bg-gray-800 dark:text-white">
+      <div className="font-plus-jakarta-sans grid grid-cols-2 h-screen bg-gray-100 dark:bg-gray-800 dark:text-white">
         {/* 텍스트 영역 */}
         <div className="flex flex-col justify-center p-8 text-left">
-          <h2 className="text-4xl font-semibold mb-4 text-scampi-700">
+          <h2 className="text-4xl font-extrabold mb-4 text-scampi-700">
             이메일 로그인하기
           </h2>
           <p className="text-sm left text-scampi-600 leading-6 mb-10">
@@ -61,8 +61,10 @@ const EmailLogin = () => {
         </div>
 
         {/* 로그인 폼 영역 */}
-        <div className="flex items-center justify-center bg-scampi-700">
-          <LoginForm />
+        <div className="flex items-center justify-center ">
+          <div className="w-[463px] h-[481px] items-center justufy-center rounded-xl bg-violet-800">
+            <LoginForm />
+          </div>
         </div>
       </div>
     </>
