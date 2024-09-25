@@ -28,7 +28,7 @@ interface Diary {
   user_id: number;
   title: string;
   content: string;
-  date: string;
+  formatted_date: string;
   color: string;
 }
 
@@ -109,7 +109,7 @@ export function UserView() {
                   { id: "title", label: "제목" },
                   { id: "content", label: "내용" },
                   { id: "color", label: "무드 컬러" },
-                  { id: "date", label: "작성 시간" },
+                  { id: "formatted_date", label: "작성 시간" },
                   { id: "" },
                 ]}
               />
@@ -166,7 +166,7 @@ interface Diary {
   user_id: number;
   title: string;
   content: string;
-  date: string; // 날짜는 string으로 저장됨
+  formatted_date: string; // 날짜는 string으로 저장됨
   color: string;
 }
 
