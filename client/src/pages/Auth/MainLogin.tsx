@@ -71,7 +71,7 @@ const MainLogin = () => {
         {/* 카카오 로그인 버튼 */}
         <button
           onClick={handleLogin}
-          className=" rounded-full mt-10  shadow-md  transition-color "
+          className=" rounded-full mt-10  shadow-md  transition-color hover:shadow-lg"
         >
           <img
             className="w-[300px] h-[60px] object-cover transition-color rounded-full"
@@ -138,11 +138,10 @@ const MainLogin = () => {
             비밀번호 찾기
           </button>
         </div>
-      </div>
-
-      {/* 하단 부분 */}
-      <div className="flex flex-col w-full h-16 justify-center items-center bg-black text-scampi-200">
-        Copyright © 2024 MAEGEUL | All Rights Reserved
+        {/* 하단 부분 */}
+        <div className=" text-center text-slate-500 text-sm font-medium font-plus-jakarta-sans leading-loose">
+          © 2024, Maegeul Team. All rights reserved.
+        </div>
       </div>
     </>
   );

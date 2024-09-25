@@ -4,7 +4,7 @@ import Maegeul from "../Icon/MaegeulLogo.png";
 
 const Footer: React.FC = () => {
   return (
-    <section className="w-full flex justify-center items-center py-16">
+    <section className="w-full flex justify-center items-center py-16 bg-white">
       <div className="max-w-[1150px] mx-auto justify-center items-center flex flex-col ">
         <div className="Frame1000005143 justify-start items-center gap-2 inline-flex">
           <button className="flex justify-center items-center bg-transparent  text-indigo-950 text-l font-extrabold font-['Ubuntu Sans'] dark:text-scampi-200 rounded-full dark:hover:bg-scampi-700 cursor-pointer transition-colors font-bold w-36 h-12 justify-center">

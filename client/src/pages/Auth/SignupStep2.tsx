@@ -192,7 +192,7 @@ const SignupStep2: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit} // Form 제출 시 handleSubmit 호출
-      className="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center p-5 dark:bg-gray-800"
+      className="font-plus-jakarta-sans w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center p-5 dark:bg-gray-800"
     >
       <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-md dark:bg-gray-900 relative">
         <h2 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">

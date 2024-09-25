@@ -37,7 +37,7 @@ const How: React.FC = () => {
   ];
 
   return (
-    <div className="bg-white flex justify-center items-center py-16">
+    <div className="bg-white flex justify-center items-center py-40">
       <div className="max-w-[1140px] px-[150px] w-full bg-white lg:px-12 md:px-8 sm:px-4">
         <div className="flex flex-col items-center gap-14 py-14">
           <div className="text-center">
