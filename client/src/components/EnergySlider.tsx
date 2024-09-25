@@ -3,6 +3,7 @@ import Fire from "../Icon/fire.gif";
 import Info from "../Icon/Info.png";
 import Tooltip from "./Tooltip";
 import CustomSlider from "./CustomSlider";
+import { motion } from "framer-motion";
 
 interface EnergySliderProps {
   onValueChange: (value: number) => void;
@@ -41,16 +42,22 @@ const EnergySlider: React.FC<EnergySliderProps> = ({
       </div>
 
       {/* 슬라이더 100px의 여백을 추가(mt-20) */}
-      <div className="mt-20">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }} // 처음에 투명하고 아래에 위치
+        animate={{ opacity: 1, y: 0 }} // 서서히 나타나면서 제자리로 이동
+        transition={{ duration: 0.8, ease: "easeOut" }} // 애니메이션 지속 시간을 두 배로 (1.6초)
+        className="mt-20"
+      >
         <CustomSlider
           value={value}
           onChange={handleSliderChange}
           min={1}
           max={10}
-          icon={Fire}
+          icon={Fire} // 아이콘으로 Fire 이미지 사용
           iconSize={fireSize}
         />
-      </div>
+      </motion.div>
+
       <div className="text-center mt-8">
         <button
           onClick={onSubmit}

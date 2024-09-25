@@ -9,14 +9,13 @@ body {
 .grid-container {
   display: grid;
   grid-template-columns: repeat(10, 1fr); /* 10열 그리드 */
-  grid-template-rows: repeat(10, 50px); /* 10행 그리드 */
+  grid-auto-rows: 50px; /* 자동으로 행의 높이를 50px로 설정 */
   gap: 1px; /* 그리드 항목 간 간격을 줄임 */
   width: 80vw; /* 그리드 전체 너비 */
-  height: 80vh; /* 그리드 전체 높이를 화면 높이에 맞추고 상하 간격을 줄임 */
-  max-width: 1000px; /* 그리드 최대 너비 */
-  max-height: 800px; /* 그리드 최대 높이 줄임 */
+  max-width: 1140px; /* 그리드 최대 너비 */
   border-radius: 10px; /* 모서리 둥글게 */
   box-sizing: border-box; /* 내부 패딩을 포함한 크기 계산 */
+  height: auto; /* 그리드 높이를 자동으로 설정 */
 }
 
 .grid-item {
@@ -26,12 +25,13 @@ body {
   align-items: center;
   padding: 5px; /* 패딩을 줄여 각 항목 내부 여백 축소 */
   height: 50px; /* 항목 높이 줄이기 */
-  width: 100px; /* 항목 너비 줄이기 */
+  width: 114px; /* 항목 너비 줄이기 */
   max-width: 100%;
   max-height: 100%;
   box-sizing: border-box;
   color: white;
   font-weight: bold;
+  font-family: "font-plus-jakarta-sans";
   text-align: center;
   border-radius: 5px;
   transition: filter 0.3s ease; /* 필터 효과 애니메이션 */

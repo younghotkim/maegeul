@@ -75,7 +75,7 @@ const Diag: React.FC = () => {
       <>
         <div className="w-[1140px] relative mt-10 mx-auto">
           {/* 텍스트 (ProgressBar 왼쪽 끝에 위치) */}
-          <div className="absolute top-[-2rem] left-0 z-10 font-bold text-scampi-700 dark:text-scampi-300 font-['Inter'] leading-10">
+          <div className="absolute top-[-2rem] left-0 z-10 font-bold text-scampi-700 dark:text-scampi-300 font-['font-plus-jakarta-sans'] leading-10">
             2단계: 감정 이해하기
           </div>
           {/* Progress Bar (가운데에 위치) */}
@@ -84,7 +84,7 @@ const Diag: React.FC = () => {
           </div>
         </div>
         <div className="text-center p-4">
-          <p className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['Inter'] leading-10 mt-10 mb-5">
+          <p className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['font-plus-jakarta-sans'] leading-10 mt-3">
             오늘 {user?.profile_name}님의 무드 컬러는 {colorName}
             {highlightedColor && (
               <span
@@ -102,11 +102,11 @@ const Diag: React.FC = () => {
           </p>
 
           {highlightedLabels.length > 0 && (
-            <p className="text-scampi-700 dark:text-scampi-300 text-2xl font-bold font-['Inter'] leading-10">
+            <p className="text-scampi-700 dark:text-scampi-300 text-2xl font-bold font-['Inter'] leading-10 mt-2">
               #{highlightedLabels.join("#")}
             </p>
           )}
-          <div className="flex justify-center items-center h-screen mb-8">
+          <div className="flex justify-center items-center mt-10">
             <MoodMeter
               pleasantness={moodValue}
               energy={energyValue}
@@ -114,22 +114,24 @@ const Diag: React.FC = () => {
               onHighlightChange={handleHighlightChange}
             />
           </div>
-          <div className="w-full p-6 ml-10 mr-10 bg-slate-100 rounded-3xl flex justify-center items-center mt-8">
-            <p className="text-scampi-700 text-lg font-bold font-['Inter']leading-7 text-center">
+          <div className="w-full bg-slate-100 rounded-3xl flex justify-center items-center mt-10">
+            <p className="text-scampi-700 text-lg font-bold font-['font-plus-jakarta-sans'] text-center">
               내 감정을 더욱 정확하게 알아보기 위해서, <br />
               지금 바로 감정 일기를 작성하러 가볼까요?
             </p>
           </div>
-          <div className="flex justify-center gap-4 p-6">
+          <div className="flex justify-center gap-4 p-0 mt-0">
+            {" "}
+            {/* 패딩과 마진 값 제거 */}
             <button
               onClick={handleRetry}
-              className="font-['Inter'] text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 
-              hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors"
+              className="font-['font-plus-jakarta-sans'] text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 
+    hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors"
             >
               다시 측정하기
             </button>
             <Link to="/MgWriting">
-              <button className="font-['Inter'] bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
+              <button className="font-['font-plus-jakarta-sans'] bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
                 글쓰러가기
               </button>
             </Link>
