@@ -6,8 +6,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['Inter'],
+        sans: ['"Plus Jakarta Sans"'],
         'plus-jakarta-sans': ['Plus Jakarta Sans'],
+        inter: ['Inter'],
       },
       colors: {
         scampi: {

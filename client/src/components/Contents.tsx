@@ -70,7 +70,7 @@ const Contents: React.FC = () => {
       <section className="py-16 flex justify-center">
         <div className="max-w-[1140px] w-full">
           <h2
-            className="text-center text-blue-950 text-4xl font-extrabold font-['plus-jakarta-sans']
+            className="text-center text-blue-950 text-4xl font-extrabold font-plus-jakarta-sans
           dark:text-white  leading-10 mb-4"
           >
             마음돌봄 머글을 위한 루틴추천
@@ -102,7 +102,7 @@ const Contents: React.FC = () => {
         <div className="Cta2 max-w-[1150px] mx-auto justify-center items-start flex">
           <div className="Contain grow shrink basis-0 h-20 justify-center items-center gap-10 flex">
             <span
-              className="text-blue-950 text-4xl font-extrabold font-['plus-jakarta-sans'] 
+              className="text-blue-950 text-4xl font-extrabold font-plus-jakarta-sans 
             dark:text-white leading-10"
             >
               나를 돌보는 하루 5분 마음챙김
@@ -118,7 +118,7 @@ const Contents: React.FC = () => {
                   style={{ width: "171px", height: "56px" }}
                 >
                   <div
-                    className="Text text-indigo-600 text-sm font-bold font-['plus-jakarta-sans'] 
+                    className="Text text-indigo-600 text-sm font-bold font-plus-jakarta-sans 
                   dark:text-white leading-normal"
                   >
                     지금 바로 시작하기
@@ -130,7 +130,7 @@ const Contents: React.FC = () => {
                   className="Button bg-indigo-600 rounded-xl flex justify-center items-center gap-2.5"
                   style={{ width: "171px", height: "56px" }}
                 >
-                  <div className="Text text-white text-sm font-bold font-['plus-jakarta-sans'] leading-normal">
+                  <div className="Text text-white text-sm font-bold font-plus-jakarta-sans leading-normal">
                     회원 가입 하기
                   </div>
                 </div>

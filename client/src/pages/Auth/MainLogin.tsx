@@ -63,7 +63,7 @@ const MainLogin = () => {
             alt="Maegeul Logo"
             className="w-[300px] justify-center items-center"
           />
-          <h2 className="text-scampi-700 text-xl font-bold font-['plus-jakarta-sans'] leading-10 text-center">
+          <h2 className="text-scampi-700 text-xl font-bold font-plus-jakarta-sans leading-10 text-center">
             매일 감정 글쓰기를 통해 만드는 단단한 나
           </h2>
         </Link>
@@ -90,7 +90,7 @@ const MainLogin = () => {
           <div className="w-full h-full flex items-center justify-center">
             <img src={Email} className="w-6 h-6 mr-10" alt="Email icon" />
             <span
-              className="text-xl ml-5 mr-10 font-bold font-['plus-jakarta-sans'] 
+              className="text-xl ml-5 mr-10 font-bold font-plus-jakarta-sans 
                              group-hover:text-scampi-100"
             >
               이메일 로그인
