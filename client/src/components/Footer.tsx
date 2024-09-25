@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
           <div className=" text-center text-slate-500 text-sm font-medium font-plus-jakarta-sans leading-loose">
-            © 2024, Maegeul Team. All rights reserved.
+            Copyright © Litme Team. All rights reserved.
           </div>
         </div>
       </div>
