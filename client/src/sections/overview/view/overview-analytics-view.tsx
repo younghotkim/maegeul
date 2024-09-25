@@ -27,7 +27,8 @@ export function OverviewAnalyticsView() {
   // UserContext에서 사용자 정보 가져오기
   const { user } = useUser();
 
-  const { diaryCount, fetchDiaryCount } = useDiary();
+  const { diaryCount, fetchDiaryCount, consecutiveDays, fetchConsecutiveDays } =
+    useDiary();
 
   // 컴포넌트가 마운트될 때 일기 개수를 불러오는 로직
   useEffect(() => {
@@ -35,6 +36,13 @@ export function OverviewAnalyticsView() {
       fetchDiaryCount(user.user_id); // user_id로 일기 작성 개수 불러오기
     }
   }, [user, fetchDiaryCount]);
+
+  // 컴포넌트가 마운트될 때 연속 일수를 불러오는 로직
+  useEffect(() => {
+    if (user?.user_id) {
+      fetchConsecutiveDays(user.user_id); // user_id로 일기 작성 개수 불러오기
+    }
+  }, [user, fetchConsecutiveDays]);
 
   const words = [
     { text: "#불쾌한", size: 80 },
@@ -127,9 +135,9 @@ export function OverviewAnalyticsView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
-            title="Messages"
+            title="연속 달성 일수"
             percent={3.6}
-            total={234}
+            total={consecutiveDays}
             color="error"
             icon={
               <img alt="icon" src="/assets/icons/glass/ic-glass-message.svg" />

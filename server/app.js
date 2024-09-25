@@ -13,6 +13,7 @@ const kakaoAuthRoutes = require("./routes/kakao");
 const moodmeterRoutes = require("./routes/moodRoutes");
 const diaryRoutes = require("./routes/diaryRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const emotionAnalysisRoutes = require("./routes/emotionAnalysisRoutes");
 
 require("./config/passport");
 
@@ -67,6 +68,8 @@ app.use("/", kakaoAuthRoutes);
 app.use("/api", moodmeterRoutes);
 
 app.use("/api", diaryRoutes);
+
+app.use("/api", emotionAnalysisRoutes);
 
 // 기본 라우트
 app.get("/", (req, res) => {

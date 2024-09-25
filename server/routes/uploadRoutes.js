@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const router = express.Router();
-const { uploadFile } = require("../controllers/uploadControllers");
+const { uploadFile } = require("../controllers/uploadController");
 
 // multer 설정
 const isProduction = process.env.NODE_ENV === "production";

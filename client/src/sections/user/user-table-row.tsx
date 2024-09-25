@@ -18,7 +18,7 @@ interface Diary {
   user_id: number;
   title: string;
   content: string;
-  date: string;
+  formatted_date: string;
   color: string;
 }
 
@@ -89,7 +89,7 @@ export function UserTableRow({
         </TableCell>
 
         {/* Diary의 date 필드를 테이블에 표시 */}
-        <TableCell>{row.date}</TableCell>
+        <TableCell>{row.formatted_date}</TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenPopover}>

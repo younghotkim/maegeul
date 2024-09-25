@@ -40,3 +40,14 @@ export const saveDiary = async (diaryData: {
     throw error;
   }
 };
+
+// 특정 사용자의 연속된 일수를 가져오는 함수
+export const getConsecutiveDaysByUserId = async (user_id: number) => {
+  try {
+    const response = await axios.get(`${API_URL}/diary/consecutive/${user_id}`);
+    return response.data; // 서버에서 연속된 일수를 반환한다고 가정
+  } catch (error) {
+    console.error("연속된 일수 불러오기 중 오류 발생:", error);
+    throw error;
+  }
+};
