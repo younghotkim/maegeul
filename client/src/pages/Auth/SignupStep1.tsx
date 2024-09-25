@@ -69,7 +69,7 @@ const SignupStep1: React.FC = () => {
     !checkedItems.personalInfo || !checkedItems.usageTerms;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-5 dark:bg-gray-800 dark:text-white">
+    <div className="font-plus-jakarta-sans flex flex-col items-center justify-center min-h-screen bg-gray-100 p-5 dark:bg-gray-800 dark:text-white">
       <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-md dark:bg-gray-900">
         {/* Step 1 Header */}
         <h2 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">

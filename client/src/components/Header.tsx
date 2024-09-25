@@ -60,9 +60,9 @@ const Header: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <header className="sticky top-0 z-50 w-full bg-white dark:bg-scampi-800 font-normal font-plus-jakarta-sans py-4 leading-normal">
-        <div className="max-w-[1140px] mx-auto flex justify-between items-center">
+        <div className="max-w-[1140px] mx-auto flex justify-between items-center text-sm">
           <Link to="/home" className="flex-shrink-0">
-            <img src={MeageulLogo} alt="Maegeul Logo" className="h-12" />
+            <img src={MeageulLogo} alt="Maegeul Logo" className="w-[150px]" />
           </Link>
 
           <nav className="flex-grow flex justify-center space-x-8">

@@ -67,7 +67,7 @@ const Contents: React.FC = () => {
   return (
     <>
       {/* 카드 컨텐츠 섹션 */}
-      <section className="py-16 flex justify-center">
+      <section className="py-16 flex justify-center bg-white">
         <div className="max-w-[1140px] w-full">
           <h2
             className="text-center text-blue-950 text-4xl font-extrabold font-plus-jakarta-sans
@@ -95,10 +95,10 @@ const Contents: React.FC = () => {
       </section>
 
       {/* 두 섹션 간 여백 150px 추가 */}
-      <div className="h-[150px]" />
+      <div className="h-[120px] bg-white" />
 
       {/* 매글에서 지금 바로 시작해보세요 섹션 */}
-      <section className="w-full flex justify-center items-center py-16">
+      <section className="w-full flex justify-center items-center py-16 bg-white">
         <div className="Cta2 max-w-[1150px] mx-auto justify-center items-start flex">
           <div className="Contain grow shrink basis-0 h-20 justify-center items-center gap-10 flex">
             <span
@@ -111,7 +111,7 @@ const Contents: React.FC = () => {
             </span>
             {/* Text와 버튼 사이 여백 200px 추가 */}
             <div style={{ marginBottom: "200px" }} />
-            <div className="Cta grow shrink basis-0 h-14 justify-end items-center gap-4 flex">
+            <div className="bg-white grow shrink basis-0 h-14 justify-end items-center gap-4 flex">
               <Link to="/maegeul">
                 <div
                   className="Button flex border border-indigo-600 rounded-xl justify-center items-center gap-2.5"
