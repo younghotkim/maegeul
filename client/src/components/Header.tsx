@@ -59,7 +59,7 @@ const Header: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <header className="sticky top-0 z-50 w-full bg-white dark:bg-scampi-800 font-normal font-['plus-jakarta-sans'] py-4 leading-normal">
+      <header className="sticky top-0 z-50 w-full bg-white dark:bg-scampi-800 font-normal font-plus-jakarta-sans py-4 leading-normal">
         <div className="max-w-[1140px] mx-auto flex justify-between items-center">
           <Link to="/home" className="flex-shrink-0">
             <img src={MeageulLogo} alt="Maegeul Logo" className="h-12" />

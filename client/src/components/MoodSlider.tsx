@@ -57,7 +57,7 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
               <img src={Info} alt="Info" className="ml-2 cursor-pointer" />
             </Tooltip>
           </h1>
-          <div className="text-center text-slate-500 text-xs font-medium font-['plus-jakarta-sans'] leading-normal">
+          <div className="text-center text-slate-500 text-xs font-medium font-plus-jakarta-sans leading-normal">
             지금 내가 느끼는 편안함, 얼마나 만족스럽고 쾌적한 상태인지 긍정
             감정의 정도를 측정해 봅시다.
           </div>

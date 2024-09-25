@@ -32,29 +32,29 @@ const Numbers: React.FC = () => {
       <div className="max-w-[1140px] w-full flex flex-col lg:flex-row items-start gap-[110px]">
         <div className="flex-1 flex-col justify-start items-start gap-14 inline-flex">
           <div className="self-stretch flex-col justify-start items-start gap-2.5 flex">
-            <h2 className="self-stretch text-blue-950 text-3xl font-extrabold font-['plus-jakarta-sans'] leading-8 mb-2.5">
+            <h2 className="self-stretch text-blue-950 text-3xl font-extrabold font-plus-jakarta-sans leading-8 mb-2.5">
               나의 하루를 돌보는 감정일기 플랫폼 매글
             </h2>
-            <p className="self-stretch text-slate-500 text-base font-medium font-['plus-jakarta-sans'] leading-5">
+            <p className="self-stretch text-slate-500 text-base font-medium font-plus-jakarta-sans leading-5">
               바쁜 일상 속에서 놓치기 쉬운 나의 마음 챙김을 매글에서 쉽게
               시작해보세요. <br />
               하루 중 나의 편안 지수와 에너지 레벨을 측정해 오늘의 무드 컬러를
               알려드려요.
             </p>
           </div>
-          <div className="self-stretch grid grid-cols-1 md:grid-cols-2 gap-14">
+          <div className="self-stretch grid grid-cols-2 gap-8">
             {numberItems.map((item, index) => (
               <div
                 key={index}
-                className="flex-col justify-center items-start gap-0.5 inline-flex"
+                className="flex-col justify-center items-start gap-0.5 inline-grid"
               >
-                <div className="self-stretch text-blue-950 text-4xl font-extrabold font-['plus-jakarta-sans'] leading-10">
+                <div className="self-stretch text-blue-950 text-4xl font-extrabold font-plus-jakarta-sans leading-tight">
                   {item.number}
                 </div>
-                <div className="self-stretch text-blue-950 text-base font-bold font-['plus-jakarta-sans'] leading-loose">
+                <div className="self-stretch text-blue-950 text-md font-extrabold font-plus-jakarta-sans leading-5">
                   {item.title}
                 </div>
-                <div className="self-stretch text-slate-500 text-base font-medium font-['plus-jakarta-sans'] leading-5">
+                <div className="self-stretch text-slate-500 text-base font-medium font-plus-jakarta-sans leading-loose">
                   {item.description}
                 </div>
               </div>

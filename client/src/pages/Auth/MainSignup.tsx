@@ -9,7 +9,6 @@ import MeageulLogo from "../../Icon/Brand Logo_web ver. (v.1.0) (24.09.22) 1.png
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
 
-
 const MainSignup = () => {
   const navigate = useNavigate();
 
@@ -34,9 +33,6 @@ const MainSignup = () => {
             alt="Maegeul Logo"
             className="w-[300px] justify-center items-center"
           />
-          <h1 className="text-scampi-700 dark:text-scampi-300 text-5xl font-bold font-['DM Sans'] leading-10 inline-flex items-center cursor-pointer">
-            MAEGEUL
-          </h1>
         </Link>
         {/* Ticket 정보 */}
         <div className="w-[286px] h-[59px] rounded-lg border border-scampi-200 grid grid-cols-[1fr_3fr] items-center mt-5">
@@ -72,8 +68,12 @@ const MainSignup = () => {
         </div>
 
         {/* '또는' 구분선 */}
-        <div className="w-full border-t border-gray-300 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300">
-          또는
+        <div className="w-[300px] flex items-center mt-8">
+          <div className="flex-grow border-t border-gray-300"></div>
+          <span className="px-4 text-scampi-700 dark:text-scampi-300">
+            또는
+          </span>
+          <div className="flex-grow border-t border-gray-300"></div>
         </div>
 
         {/* 소셜 로그인 버튼들 */}
