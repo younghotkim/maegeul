@@ -8,6 +8,7 @@ import Info from "../Icon/Info.png";
 import Tooltip from "./Tooltip";
 import ProgressBar from "./ProgressBar";
 import CustomSlider from "./CustomSlider";
+import { motion } from "framer-motion";
 
 interface MoodSliderProps {
   onValueChange: (value: number) => void;
@@ -63,7 +64,12 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
           </div>
         </div>
         {/* 슬라이더 100px의 여백을 추가(mt-20) */}
-        <div className="mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }} // 시작할 때 완전히 투명하고 아래에 위치
+          animate={{ opacity: 1, y: 0 }} // 등장하면서 서서히 보이고 제자리로 이동
+          transition={{ duration: 0.8, ease: "easeOut" }} // 부드러운 애니메이션과 0.8초의 지속 시간
+          className="mt-20"
+        >
           <CustomSlider
             value={value}
             onChange={handleSliderChange}
@@ -72,7 +78,7 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
             icon={currentEmoji ? currentEmoji.gif : ""}
             iconSize={48}
           />
-        </div>
+        </motion.div>
       </div>
     </>
   );

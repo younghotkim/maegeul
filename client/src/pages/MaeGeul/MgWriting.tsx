@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 훅을 임포트
 import Header from "../../components/Header";
 import { analyzeEmotion } from "../../api/analyzeApi"; // 분석 API import
+import { motion } from "framer-motion";
 
 import MgModal from "./MgModal"; // 모달 컴포넌트 임포트
 import { Iconify } from "../../dashboardComponents/iconify";
 import MuditaImage from "../../Image/mudita_bot.png";
+import { MdOutlineMail } from "react-icons/md";
 
 import { useHighlightContext } from "../../context/HighlightContext"; // Context 임포트
 import { useMoodContext } from "../../context/MoodContext"; // Context 훅 임포트
@@ -261,39 +263,49 @@ const MgWriting: React.FC = () => {
           <ProgressBar value={progressBarValue} />
         </div>
       </div>
-
-      <div className="flex max-w-[calc(100%-300px)] h-screen mx-auto p-10 bg-base dark:bg-gray-600">
-        <div className="w-1/2 h-full p-8 bg-purple-100 rounded-3xl shadow-md dark:bg-gray-700">
+      <div className="flex w-[1140px] h-[700px] mx-auto p-0 bg-base dark:bg-gray-600 mt-10 relative">
+        {/* 왼쪽 컨텐츠 */}
+        <div className="w-1/2 h-full p-4 bg-purple-100 rounded-3xl shadow-md dark:bg-gray-700">
           {emotionResult ? (
-            // AI 분석 결과가 있을 때 기존 내용을 대체하고 AI 분석 결과만 표시
-
-            <div className="mx-auto text-scampi-800 font-bold text-xl dark:text-white mb-5">
+            // 편지가 펼쳐지는 애니메이션 효과 추가
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 100 }} // 작고, 투명하고, 아래쪽에 위치
+              animate={{ scale: 1, opacity: 1, y: 0 }} // 크기가 원래대로 커지며, 위로 올라옴
+              transition={{ duration: 1, ease: "easeOut" }} // 애니메이션 지속 시간과 부드러운 효과 적용
+              className="mx-auto text-scampi-800 font-bold text-xl dark:text-white mb-5"
+            >
               <div className="User w-96 h-11 text-scampi-800 font-bold text-2xl leading-10 dark:text-white mb-5">
                 무디타의 편지 💌
               </div>
-              <div className="BackgroundBorder relative p-5 bg-white rounded-2xl border border-black/10 text-base before:absolute before:top-full before:left-1/2 before:transform before:-translate-x-1/2 before:w-0 before:h-0 before:border-t-[15px] before:border-t-white before:border-l-[15px] before:border-l-transparent before:border-r-[15px] before:border-r-transparent before:border-b-0">
+              <motion.div
+                initial={{ scaleX: 0 }} // 가로 크기를 0으로 시작 (접힌 상태)
+                animate={{ scaleX: 1 }} // 가로 크기를 펼치는 애니메이션
+                transition={{ duration: 0.8, delay: 0.5, ease: "easeInOut" }} // 약간의 딜레이 후 애니메이션 시작
+                className="BackgroundBorder relative p-5 bg-white rounded-2xl border border-black/10 text-base before:absolute before:top-full before:left-1/2 before:transform before:-translate-x-1/2 before:w-0 before:h-0 before:border-t-[15px] before:border-t-white before:border-l-[15px] before:border-l-transparent before:border-r-[15px] before:border-r-transparent before:border-b-0"
+              >
                 {emotionResult &&
                   emotionResult.split("\n").map((sentence, index) => (
                     <p key={index} className="mb-2">
                       {sentence}
                     </p>
                   ))}
-              </div>
+              </motion.div>
 
               <div className="flex flex-col justify-center items-center">
-                <img
-                  src={MuditaImage}
-                  alt="Mudita"
-                  className="w-80 h-80 bg-purple-100"
-                />
-                <button
+                <div className="flex flex-col justify-center items-center mt-5">
+                  <MdOutlineMail className="w-20 h-20 text-scampi-700" />{" "}
+                  {/* 우체통 아이콘 */}
+                </div>
+
+                <motion.button
                   onClick={handleSaveEmotionAnalysis}
                   className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-6 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors mt-2"
+                  whileHover={{ scale: 1.05 }} // 버튼에 마우스를 올리면 약간 확대되는 효과
                 >
                   편지받기
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
           ) : (
             // emotionResult가 없을 때 기존 가이드 내용 표시
             <>
