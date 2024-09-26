@@ -7,6 +7,7 @@ import { Iconify } from "../dashboardComponents/iconify";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { useUser } from "../context/UserContext";
+import Modal from "./Modal";
 
 const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -15,6 +16,19 @@ const Header: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
     return !!sessionStorage.getItem("token");
   });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
+  const openModal = (message: string) => {
+    setModalMessage(message);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalMessage("");
+  };
 
   const navigate = useNavigate();
   const { user, setUser } = useUser();
@@ -72,33 +86,42 @@ const Header: React.FC = () => {
                 무드일기
               </Link>
             ) : (
-              <span className="nav-link text-gray-400 cursor-not-allowed">
+              <span
+                className="nav-link cursor-pointer"
+                onClick={() =>
+                  openModal("무드일기는 로그인 후 이용 가능합니다.")
+                }
+              >
                 무드일기
               </span>
             )}
 
-            {/* AI 진단 가이드 링크 - 로그인 상태일 때만 활성화 */}
-            {isLoggedIn ? (
-              <Link to="#" className="nav-link">
-                AI 진단 가이드
-              </Link>
-            ) : (
-              <span className="nav-link text-gray-400 cursor-not-allowed">
-                AI 진단 가이드
-              </span>
-            )}
+            <Link to="#" className="nav-link">
+              AI 진단 가이드
+            </Link>
 
-            {/* 추천 콘텐츠 링크 - 로그인 상태일 때만 활성화 */}
             {isLoggedIn ? (
               <Link to="/contents" className="nav-link">
                 추천 콘텐츠
               </Link>
             ) : (
-              <span className="nav-link text-gray-400 cursor-not-allowed">
+              <span
+                className="nav-link cursor-pointer"
+                onClick={() =>
+                  openModal("추천 콘텐츠는 로그인 후 이용 가능합니다.")
+                }
+              >
                 추천 콘텐츠
               </span>
             )}
           </nav>
+
+          {/* Modal 컴포넌트 사용 */}
+          <Modal
+            isOpen={isModalOpen}
+            message={modalMessage}
+            onClose={closeModal}
+          />
 
           <div className="flex items-center space-x-4">
             {isLoggedIn ? (
