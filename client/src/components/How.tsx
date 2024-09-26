@@ -74,7 +74,7 @@ const How: React.FC = () => {
                   <div className="text-base font-bold">{item.step}</div>
                 </div>
                 <div className="flex-1 ">
-                  <h3 className="max-w-[250px] text-blue-950 text-base font-bold font-plus-jakarta-sans leading-loose">
+                  <h3 className="text-blue-950 text-base font-bold font-plus-jakarta-sans leading-loose">
                     {item.title}
                   </h3>
                   <p className="text-slate-500 text-base font-medium font-plus-jakarta-sans tracking-leading-loose">

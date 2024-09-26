@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-// 체크박스의 상태를 관리하기 위한 타입 정의
+// 체크박스의 상태를 관리하는 타입 선언 (전체, 개인정보, 이용약관, 마케팅 동의)
 type CheckedItems = {
   all: boolean;
   personalInfo: boolean;
@@ -9,15 +9,16 @@ type CheckedItems = {
   marketingConsent: boolean;
 };
 
-// 각 섹션의 펼침/접힘 상태를 관리하기 위한 타입 정의
+// 각 동의 항목의 세부 내용 펼치기/접기 상태를 관리하는 타입 선언
 type OpenSections = {
   personalInfo: boolean;
   usageTerms: boolean;
   marketingConsent: boolean;
 };
 
+// 회원가입 첫 번째 스텝 컴포넌트
 const SignupStep1: React.FC = () => {
-  // 체크박스 상태를 관리하기 위한 state
+  // 체크박스 선택 상태를 관리하는 state
   const [checkedItems, setCheckedItems] = useState<CheckedItems>({
     all: false,
     personalInfo: false,
@@ -25,29 +26,30 @@ const SignupStep1: React.FC = () => {
     marketingConsent: false,
   });
 
-  // 각 섹션의 펼침/접힘 상태를 관리하기 위한 state
+  // 약관 세부 내용을 펼치거나 접는 상태를 관리하는 state
   const [openSections, setOpenSections] = useState<OpenSections>({
     personalInfo: false,
     usageTerms: false,
     marketingConsent: false,
   });
 
-  // 체크박스 상태 변경 함수
-  const handleCheck = (item: keyof CheckedItems) => {
+  // 특정 체크박스 선택 상태 변경 시 호출되는 함수
+  // 모든 항목이 선택되었을 경우 "전체 동의"도 체크됨
+  const handleCheck = (item: keyof CheckedItems, checked: boolean) => {
     setCheckedItems((prevState) => {
-      const updatedState = { ...prevState, [item]: !prevState[item] };
+      const updatedState = { ...prevState, [item]: checked };
 
-      // 전체 동의가 체크되면 모든 항목을 체크하거나 해제
+      // 전체 동의 선택 시, 모든 체크박스를 동일한 상태로 설정
       if (item === "all") {
         return {
-          all: updatedState.all,
-          personalInfo: updatedState.all,
-          usageTerms: updatedState.all,
-          marketingConsent: updatedState.all,
+          all: checked,
+          personalInfo: checked,
+          usageTerms: checked,
+          marketingConsent: checked,
         };
       }
 
-      // 필수 항목이 모두 체크되면 전체 동의도 체크
+      // 개별 항목의 선택 여부에 따라 전체 동의 상태 업데이트
       const allChecked = updatedState.personalInfo && updatedState.usageTerms;
       return {
         ...updatedState,
@@ -56,7 +58,7 @@ const SignupStep1: React.FC = () => {
     });
   };
 
-  // 섹션의 펼침/접힘 상태 변경 함수
+  // 약관 세부 항목 펼치기/접기를 토글하는 함수
   const toggleSection = (section: keyof OpenSections) => {
     setOpenSections((prevState) => ({
       ...prevState,
@@ -64,88 +66,88 @@ const SignupStep1: React.FC = () => {
     }));
   };
 
-  // 필수 항목 체크 여부
+  // 필수 약관이 체크되지 않았을 경우 다음 버튼 비활성화
   const isNextButtonDisabled =
     !checkedItems.personalInfo || !checkedItems.usageTerms;
 
   return (
     <div className="font-plus-jakarta-sans flex flex-col items-center justify-center min-h-screen bg-gray-100 p-5 dark:bg-gray-800 dark:text-white">
       <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-md dark:bg-gray-900">
-        {/* Step 1 Header */}
+        {/* STEP 1 제목 */}
         <h2 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">
           STEP 1
         </h2>
-        {/*  구분선 */}
+
+        {/* 상단 장식 라인 */}
         <div className="w-full border-t-8 border-scampi-500 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300"></div>
+
+        {/* 이용약관 체크하기 제목 */}
         <h3 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">
           이용약관 체크하기
         </h3>
 
         {/* 전체 동의 항목 */}
-        <div
+        <label
           className={`p-4 rounded-md mb-2 flex items-center justify-between cursor-pointer ${
             checkedItems.all ? "bg-scampi-100" : "bg-white"
           }`}
-          onClick={() => handleCheck("all")}
         >
           <input
             type="checkbox"
-            checked={checkedItems.all}
-            onChange={() => handleCheck("all")}
-            className={`mr-2 w-6 h-6 ${
-              checkedItems.all ? "bg-scampi-600" : ""
-            }`}
+            checked={checkedItems.all} // 전체 동의 체크 여부에 따라 체크박스 상태 업데이트
+            onChange={(e) => handleCheck("all", e.target.checked)} // 상태 변경 함수 호출
+            className="mr-2 w-6 h-6 cursor-pointer"
           />
-          <span className="flex-grow text-gray-800 dark:text-white">
+          <span className="flex-grow text-gray-800 dark:text-white cursor-pointer">
             이용약관 전체동의(선택 동의 포함)
           </span>
-        </div>
+        </label>
 
         {/* 개별 동의 항목 */}
         {["personalInfo", "usageTerms", "marketingConsent"].map(
           (item, index) => (
             <div key={index}>
-              <div
+              <label
                 className={`p-4 rounded-md mb-2 flex items-center justify-between cursor-pointer ${
                   checkedItems[item as keyof CheckedItems]
                     ? "bg-scampi-100"
                     : "bg-white"
                 }`}
-                onClick={() => handleCheck(item as keyof CheckedItems)}
               >
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                    checked={checkedItems[item as keyof CheckedItems]}
-                    onChange={() => handleCheck(item as keyof CheckedItems)}
-                    className={`mr-2 w-6 h-6 ${
-                      checkedItems[item as keyof CheckedItems]
-                        ? "bg-scampi-600"
-                        : ""
-                    }`}
+                    checked={checkedItems[item as keyof CheckedItems]} // 각 항목의 체크박스 상태에 따라 렌더링
+                    onChange={(e) =>
+                      handleCheck(item as keyof CheckedItems, e.target.checked)
+                    } // 상태 변경 함수 호출
+                    className="mr-2 w-6 h-6 cursor-pointer"
                   />
-                  <span className="text-gray-800 dark:text-white">
+                  <span className="text-gray-800 dark:text-white cursor-pointer">
+                    {/* 각 항목에 맞는 텍스트 표시 */}
                     {item === "personalInfo" && "(필수) 개인 정보 수집 및 이용"}
                     {item === "usageTerms" && "(필수) 매글 사용 약관"}
                     {item === "marketingConsent" &&
                       "(선택) 매글 마케팅 메시지 수신 동의"}
                   </span>
                 </div>
+
+                {/* 세부 약관 펼치기/접기 버튼 */}
                 <button
                   onClick={(e) => {
-                    e.stopPropagation();
-                    toggleSection(item as keyof OpenSections);
+                    e.stopPropagation(); // 부모 요소의 클릭 이벤트 중지
+                    toggleSection(item as keyof OpenSections); // 해당 항목의 세부 내용 펼치기/접기
                   }}
                   className="text-gray-500"
                 >
                   {openSections[item as keyof OpenSections] ? "🔼" : "🔽"}
                 </button>
-              </div>
+              </label>
 
-              {/* 동의 항목 세부 사항 */}
+              {/* 동의 항목 세부 사항 - 조건부 렌더링 */}
               {openSections[item as keyof OpenSections] && (
                 <div className="ml-8 mb-4 text-gray-600 dark:text-gray-400">
-                  <Link to={"#"}>세부 약관 보기</Link>
+                  <Link to={"#"}>세부 약관 보기</Link> {/* 세부 약관 링크 */}
                 </div>
               )}
             </div>
@@ -154,16 +156,17 @@ const SignupStep1: React.FC = () => {
 
         {/* 다음 버튼 */}
         <div className="mt-8">
+          {/* 필수 항목이 체크되지 않으면 다음 페이지로 이동 불가 */}
           <Link to={isNextButtonDisabled ? "#" : "/signupstep2"}>
             <button
-              disabled={isNextButtonDisabled}
+              disabled={isNextButtonDisabled} // 필수 항목이 체크되지 않으면 비활성화
               className={`w-full px-6 py-4 text-base font-bold text-white rounded-3xl ${
                 isNextButtonDisabled
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-scampi-600"
               }`}
             >
-              다음
+              다음 {/* 버튼 텍스트 */}
             </button>
           </Link>
         </div>
