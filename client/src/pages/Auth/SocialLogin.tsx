@@ -11,7 +11,7 @@ const imageStyle: React.CSSProperties = {
 const KakaoLoginButton: React.FC = () => {
   const handleLogin = () => {
     // 로그인 엔드포인트로 리디렉션
-    window.location.href = `${BASE_URL}/api/kakao`;
+    window.location.href = `${BASE_URL}/api/kakao/`;
   };
 
   return (

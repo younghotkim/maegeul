@@ -1,0 +1,38 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main # main 브랜치로 푸시될 때만 실행
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16" # 프로젝트에 맞는 Node.js 버전
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build # 빌드 명령어가 있으면 사용 (React 등)
+
+      - name: Copy files to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/github_actions_key ec2-user@<EC2_IP> 'rm -rf ~/my-app/*'
+          scp -i ~/.ssh/github_actions_key -r ./* ec2-user@<EC2_IP>:~/my-app/
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Restart PM2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/github_actions_key ec2-user@<EC2_IP> 'pm2 restart all'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}

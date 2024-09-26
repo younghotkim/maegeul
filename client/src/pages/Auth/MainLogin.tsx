@@ -24,7 +24,7 @@ const MainLogin = () => {
 
   const handleLogin = async () => {
     try {
-      window.location.href = `${BASE_URL}/api/kakao`; // 카카오 인증 요청
+      window.location.href = `${BASE_URL}/api/kakao/`; // 카카오 인증 요청
     } catch (error) {
       console.error("카카오 로그인 요청 실패:", error);
     }
