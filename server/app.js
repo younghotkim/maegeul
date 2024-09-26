@@ -63,7 +63,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api", uploadRoutes);
 
-app.use("/", kakaoAuthRoutes);
+app.use("/api", kakaoAuthRoutes);
 
 app.use("/api", moodmeterRoutes);
 

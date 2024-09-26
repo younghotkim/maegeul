@@ -253,9 +253,9 @@ const MgWriting: React.FC = () => {
   return (
     <>
       <Header />
-      <div className="w-[1140px] relative mt-10 mx-auto">
+      <div className="w-[1140px] relative mt-10 mx-auto font-['font-plus-jakarta-sans']">
         {/* 텍스트 (ProgressBar 왼쪽 끝에 위치) */}
-        <div className="absolute top-[-2rem] left-0 z-10 font-bold text-scampi-700 dark:text-scampi-300 font-bold font-['DM Sans'] leading-10">
+        <div className="absolute top-[-2rem] left-0 z-10 font-bold text-scampi-700 dark:text-scampi-300 font-bold leading-10">
           3단계: 감정 표현하기
         </div>
         {/* Progress Bar (가운데에 위치) */}
@@ -263,9 +263,20 @@ const MgWriting: React.FC = () => {
           <ProgressBar value={progressBarValue} />
         </div>
       </div>
-      <div className="flex w-[1140px] h-[700px] mx-auto p-0 bg-base dark:bg-gray-600 mt-10 relative">
+      <motion.div
+        className="flex w-[1140px] h-[700px] mx-auto p-0 bg-base dark:bg-gray-600 mt-10 relative font-['font-plus-jakarta-sans']"
+        initial={{ opacity: 0, scaleX: 0.5 }} // 작고, 투명하게 시작
+        animate={{ opacity: 1, scaleX: 1 }} // 원래 크기로 커지며 펼쳐짐
+        transition={{ duration: 1, ease: "easeOut" }} // 부드러운 애니메이션
+      >
         {/* 왼쪽 컨텐츠 */}
-        <div className="w-1/2 h-full p-4 bg-purple-100 rounded-3xl shadow-md dark:bg-gray-700">
+        <motion.div
+          className="w-1/2 h-full p-4 bg-purple-100 rounded-3xl shadow-md dark:bg-gray-700"
+          initial={{ scaleX: 0 }} // 초기 가로 크기 0
+          animate={{ scaleX: 1 }} // 가로 크기가 100%로 커짐
+          transition={{ duration: 1, ease: "easeOut" }}
+          style={{ transformOrigin: "center right" }} // 왼쪽에서 중앙으로 펼쳐짐
+        >
           {emotionResult ? (
             // 편지가 펼쳐지는 애니메이션 효과 추가
             <motion.div
@@ -293,7 +304,7 @@ const MgWriting: React.FC = () => {
 
               <div className="flex flex-col justify-center items-center">
                 <div className="flex flex-col justify-center items-center mt-5">
-                  <MdOutlineMail className="w-20 h-20 text-scampi-700" />{" "}
+                  <MdOutlineMail className="w-20 h-20 text-red-400" />{" "}
                   {/* 우체통 아이콘 */}
                 </div>
 
@@ -318,13 +329,14 @@ const MgWriting: React.FC = () => {
                     <p className="text-scampi-800 font-bold text-xl mb-1">
                       작성 안내
                     </p>
-                    <p className="text-scampi-800 font-bold text-m">
+                    <p className="text-scampi-800 font-bold text-sm leading-5">
                       <br />
                       1. 감정을 느낀 구체적인 "상황"과 그 때 나의 "행동",
-                      "생각"을 포함해 적어보세요.
+                      "생각"을 <br /> 포함해 적어보세요.
                       <br />
                       2. 조금씩이라도 매일 꾸준히 적다보면 나의 마음을 건강하게
-                      변화시켜갈 수 있어요.
+                      <br />
+                      변화시켜 갈 수 있어요.
                       <br />
                       3. 감정을 느꼈을 때 나의 신체적 변화에 대해서 적어보는
                       것도 도움이 되어요.
@@ -332,7 +344,7 @@ const MgWriting: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="BackgroundBorder p-5 bg-white rounded-2xl border border-black/10">
+                <div className="BackgroundBorder p-5 bg-white rounded-2xl border border-black/10 font-['font-plus-jakarta-sans']">
                   <div className="text-zinc-800 text-lg">
                     <div className="mt-5 text-gray-700 dark:text-gray-300">
                       <p className="text-scampi-800 font-bold text-xl mb-5">
@@ -353,7 +365,8 @@ const MgWriting: React.FC = () => {
                           />
                         )}
                         <br />
-                        감정 키워드:
+                        <br />
+                        오늘의 감정 태그를 선택해주세요
                         <br />
                         <br />
                         {highlightedLabels.map((label) => (
@@ -372,10 +385,16 @@ const MgWriting: React.FC = () => {
               </div>
             </>
           )}
-        </div>
+        </motion.div>
 
-        {/* 오른쪽 작성 부분 */}
-        <div className="w-1/2 h-full p-8 bg-purple-100 rounded-3xl shadow-md dark:bg-gray-700 flex flex-col justify-between">
+        {/* 오른쪽 컨텐츠 */}
+        <motion.div
+          className="w-1/2 h-full p-8 bg-purple-100 rounded-3xl shadow-md dark:bg-gray-700 flex flex-col justify-between"
+          initial={{ scaleX: 0 }} // 초기 가로 크기 0
+          animate={{ scaleX: 1 }} // 가로 크기가 100%로 커짐
+          transition={{ duration: 1, ease: "easeOut" }} // 약간의 딜레이 추가
+          style={{ transformOrigin: "center left" }} // 오른쪽에서 중앙으로 펼쳐짐
+        >
           <div className="w-full">
             <div className="flex justify-between items-center">
               <div className="User w-120 h-11 text-scampi-800 font-bold text-xl dark:text-white">
@@ -412,8 +431,8 @@ const MgWriting: React.FC = () => {
               작성 완료
             </button>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* 모달이 표시될 때만 MgModal 컴포넌트를 렌더링 */}
       {showModal && (

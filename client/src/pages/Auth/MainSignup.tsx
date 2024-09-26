@@ -21,7 +21,7 @@ const MainSignup = () => {
   };
 
   const handleLogin = () => {
-    window.location.href = `${BASE_URL}/auth/kakao`;
+    window.location.href = `${BASE_URL}/api/kakao`;
   };
 
   return (

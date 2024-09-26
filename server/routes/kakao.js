@@ -11,10 +11,10 @@ const CALLBACK_URL =
     : "http://localhost:3000/";
 
 // 카카오 로그인 라우트
-router.get("/auth/kakao", passport.authenticate("kakao"));
+router.get("/kakao", passport.authenticate("kakao"));
 
 // 카카오 로그인 콜백 처리 라우트
-router.get("/auth/kakao/callback", (req, res, next) => {
+router.get("/kakao/callback", (req, res, next) => {
   passport.authenticate("kakao", (err, user, info) => {
     if (err || !user) {
       console.error("카카오 로그인 실패:", err || info);
@@ -27,7 +27,9 @@ router.get("/auth/kakao/callback", (req, res, next) => {
     });
 
     // 로그인 성공 시 클라이언트로 리다이렉트 (토큰과 userId 전달)
-    res.redirect(`${CALLBACK_URL}?userId=${user.user_id}&token=${token}`);
+    res.redirect(
+      `${CALLBACK_URL}kakao/callback?userId=${user.user_id}&token=${token}`
+    );
   })(req, res, next); // authenticate 함수 호출 시 (req, res, next) 필요
 });
 
