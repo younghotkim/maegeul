@@ -73,21 +73,24 @@ const Header: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <header className="sticky top-0 z-50 w-full bg-white dark:bg-scampi-800 font-normal font-plus-jakarta-sans py-4 leading-normal">
+      <header className="sticky top-0 z-50 w-full bg-white dark:bg-scampi-800 font-bold font-plus-jakarta-sans py-4 leading-normal">
         <div className="max-w-[1140px] mx-auto flex justify-between items-center text-sm">
           <Link to="/home" className="flex-shrink-0">
             <img src={MeageulLogo} alt="Maegeul Logo" className="w-[150px]" />
           </Link>
 
-          <nav className="flex-grow flex justify-center space-x-8">
+          <nav className="flex-grow flex justify-center space-x-12 text-lg tracking-wide">
             {/* 무드일기 링크 - 로그인 상태일 때만 활성화 */}
             {isLoggedIn ? (
-              <Link to="/maegeul" className="nav-link">
+              <Link
+                to="/maegeul"
+                className="nav-link hover:text-purple-500 hover:scale-105 transition-transform duration-200"
+              >
                 무드일기
               </Link>
             ) : (
               <span
-                className="nav-link cursor-pointer"
+                className="nav-link cursor-pointer hover:text-purple-500 hover:scale-105 transition-transform duration-200"
                 onClick={() =>
                   openModal("무드일기는 로그인 후 이용 가능합니다.")
                 }
@@ -96,17 +99,23 @@ const Header: React.FC = () => {
               </span>
             )}
 
-            <Link to="#" className="nav-link">
+            <Link
+              to="#"
+              className="nav-link hover:text-purple-500 hover:scale-105 transition-transform duration-200"
+            >
               AI 진단 가이드
             </Link>
 
             {isLoggedIn ? (
-              <Link to="/contents" className="nav-link">
+              <Link
+                to="/contents"
+                className="nav-link hover:text-purple-500 hover:scale-105 transition-transform duration-200"
+              >
                 추천 콘텐츠
               </Link>
             ) : (
               <span
-                className="nav-link cursor-pointer"
+                className="nav-link cursor-pointer hover:text-purple-500 hover:scale-105 transition-transform duration-200"
                 onClick={() =>
                   openModal("추천 콘텐츠는 로그인 후 이용 가능합니다.")
                 }
