@@ -24,7 +24,7 @@ const MainLogin = () => {
 
   const handleLogin = async () => {
     try {
-      window.location.href = `${BASE_URL}/auth/kakao`; // 카카오 인증 요청
+      window.location.href = `${BASE_URL}/api/kakao`; // 카카오 인증 요청
     } catch (error) {
       console.error("카카오 로그인 요청 실패:", error);
     }
@@ -33,7 +33,7 @@ const MainLogin = () => {
   // 백엔드에서 리다이렉트된 후 토큰과 사용자 정보를 받아서 처리하는 함수
   const handleKakaoCallback = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/auth/kakao/callback`); // 카카오 콜백 요청
+      const response = await axios.get(`${BASE_URL}/api/kakao/callback`); // 카카오 콜백 요청
 
       if (response.data && response.data.token) {
         const { token, user } = response.data;

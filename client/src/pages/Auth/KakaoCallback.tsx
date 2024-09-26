@@ -12,6 +12,8 @@ const KakaoCallback = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("location.search: ", location.search); // URL 파라미터 출력
+
     const queryParams = new URLSearchParams(location.search);
     const token = queryParams.get("token");
     const userId = queryParams.get("userId");
@@ -20,7 +22,11 @@ const KakaoCallback = () => {
       sessionStorage.setItem("token", token);
 
       axios
-        .get(`${BASE_URL}/api/user/${userId}`)
+        .get(`${BASE_URL}/api/user/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // 백엔드로 토큰을 보내어 검증
+          },
+        })
         .then((response) => {
           const { profile_name, profile_picture, email } = response.data.user;
           setUser({
@@ -30,11 +36,13 @@ const KakaoCallback = () => {
             email: email || null,
             isKakaoUser: true, // 카카오 사용자 여부 저장
           });
-          navigate("/"); // 사용자 정보가 설정된 후 홈으로 리다이렉트
+          navigate("/"); // 홈으로 리다이렉트
         })
         .catch((error) => {
           console.error("사용자 정보를 가져오는데 실패했습니다:", error);
         });
+    } else {
+      console.log("토큰 또는 userId가 없습니다.");
     }
   }, [location, setUser, navigate]);
 

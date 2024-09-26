@@ -102,11 +102,11 @@ const Diag: React.FC = () => {
           </p>
 
           {highlightedLabels.length > 0 && (
-            <p className="text-scampi-700 dark:text-scampi-300 text-2xl font-bold font-['Inter'] leading-10 mt-2">
+            <p className="text-scampi-700 dark:text-scampi-300 text-2xl font-bold font-['font-plus-jakarta-sans'] leading-10 mt-2">
               #{highlightedLabels.join("#")}
             </p>
           )}
-          <div className="flex justify-center items-center mt-10">
+          <div className="flex justify-center items-center mt-5">
             <MoodMeter
               pleasantness={moodValue}
               energy={energyValue}
@@ -114,15 +114,13 @@ const Diag: React.FC = () => {
               onHighlightChange={handleHighlightChange}
             />
           </div>
-          <div className="w-full bg-slate-100 rounded-3xl flex justify-center items-center mt-10">
+          <div className="w-full bg-slate-100 rounded-3xl flex justify-center items-center mt-5">
             <p className="text-scampi-700 text-lg font-bold font-['font-plus-jakarta-sans'] text-center">
               내 감정을 더욱 정확하게 알아보기 위해서, <br />
               지금 바로 감정 일기를 작성하러 가볼까요?
             </p>
           </div>
-          <div className="flex justify-center gap-4 p-0 mt-0">
-            {" "}
-            {/* 패딩과 마진 값 제거 */}
+          <div className="flex justify-center gap-4 p-0 mt-5">
             <button
               onClick={handleRetry}
               className="font-['font-plus-jakarta-sans'] text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 
