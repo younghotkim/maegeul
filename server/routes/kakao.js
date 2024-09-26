@@ -10,6 +10,9 @@ const CALLBACK_URL =
     ? "https://maegeul.com/"
     : "http://localhost:3000/";
 
+// 카카오 로그인 라우트
+router.get("/kakao", passport.authenticate("kakao"));
+
 // 카카오 로그인 콜백 처리 라우트
 router.get("/kakao/callback", (req, res, next) => {
   passport.authenticate("kakao", (err, user, info) => {

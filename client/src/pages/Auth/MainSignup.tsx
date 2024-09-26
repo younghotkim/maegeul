@@ -21,7 +21,7 @@ const MainSignup = () => {
   };
 
   const handleLogin = () => {
-    window.location.href = `${BASE_URL}/api/kakao/callback`;
+    window.location.href = `${BASE_URL}/api/kakao/`;
   };
 
   return (
