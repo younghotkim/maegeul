@@ -1,3 +1,4 @@
+//src/layouts/components/account-popover.tsx
 import type { IconButtonProps } from "@mui/material/IconButton";
 import { useState, useCallback, useEffect } from "react";
 import Box from "@mui/material/Box";
@@ -21,6 +22,7 @@ export type AccountPopoverProps = IconButtonProps & {
     href: string;
     icon?: React.ReactNode;
     info?: React.ReactNode;
+    onclick?(): void; // 알림설정 클릭되게 Menu Item에 Event걸기 추가
   }[];
 };
 
@@ -70,20 +72,24 @@ export function AccountPopover({
   }, []);
 
   const handleClickItem = useCallback(
-    (path: string) => {
+    (path: string, onClick?: () => void) => {
       handleClosePopover();
-      router.push(path);
+      if (onClick) {
+        onClick();
+      } else {
+        router.push(path);
+      }
     },
     [handleClosePopover, router]
   );
 
-  const handleLogout = () => {
-    // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
-    sessionStorage.removeItem("token");
-    setIsLoggedIn(false); // 로그인 상태를 false로 설정
-    setUser(null); // 사용자 정보를 초기화하여 profile_name 제거
-    navigate("/mainlogin"); // 로그아웃 후 메인 페이지로 리다이렉트
-  };
+  // const handleLogout = () => {
+  //   // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
+  //   sessionStorage.removeItem("token");
+  //   setIsLoggedIn(false); // 로그인 상태를 false로 설정
+  //   setUser(null); // 사용자 정보를 초기화하여 profile_name 제거
+  //   navigate("/mainlogin"); // 로그아웃 후 메인 페이지로 리다이렉트
+  // };
 
   return (
     <>
@@ -164,7 +170,7 @@ export function AccountPopover({
             <MenuItem
               key={option.label}
               selected={option.href === pathname}
-              onClick={() => handleClickItem(option.href)}
+              onClick={() => handleClickItem(option.href, option.onclick)}
             >
               {option.icon}
               {option.label}
@@ -173,7 +179,7 @@ export function AccountPopover({
         </MenuList>
 
         <Divider sx={{ borderStyle: "dashed" }} />
-
+        {/* / 로그아웃버튼 중복제거
         <Box sx={{ p: 1 }}>
           <Button
             fullWidth
@@ -184,7 +190,7 @@ export function AccountPopover({
           >
             로그아웃
           </Button>
-        </Box>
+        </Box> */}
       </Popover>
     </>
   );

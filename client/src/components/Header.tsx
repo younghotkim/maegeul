@@ -154,9 +154,9 @@ const Header: React.FC = () => {
                         <Iconify
                           width={22}
                           icon="solar:shield-keyhole-bold-duotone"
-                          onClick={DarkMode}
                         />
                       ),
+                      onclick: DarkMode, // 여기서 DarkMode 함수를 전달
                     },
                     {
                       label: "회원정보수정",

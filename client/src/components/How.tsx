@@ -19,26 +19,38 @@ const How: React.FC = () => {
     {
       step: 1,
       title: "지금 나의 감정을 숫자로 바꿔보기",
-      description:
-        "오늘 나의 '편안함 정도'와 '에너지 레벨'을 측정해요. 1부터 10까지의 숫자로 기분을 환산해 볼 거예요.",
+      description: (
+        <>
+          오늘 나의 '편안함 정도'와 '에너지 레벨'을 측정해요. <br />
+          1부터 10까지의 숫자로 기분을 환산해 볼 거예요.
+        </>
+      ),
     },
     {
       step: 2,
       title: "오늘의 무드 컬러와 키워드 진단받기",
-      description:
-        "입력한 숫자에 맞춰 오늘의 '무드컬러'를 예측해요. 보이지 않는 감정을 색깔로, 또 단어로 파악할 수 있어요.",
+      description: (
+        <>
+          입력한 숫자에 맞춰 오늘의 '무드컬러'를 예측해요. <br />
+          보이지 않는 감정을 색깔로, 또 단어로 파악할 수 있어요.
+        </>
+      ),
     },
     {
       step: 3,
       title: "가이드에 맞춰 무드 일기 작성하기",
-      description:
-        "나의 감정을 조금 더 파악한 다음엔 일기를 써보게 됩니다. '상황-행동-생각' 순서에 맞춰 글을 작성합니다.",
+      description: (
+        <>
+          나의 감정을 조금 더 파악한 다음엔 일기를 써보게 됩니다. <br />
+          '상황-행동-생각' 순서에 맞춰 글을 작성합니다.
+        </>
+      ),
     },
   ];
 
   return (
-    <div className="bg-white flex justify-center items-center py-40">
-      <div className="max-w-[1140px] px-[150px] w-full bg-white lg:px-12 md:px-8 sm:px-4">
+    <div className="bg-white flex justify-center items-center py-20">
+      <div className="max-w-[1140px] px-[60px] w-full bg-white lg:px-12 md:px-8 sm:px-4">
         <div className="flex flex-col items-center gap-14 py-14">
           <div className="text-center">
             <h2 className="text-blue-950 text-4xl font-extrabold font-plus-jakarta-sans leading-10 mb-4">
@@ -50,26 +62,7 @@ const How: React.FC = () => {
             </p>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-start gap-10">
-            {[
-              {
-                step: 1,
-                title: "지금 나의 감정을 숫자로 바꿔보기",
-                description:
-                  "오늘 나의 '편안함 정도'와 '에너지 레벨'을 측정해요. 1부터 10까지의 숫자로 기분을 환산해 볼 거예요.",
-              },
-              {
-                step: 2,
-                title: "오늘의 무드 컬러와 키워드 진단받기",
-                description:
-                  "입력한 숫자에 맞춰 오늘의 '무드컬러'를 예측해요. 보이지 않는 감정을 색깔로, 또 단어로 파악할 수 있어요.",
-              },
-              {
-                step: 3,
-                title: "가이드에 맞춰 무드 일기 작성하기",
-                description:
-                  "나의 감정을 조금 더 파악한 다음엔 일기를 써보게 됩니다. '상황-행동-생각' 순서에 맞춰 글을 작성합니다.",
-              },
-            ].map((item, index) => (
+            {steps.map((item, index) => (
               <div key={index} className="flex items-start gap-4">
                 <div
                   className={`w-12 h-12 flex justify-center items-center rounded-full ${
@@ -80,11 +73,11 @@ const How: React.FC = () => {
                 >
                   <div className="text-base font-bold">{item.step}</div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-blue-950 text-base font-bold font-plus-jakarta-sans leading-loose">
+                <div className="flex-1 ">
+                  <h3 className="max-w-[250px] text-blue-950 text-base font-bold font-plus-jakarta-sans leading-loose">
                     {item.title}
                   </h3>
-                  <p className="text-slate-500 text-base font-medium font-plus-jakarta-sans leading-loose">
+                  <p className="text-slate-500 text-base font-medium font-plus-jakarta-sans tracking-leading-loose">
                     {item.description}
                   </p>
                 </div>

@@ -47,7 +47,7 @@ const Feature: React.FC = () => {
               <h3 className="text-blue-950 text-2xl font-extrabold font-plus-jakarta-sans leading-loose mb-2">
                 {feature.title}
               </h3>
-              <p className="text-slate-500 text-base font-plus-jakarta-sans font-medium leading-loose">
+              <p className="text-slate-500 text-base font-plus-jakarta-sans font-medium tracking-tighter leading-loose">
                 {feature.description}
               </p>
             </div>
