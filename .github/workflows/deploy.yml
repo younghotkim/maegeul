@@ -26,13 +26,9 @@ jobs:
 
       - name: Copy files to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/github_actions_key ec2-user@<EC2_IP> 'rm -rf ~/my-app/*'
-          scp -i ~/.ssh/github_actions_key -r ./* ec2-user@<EC2_IP>:~/my-app/
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/github_actions_key ec2-user@ec2-15-165-236-181.ap-northeast-2.compute.amazonaws.com 'rm -rf ~/maegeul/*'
+          scp -i ~/.ssh/github_actions_key -r ./* ec2-user@ec2-15-165-236-181.ap-northeast-2.compute.amazonaws.com:~/maegeul/
 
       - name: Restart PM2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/github_actions_key ec2-user@<EC2_IP> 'pm2 restart all'
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/github_actions_key ec2-user@ec2-15-165-236-181.ap-northeast-2.compute.amazonaws.com 'pm2 restart all'
