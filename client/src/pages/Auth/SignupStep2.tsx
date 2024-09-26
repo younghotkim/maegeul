@@ -31,6 +31,7 @@ const SignupStep2: React.FC = () => {
   const [emailCheckMessage, setEmailCheckMessage] = useState(""); // 이메일 중복 체크 메시지
   const [passwordError, setPasswordError] = useState(""); // 비밀번호 에러 메시지
   const [emailError, setEmailError] = useState(""); // 이메일 에러 메시지
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // 이메일 중복 체크 함수
   const checkEmailDuplicate = async (email: string) => {
@@ -131,9 +132,17 @@ const SignupStep2: React.FC = () => {
     const formData = new FormData();
     formData.append("profile_picture", file);
 
-    const response = await axios.post(`${BASE_URL}/api/upload`, formData);
-
-    return response.data.filePath; // 서버에서 반환된 파일 경로
+    try {
+      const response = await axios.post(`${BASE_URL}/api/upload`, formData);
+      setErrorMessage(null); // 성공 시 에러 메시지 초기화
+      return response.data.filePath; // 서버에서 반환된 파일 경로
+    } catch (error) {
+      // 실패 시 경고 메시지를 상태로 설정
+      setErrorMessage(
+        "프로필 사진 등록에 실패했습니다. 다른 프로필 사진을 업로드하거나 삭제 후 가입해주세요."
+      );
+      return null;
+    }
   };
 
   // 서버로 데이터를 전송하는 함수
@@ -351,7 +360,6 @@ const SignupStep2: React.FC = () => {
             </div>
           )}
         </div>
-
         {/* 프로필 이미지 업로드 섹션 */}
         <div className="mb-6">
           <div className="text-slate-500 text-lg font-bold font-['DM Sans'] leading-none mb-2">
@@ -381,15 +389,24 @@ const SignupStep2: React.FC = () => {
                 </button>
               </>
             ) : (
-              <span className="text-gray-400">이미지를 업로드하세요.</span>
+              <span className="text-gray-400">프로필 사진을 업로드하세요.</span>
             )}
           </div>
           <input
             type="file"
             accept="image/*"
             onChange={handleFileChange}
-            className="mb-4"
+            className="mb-2"
           />
+          <p className="text-sm text-gray-500">
+            10MB 이하의 이미지만 업로드 가능합니다.
+          </p>
+
+          {errorMessage && (
+            <div className="p-4 mb-4 text-red-700 bg-red-100 rounded-lg">
+              {errorMessage}
+            </div>
+          )}
         </div>
 
         {/* 성별 입력 섹션 */}
