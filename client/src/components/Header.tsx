@@ -156,7 +156,7 @@ const Header: React.FC = () => {
                           icon="solar:shield-keyhole-bold-duotone"
                         />
                       ),
-                      onclick: DarkMode, // 여기서 toggleDarkMode 함수를 전달
+                      onclick: DarkMode, // 여기서 DarkMode 함수를 전달
                     },
                     {
                       label: "회원정보수정",
