@@ -24,18 +24,18 @@ const Diag: React.FC = () => {
   } = useHighlightContext();
 
   // RGB 값에 따른 색상 이름 반환 함수
-  const getColorName = (rgb: string) => {
-    switch (rgb) {
-      case "rgb(223,32,32)":
+  const getColorName = (colorValue: string) => {
+    switch (colorValue) {
+      case "#EE5D50":
         return "빨간색";
-      case "rgb(255,209,87)":
+      case "#FFDE57":
         return "노란색";
-      case "rgb(53,80,155)":
+      case "#6AD2FF":
         return "파란색";
-      case "rgb(147,196,125)":
+      case "#35D28":
         return "초록색";
       default:
-        return "알 수 없는 색상";
+        return "마음 색상";
     }
   };
 
@@ -84,7 +84,7 @@ const Diag: React.FC = () => {
           </div>
         </div>
         <div className="text-center p-4">
-          <p className="text-scampi-700 dark:text-scampi-300 text-4xl font-bold font-['font-plus-jakarta-sans'] leading-10 mt-3">
+          <p className="text-blue-950 dark:text-scampi-300 text-4xl font-bold font-['font-plus-jakarta-sans'] leading-10 mt-3">
             오늘 {user?.profile_name}님의 무드 컬러는 {colorName}
             {highlightedColor && (
               <span
@@ -102,7 +102,7 @@ const Diag: React.FC = () => {
           </p>
 
           {highlightedLabels.length > 0 && (
-            <p className="text-scampi-700 dark:text-scampi-300 text-2xl font-bold font-['font-plus-jakarta-sans'] leading-10 mt-2">
+            <p className="text-text-blue-950 dark:text-scampi-300 text-2xl font-bold font-['font-plus-jakarta-sans'] leading-10 mt-2">
               #{highlightedLabels.join("#")}
             </p>
           )}
@@ -114,8 +114,8 @@ const Diag: React.FC = () => {
               onHighlightChange={handleHighlightChange}
             />
           </div>
-          <div className="w-full bg-slate-100 rounded-3xl flex justify-center items-center mt-5">
-            <p className="text-scampi-700 text-lg font-bold font-['font-plus-jakarta-sans'] text-center">
+          <div className="w-full bg-slate-100 flex justify-center items-center mt-5">
+            <p className="text-blue-950 text-lg font-bold font-['font-plus-jakarta-sans'] text-center">
               내 감정을 더욱 정확하게 알아보기 위해서, <br />
               지금 바로 감정 일기를 작성하러 가볼까요?
             </p>
@@ -123,14 +123,18 @@ const Diag: React.FC = () => {
           <div className="flex justify-center gap-4 p-0 mt-5">
             <button
               onClick={handleRetry}
-              className="font-['font-plus-jakarta-sans'] text-sm bg-transparent text-scampi-700 dark:text-scampi-200 py-2 px-4 rounded-full border border-scampi-400 dark:border-scampi-600 
-    hover:bg-scampi-300 dark:hover:bg-scampi-700 cursor-pointer transition-colors"
+              className="rounded-xl border dark:bg-scampi-600 text-indigo-600 py-2 px-8 shadow-md
+           hover:bg-violet-200 border-none dark:hover:bg-scampi-700 transition-colors
+          font-bold font-plus-jakarta-sans leading-normal"
             >
               다시 측정하기
             </button>
             <Link to="/MgWriting">
-              <button className="font-['font-plus-jakarta-sans'] bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors">
-                글쓰러가기
+              <button
+                className="rounded-xl border bg-violet-200 dark:bg-scampi-600 text-indigo-600 py-2 px-8 shadow-md
+           hover:bg-slate-50 border-none dark:hover:bg-scampi-700 transition-colors font-bold font-plus-jakarta-sans leading-normal"
+              >
+                마음 일기쓰기
               </button>
             </Link>
           </div>

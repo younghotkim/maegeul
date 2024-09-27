@@ -50,7 +50,7 @@ const getConsecutiveDaysByUserId = (user_id, callback) => {
       DATEDIFF(MAX(date), MIN(date)) + 1 AS consecutive_days
     FROM (
         SELECT date, 
-               ROW_NUMBER() OVER (ORDER BY date) - DATEDIFF(date, MIN(date) OVER (PARTITION BY user_id)) AS grp
+               CAST(ROW_NUMBER() OVER (ORDER BY date) AS SIGNED) - DATEDIFF(date, MIN(date) OVER (PARTITION BY user_id)) AS grp
         FROM Diary
         WHERE user_id = ?
     ) AS subquery

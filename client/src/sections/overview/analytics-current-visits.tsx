@@ -36,10 +36,10 @@ export function AnalyticsCurrentVisits({
   const chartSeries = chart.series.map((item) => item.value);
 
   const chartColors = chart.colors ?? [
-    theme.palette.primary.main,
-    theme.palette.warning.main,
-    theme.palette.info.main,
-    theme.palette.error.main,
+    "#6AD2FF", // 원하는 색상 (예: 파란색)
+    "#FFDE57", // 원하는 색상 (예: 노란색)
+    "#35D28A", // 원하는 색상 (예: 초록색)
+    "#EE5D50", // 원하는 색상 (예: 빨간색)
   ];
 
   const chartOptions = useChart({

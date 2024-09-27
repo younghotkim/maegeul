@@ -20,6 +20,7 @@ import D3WordCloud from "../../../layouts/d3/D3WordCloud";
 import { useEffect, useState } from "react";
 import { useMoodColorData } from "../../../hooks/useMoodColorData";
 import { useDiary } from "../../../context/DiaryContext"; // DiaryContext 가져오기
+import { countEmotionAnalysisByUserId } from ".././../../api/emotionApi";
 
 // ----------------------------------------------------------------------
 
@@ -27,22 +28,31 @@ export function OverviewAnalyticsView() {
   // UserContext에서 사용자 정보 가져오기
   const { user } = useUser();
 
-  const { diaryCount, fetchDiaryCount, consecutiveDays, fetchConsecutiveDays } =
-    useDiary();
+  const { diaryCount, fetchDiaryCount } = useDiary();
 
-  // 컴포넌트가 마운트될 때 일기 개수를 불러오는 로직
+  const [emotionCount, setEmotionCount] = useState<number>(0);
+  const [emotionData, setEmotionData] = useState<any[]>([]);
+
   useEffect(() => {
     if (user?.user_id) {
-      fetchDiaryCount(user.user_id); // user_id로 일기 작성 개수 불러오기
+      // Diary 관련 정보 불러오기
+      fetchDiaryCount(user.user_id); // 일기 개수 가져오기
+
+      // EmotionAnalysis 관련 정보 불러오기
+
+      fetchEmotionAnalysisCount(user.user_id); // 감정 분석 횟수 가져오기
     }
   }, [user, fetchDiaryCount]);
 
-  // 컴포넌트가 마운트될 때 연속 일수를 불러오는 로직
-  useEffect(() => {
-    if (user?.user_id) {
-      fetchConsecutiveDays(user.user_id); // user_id로 일기 작성 개수 불러오기
+  // 감정 분석 횟수를 가져오는 함수
+  const fetchEmotionAnalysisCount = async (user_id: number) => {
+    try {
+      const count = await countEmotionAnalysisByUserId(user_id); // API 호출
+      setEmotionCount(count); // 감정 분석 횟수 저장
+    } catch (error) {
+      console.error("감정 분석 횟수를 불러오는 중 오류 발생:", error);
     }
-  }, [user, fetchConsecutiveDays]);
+  };
 
   const words = [
     { text: "#불쾌한", size: 80 },
@@ -59,16 +69,20 @@ export function OverviewAnalyticsView() {
   return (
     <DashboardContent maxWidth="xl">
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
-        {user?.profile_name}님의 마음 지도 💖
+        {user?.profile_name}님, 안녕하세요 👋
+        <br />
+        매글과 함께 그린 마음 지도를 보여드릴게요.
       </Typography>
 
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
             title="무드 컬러 진단 횟수"
-            percent={2.6}
+            // percent={0}
             total={totalLabels} // totalLabels 값을 total에 적용
-            icon={<img alt="icon" src="/assets/icons/glass/ic-glass-bag.svg" />}
+            icon={
+              <img alt="icon" src="/assets/icons/glass/ic-glass-users.svg" />
+            }
             chart={{
               categories: [
                 "Jan",
@@ -80,7 +94,7 @@ export function OverviewAnalyticsView() {
                 "Jul",
                 "Aug",
               ],
-              series: [22, 8, 35, 50, 82, 84, 77, 12],
+              series: [0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -88,7 +102,7 @@ export function OverviewAnalyticsView() {
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
             title="마음 일기 수"
-            percent={0.5} // 필요에 따라 작성 수 증감 비율을 계산하여 넣을 수 있음
+            // percent={0.5} // 필요에 따라 작성 수 증감 비율을 계산하여 넣을 수 있음
             total={diaryCount} // diaryCount 값 적용
             color="secondary"
             icon={
@@ -112,9 +126,9 @@ export function OverviewAnalyticsView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
-            title="AI 진단 수"
-            percent={2.8}
-            total={1723315}
+            title="긍정 감정 기록수"
+            // percent={2.8}
+            total={3}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic-glass-buy.svg" />}
             chart={{
@@ -135,9 +149,9 @@ export function OverviewAnalyticsView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
-            title="연속 달성 일수"
-            percent={3.6}
-            total={consecutiveDays}
+            title="AI 진단 횟수"
+            // percent={3.6}
+            total={emotionCount}
             color="error"
             icon={
               <img alt="icon" src="/assets/icons/glass/ic-glass-message.svg" />
@@ -167,58 +181,8 @@ export function OverviewAnalyticsView() {
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          <AnalyticsWordCloud title="감정 어휘 클라우드" words={words} />
-        </Grid>
-
-        <Grid xs={12} md={6} lg={8}>
-          <AnalyticsWebsiteVisits
-            title="Website visits"
-            subheader="(+43%) than last year"
-            chart={{
-              categories: [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-              ],
-              series: [
-                { name: "Team A", data: [43, 33, 22, 37, 67, 68, 37, 24, 55] },
-                { name: "Team B", data: [51, 70, 47, 67, 40, 37, 24, 70, 24] },
-              ],
-            }}
-          />
-        </Grid>
-
         <Grid xs={12} md={6} lg={4}>
-          <AnalyticsTrafficBySite
-            title="Traffic by site"
-            list={[
-              { value: "facebook", label: "Facebook", total: 323234 },
-              { value: "google", label: "Google", total: 341212 },
-              { value: "linkedin", label: "Linkedin", total: 411213 },
-              { value: "twitter", label: "Twitter", total: 443232 },
-            ]}
-          />
-        </Grid>
-
-        <Grid xs={12} md={6} lg={8}>
-          <AnalyticsConversionRates
-            title="Conversion rates"
-            subheader="(+43%) than last year"
-            chart={{
-              categories: ["Italy", "Japan", "China", "Canada", "France"],
-              series: [
-                { name: "2022", data: [44, 55, 41, 64, 22] },
-                { name: "2023", data: [53, 32, 33, 52, 13] },
-              ],
-            }}
-          />
+          <AnalyticsOrderTimeline title="무드 컬러 타임라인" list={_timeline} />
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
@@ -236,6 +200,22 @@ export function OverviewAnalyticsView() {
         </Grid>
 
         <Grid xs={12} md={6} lg={8}>
+          <AnalyticsWordCloud title="감정 어휘 클라우드" words={words} />
+        </Grid>
+
+        <Grid xs={12} md={6} lg={4}>
+          <AnalyticsTrafficBySite
+            title="매글 이용자 정보"
+            list={[
+              { value: "facebook", label: "Facebook", total: 323234 },
+              { value: "google", label: "Google", total: 341212 },
+              { value: "linkedin", label: "Linkedin", total: 411213 },
+              { value: "twitter", label: "Twitter", total: 443232 },
+            ]}
+          />
+        </Grid>
+
+        <Grid xs={12} md={6} lg={8}>
           <AnalyticsNews title="추천 컨텐츠" list={_posts.slice(0, 5)} />
         </Grid>
 
@@ -244,9 +224,44 @@ export function OverviewAnalyticsView() {
         </Grid>
 
         <Grid xs={12} md={6} lg={8}>
-          <AnalyticsTasks title="Tasks" list={_tasks} />
+          <AnalyticsWebsiteVisits
+            title="주간 편안 지수, 에너지 지수"
+            subheader="(+43%) than last year"
+            chart={{
+              categories: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+              series: [
+                { name: "Team A", data: [43, 33, 22, 37, 67, 68, 37, 24, 55] },
+                { name: "Team B", data: [51, 70, 47, 67, 40, 37, 24, 70, 24] },
+              ],
+            }}
+          />
         </Grid>
+
+        <Grid xs={12} md={6} lg={4}>
+          <AnalyticsOrderTimeline title="무드 컬러 타임라인" list={_timeline} />
+        </Grid>
+
+        {/* <Grid xs={12} md={6} lg={8}>
+          <AnalyticsConversionRates
+            title="Conversion rates"
+            subheader="(+43%) than last year"
+            chart={{
+              categories: ["Italy", "Japan", "China", "Canada", "France"],
+              series: [
+                { name: "2022", data: [44, 55, 41, 64, 22] },
+                { name: "2023", data: [53, 32, 33, 52, 13] },
+              ],
+            }}
+          />
+        </Grid>
+
+        <Grid xs={12} md={6} lg={8}>
+          <AnalyticsTasks title="Tasks" list={_tasks} />
+        </Grid> */}
       </Grid>
     </DashboardContent>
   );
+}
+function async(user_id: number | null | undefined) {
+  throw new Error("Function not implemented.");
 }

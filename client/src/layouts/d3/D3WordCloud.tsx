@@ -17,7 +17,7 @@ const D3WordCloud: React.FC<D3WordCloudProps> = ({ words }) => {
 
   useEffect(() => {
     const layout = cloud<Word>()
-      .size([800, 476.5])
+      .size([800, 476.5]) // 크기 설정
       .words(words.map((d) => ({ text: d.text, size: d.size }))) // 이미 size를 사용하므로 변경 불필요
       .padding(5)
       .rotate(() => (Math.random() > 0.5 ? 90 : 0))
@@ -30,7 +30,7 @@ const D3WordCloud: React.FC<D3WordCloudProps> = ({ words }) => {
       const svg = d3
         .select(svgRef.current)
         .attr("width", layout.size()[0])
-        .attr("height", layout.size()[1])
+        .attr("height", layout.size()[1]) // SVG의 height를 layout 크기와 맞춤
         .append("g")
         .attr(
           "transform",
@@ -53,7 +53,7 @@ const D3WordCloud: React.FC<D3WordCloudProps> = ({ words }) => {
     }
   }, [words]);
 
-  return <svg ref={svgRef}></svg>;
+  return <svg ref={svgRef} style={{ height: "476.5px", width: "100%" }}></svg>;
 };
 
 export default D3WordCloud;

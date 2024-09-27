@@ -54,7 +54,14 @@ export function AnalyticsCurrentSubject({
   });
 
   return (
-    <Card {...other}>
+    <Card
+      {...other}
+      sx={{
+        display: "flex",
+        flexDirection: "column", // 수직 정렬
+        height: "100%", // 부모 요소의 높이에 맞춤
+      }}
+    >
       <CardHeader title={title} subheader={subheader} />
 
       <Chart
@@ -63,7 +70,11 @@ export function AnalyticsCurrentSubject({
         options={chartOptions}
         width={300}
         height={300}
-        sx={{ my: 1, mx: "auto" }}
+        sx={{
+          flexGrow: 1, // 남은 공간을 차지
+          my: 1,
+          mx: "auto",
+        }}
       />
 
       <Divider sx={{ borderStyle: "dashed" }} />
@@ -71,7 +82,10 @@ export function AnalyticsCurrentSubject({
       <ChartLegends
         labels={chart.series.map((item) => item.name)}
         colors={chartOptions?.colors}
-        sx={{ p: 3, justifyContent: "center" }}
+        sx={{
+          p: 3,
+          justifyContent: "center",
+        }}
       />
     </Card>
   );
