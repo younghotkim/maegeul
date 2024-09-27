@@ -4,6 +4,7 @@ import { analyzeEmotion } from "../../api/analyzeApi"; // 분석 API import
 import "./MgModal.css";
 import { useUser } from "../../context/UserContext"; // UserContext 임포트
 import { useDiary } from "../../context/DiaryContext"; // DiaryContext 가져오기
+import { Navigate, useNavigate } from "react-router-dom";
 
 interface ModalProps {
   content: string; // content prop 추가
@@ -21,6 +22,12 @@ const MgModal: React.FC<ModalProps> = ({
   const [isChecked, setIsChecked] = useState(false); // 체크박스 상태 추가
   const { user } = useUser(); // UserContext에서 사용자 정보 가져오기
   const { diaryCount, fetchDiaryCount } = useDiary(); // DiaryContext에서 일기 갯수 가져오기
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
+  const handleDashboard = () => {
+    // 다른 로직을 처리한 후 페이지 이동
+    navigate("/dashboard"); // "/target-page" 경로로 이동
+  };
 
   useEffect(() => {
     if (user?.user_id) {
@@ -95,15 +102,22 @@ const MgModal: React.FC<ModalProps> = ({
           </div>
 
           {/* AI 하루진단 버튼 */}
-          <div className="flex items-center justify-center w-1/6">
+          <div className="flex flex-col items-center justify-center w-1/6 space-y-4">
             <button
               onClick={handleAnalyze} // 버튼 클릭 시 감정 분석 실행
-              className={`bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors ${
+              className={`bg-scampi-500 dark:bg-scampi-600 text-white py-3 px-6 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors ${
                 isChecked ? "" : "opacity-50 cursor-not-allowed"
               }`}
               disabled={!isChecked} // 체크박스가 체크되지 않았으면 버튼 비활성화
             >
               AI 하루진단
+            </button>
+
+            <button
+              onClick={handleDashboard}
+              className="bg-scampi-500 dark:bg-scampi-600 text-white py-3 px-6 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
+            >
+              마이매글
             </button>
           </div>
         </div>

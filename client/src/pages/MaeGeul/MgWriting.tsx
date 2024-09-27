@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 훅을 임포트
 import Header from "../../components/Header";
-import { analyzeEmotion } from "../../api/analyzeApi"; // 분석 API import
 import { motion } from "framer-motion";
 import letter from "../../Image/letter.png";
 import postbox from "../../Image/postbox.png";
@@ -39,6 +38,7 @@ const MgWriting: React.FC = () => {
 
   const navigate = useNavigate(); // useNavigate 훅을 컴포넌트 내부에서 호출
 
+  //색상 변환
   const getColorName = (colorValue: string) => {
     switch (colorValue) {
       case "#EE5D50":
@@ -392,7 +392,6 @@ const MgWriting: React.FC = () => {
                                 backgroundColor: "#E9E3FF", // 배경 색을 연한 그레이 톤으로
                                 color: "#333", // 글씨 색을 진한 회색으로
                                 padding: "4px 8px", // 패딩을 줄여서 해시태그 느낌
-                                marginRight: "5px", // 태그 사이에 약간의 간격 추가
                               }}
                             >
                               #{label}
@@ -432,7 +431,7 @@ const MgWriting: React.FC = () => {
               className="w-full h-[400px] bg-violet-100 text-lg mt-4 p-4 border border-transparent rounded-lg resize-none dark:bg-gray-600 dark:text-white"
               placeholder={`${
                 user?.profile_name || ""
-              }님의 오늘 하루 어떠셨나요?                           오늘 하루를 열 글자 이상 적어보아요`}
+              }님의 오늘 하루 어떠셨나요?                           오늘 하루에 대해 열 글자 이상 적어보아요!`}
               maxLength={maxLength}
               value={content}
               onChange={(e) => setContent(e.target.value)}
@@ -454,9 +453,12 @@ const MgWriting: React.FC = () => {
             </button>
             <button
               onClick={handleClick}
-              className="rounded-xl border bg-violet-200 dark:bg-scampi-600 text-indigo-600 py-2 px-6 shadow-md
-           hover:bg-transparent border-none dark:hover:bg-scampi-700 transition-colors
-          font-bold font-plus-jakarta-sans leading-normal"
+              className={`rounded-xl border bg-violet-200 dark:bg-scampi-600 text-indigo-600 py-2 px-6 shadow-md
+    hover:bg-transparent border-none dark:hover:bg-scampi-700 transition-colors
+    font-bold font-plus-jakarta-sans leading-normal ${
+      content.length >= 10 ? "cursor-pointer" : "opacity-50 cursor-not-allowed"
+    }`}
+              disabled={content.length < 10} // content 길이가 10글자 미만이면 버튼 비활성화
             >
               작성 완료하기
             </button>
