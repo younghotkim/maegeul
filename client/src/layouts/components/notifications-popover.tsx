@@ -16,6 +16,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
+import Logo from "../../logo/main_logo.png";
 
 import { fToNow } from "../../utils/format-time";
 
@@ -111,7 +112,7 @@ export function NotificationsPopover({
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">Notifications</Typography>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              You have {totalUnRead} unread messages
+              {totalUnRead}개의 확인하지 않은 알림이 있습니다.
             </Typography>
           </Box>
 
@@ -137,7 +138,7 @@ export function NotificationsPopover({
                 disableSticky
                 sx={{ py: 1, px: 2.5, typography: "overline" }}
               >
-                New
+                최근 알림
               </ListSubheader>
             }
           >
@@ -156,7 +157,7 @@ export function NotificationsPopover({
                 disableSticky
                 sx={{ py: 1, px: 2.5, typography: "overline" }}
               >
-                Before that
+                이전 알림
               </ListSubheader>
             }
           >
@@ -244,51 +245,31 @@ function renderContent(notification: NotificationItemProps) {
 
   if (notification.type === "order-placed") {
     return {
-      avatarUrl: (
-        <img
-          alt={notification.title}
-          src="/assets/icons/notification/ic-notification-package.svg"
-        />
-      ),
+      avatarUrl: <img alt={notification.title} src={Logo} />,
       title,
     };
   }
   if (notification.type === "order-shipped") {
     return {
-      avatarUrl: (
-        <img
-          alt={notification.title}
-          src="/assets/icons/notification/ic-notification-shipping.svg"
-        />
-      ),
+      avatarUrl: <img alt={notification.title} src={Logo} />,
       title,
     };
   }
   if (notification.type === "mail") {
     return {
-      avatarUrl: (
-        <img
-          alt={notification.title}
-          src="/assets/icons/notification/ic-notification-mail.svg"
-        />
-      ),
+      avatarUrl: <img alt={notification.title} src={Logo} />,
       title,
     };
   }
   if (notification.type === "chat-message") {
     return {
-      avatarUrl: (
-        <img
-          alt={notification.title}
-          src="/assets/icons/notification/ic-notification-chat.svg"
-        />
-      ),
+      avatarUrl: <img alt={notification.title} src={Logo} />,
       title,
     };
   }
   return {
     avatarUrl: notification.avatarUrl ? (
-      <img alt={notification.title} src={notification.avatarUrl} />
+      <img alt={notification.title} src={Logo} />
     ) : null,
     title,
   };

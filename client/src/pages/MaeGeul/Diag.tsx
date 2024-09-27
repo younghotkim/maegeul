@@ -8,8 +8,8 @@ import { useUser } from "../../context/UserContext"; // UserContext 임포트
 import ProgressBar from "../../components/ProgressBar";
 
 const Diag: React.FC = () => {
-  const [moodValue, setMoodValue] = useState<number>(1);
-  const [energyValue, setEnergyValue] = useState<number>(1);
+  const [moodValue, setMoodValue] = useState<number>(5);
+  const [energyValue, setEnergyValue] = useState<number>(5);
   const [submitted, setSubmitted] = useState(false);
 
   // UserContext에서 사용자 정보 가져오기
