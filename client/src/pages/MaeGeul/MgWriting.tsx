@@ -380,7 +380,15 @@ const MgWriting: React.FC = () => {
 
                       {/* 감정 태그 라벨과 태그들을 가로로 정렬 */}
                       <div className="flex items-center mb-4">
-                        <p className="mr-2">감정 태그:</p>
+                        <p
+                          className="mr-2 whitespace-nowrap" // 줄바꿈 방지
+                          style={{
+                            display: "inline-block",
+                            marginRight: "8px",
+                          }}
+                        >
+                          감정 태그:
+                        </p>
                         <div className="flex flex-wrap">
                           {highlightedLabels.map((label) => (
                             <span

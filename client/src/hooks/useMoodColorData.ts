@@ -51,5 +51,10 @@ export const useMoodColorData = () => {
     0
   );
 
-  return { moodColorData, totalLabels };
+  // 초록색과 노란색만 더한 값을 계산
+  const greenYellowTotal = moodColorData
+    .filter((item) => item.label === "초록색" || item.label === "노란색")
+    .reduce((total, item) => total + item.value, 0);
+
+  return { moodColorData, totalLabels, greenYellowTotal };
 };

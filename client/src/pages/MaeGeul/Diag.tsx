@@ -32,7 +32,7 @@ const Diag: React.FC = () => {
         return "노란색";
       case "#6AD2FF":
         return "파란색";
-      case "#35D28":
+      case "#35D28A":
         return "초록색";
       default:
         return "마음 색상";
@@ -53,8 +53,8 @@ const Diag: React.FC = () => {
 
   const handleRetry = () => {
     setSubmitted(false);
-    setMoodValue(1);
-    setEnergyValue(1);
+    setMoodValue(5);
+    setEnergyValue(5);
   };
 
   // MoodMeter에서 전달받은 color를 업데이트하는 함수
@@ -84,16 +84,16 @@ const Diag: React.FC = () => {
           </div>
         </div>
         <div className="text-center p-4">
-          <p className="text-blue-950 dark:text-scampi-300 text-4xl font-bold font-['font-plus-jakarta-sans'] leading-10 mt-3">
+          <p className="text-blue-950 dark:text-scampi-300 text-4xl font-bold font-['font-plus-jakarta-sans'] leading-10 mt-3 flex justify-center items-center">
             오늘 {user?.profile_name}님의 무드 컬러는 {colorName}
             {highlightedColor && (
               <span
                 style={{
                   display: "inline-block",
-                  width: "35px",
-                  height: "35px",
-                  backgroundColor: highlightedColor,
+                  width: "45px",
+                  height: "45px",
                   marginLeft: "5px",
+                  backgroundColor: highlightedColor,
                   borderRadius: "3px",
                 }}
               />

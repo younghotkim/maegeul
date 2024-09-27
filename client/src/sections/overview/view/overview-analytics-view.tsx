@@ -15,6 +15,7 @@ import { AnalyticsCurrentSubject } from "../analytics-current-subject";
 import { AnalyticsConversionRates } from "../analytics-conversion-rates";
 import { useUser } from "../../../context/UserContext"; // UserContext 임포트
 import AnalyticsWordCloud from "../../../dashboardComponents/wordcloud/AnalyticsWordCloud";
+import { moodData, Mood } from "../../../api/moodData";
 
 import D3WordCloud from "../../../layouts/d3/D3WordCloud";
 import { useEffect, useState } from "react";
@@ -54,17 +55,19 @@ export function OverviewAnalyticsView() {
     }
   };
 
-  const words = [
-    { text: "#불쾌한", size: 80 },
-    { text: "#골치 아픈", size: 50 },
-    { text: "#근심하는", size: 30 },
-    { text: "#들뜬", size: 40 },
-    { text: "#만족스러운", size: 100 },
-    { text: "#한가로운", size: 20 },
-  ];
+  type Word = {
+    text: string;
+    size: number;
+    color: string;
+  };
 
   //moodColorData Hook
-  const { moodColorData, totalLabels } = useMoodColorData();
+  const { moodColorData, totalLabels, greenYellowTotal } = useMoodColorData();
+  const words: Word[] = moodData.map((mood) => ({
+    text: mood.label,
+    size: mood.pleasantness * 5, // 크기는 예시로 조정 (필요에 따라 변경 가능)
+    color: mood.color,
+  }));
 
   return (
     <DashboardContent maxWidth="xl">
@@ -101,6 +104,31 @@ export function OverviewAnalyticsView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
+            title="긍정 감정 기록수"
+            // percent={2.8}
+            total={greenYellowTotal}
+            color="warning"
+            icon={
+              <img alt="icon" src="/assets/icons/glass/ic-glass-users.svg" />
+            }
+            chart={{
+              categories: [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+              ],
+              series: [40, 70, 50, 28, 70, 75, 7, 64],
+            }}
+          />
+        </Grid>
+
+        <Grid xs={12} sm={6} md={3}>
+          <AnalyticsWidgetSummary
             title="마음 일기 수"
             // percent={0.5} // 필요에 따라 작성 수 증감 비율을 계산하여 넣을 수 있음
             total={diaryCount} // diaryCount 값 적용
@@ -120,31 +148,6 @@ export function OverviewAnalyticsView() {
                 "Aug",
               ],
               series: [0, 0, 0, 0, 12, 23, 32, 23],
-            }}
-          />
-        </Grid>
-
-        <Grid xs={12} sm={6} md={3}>
-          <AnalyticsWidgetSummary
-            title="긍정 감정 기록수"
-            // percent={2.8}
-            total={3}
-            color="warning"
-            icon={
-              <img alt="icon" src="/assets/icons/glass/ic-glass-users.svg" />
-            }
-            chart={{
-              categories: [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-              ],
-              series: [40, 70, 50, 28, 70, 75, 7, 64],
             }}
           />
         </Grid>
@@ -183,6 +186,10 @@ export function OverviewAnalyticsView() {
           />
         </Grid>
 
+        <Grid xs={12} md={6} lg={8}>
+          <AnalyticsWordCloud title="감정 어휘 클라우드" words={words} />
+        </Grid>
+
         <Grid xs={12} md={6} lg={4}>
           <AnalyticsOrderTimeline title="무드 컬러 타임라인" list={_timeline} />
         </Grid>
@@ -199,10 +206,6 @@ export function OverviewAnalyticsView() {
               ],
             }}
           />
-        </Grid>
-
-        <Grid xs={12} md={6} lg={8}>
-          <AnalyticsWordCloud title="감정 어휘 클라우드" words={words} />
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>

@@ -83,13 +83,13 @@ export function AccountPopover({
     [handleClosePopover, router]
   );
 
-  // const handleLogout = () => {
-  //   // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
-  //   sessionStorage.removeItem("token");
-  //   setIsLoggedIn(false); // 로그인 상태를 false로 설정
-  //   setUser(null); // 사용자 정보를 초기화하여 profile_name 제거
-  //   navigate("/mainlogin"); // 로그아웃 후 메인 페이지로 리다이렉트
-  // };
+  const handleLogout = () => {
+    // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
+    sessionStorage.removeItem("token");
+    setIsLoggedIn(false); // 로그인 상태를 false로 설정
+    setUser(null); // 사용자 정보를 초기화하여 profile_name 제거
+    navigate("/mainlogin"); // 로그아웃 후 메인 페이지로 리다이렉트
+  };
 
   return (
     <>
@@ -179,7 +179,7 @@ export function AccountPopover({
         </MenuList>
 
         <Divider sx={{ borderStyle: "dashed" }} />
-        {/* / 로그아웃버튼 중복제거
+
         <Box sx={{ p: 1 }}>
           <Button
             fullWidth
@@ -190,7 +190,7 @@ export function AccountPopover({
           >
             로그아웃
           </Button>
-        </Box> */}
+        </Box>
       </Popover>
     </>
   );

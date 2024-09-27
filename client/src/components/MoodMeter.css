@@ -36,8 +36,8 @@ body {
   border-radius: 5px;
   transition: filter 0.3s ease; /* 필터 효과 애니메이션 */
   filter: brightness(0.4); /* 어둡게 만드는 효과 */
-  opacity: 0; /* 초기 로드 시 투명하게 */
-  animation: fadeIn 0.6s forwards; /* 로드 시 페이드 인 효과 */
+  /* opacity: 0;  초기 로드 시 투명하게 */
+  /* animation: fadeIn 0.6s forwards;  로드 시 페이드 인 효과 */
 }
 
 .grid-item:hover {
@@ -49,9 +49,9 @@ body {
   filter: brightness(1) !important; /* 강조된 박스는 원래 밝기로 유지 */
 }
 
-@keyframes fadeIn {
+/* @keyframes fadeIn {
   to {
-    opacity: 1; /* 완전히 보이게 */
+    opacity: 1; 
   }
 }
 
@@ -66,4 +66,4 @@ body {
 .grid-item:nth-child(10n + 9),
 .grid-item:nth-child(10n + 10) {
   animation-delay: 0s;
-}
+} */

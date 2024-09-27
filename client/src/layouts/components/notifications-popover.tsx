@@ -110,7 +110,7 @@ export function NotificationsPopover({
           sx={{ py: 2, pl: 2.5, pr: 1.5 }}
         >
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle1">Notifications</Typography>
+            <Typography variant="subtitle1">알림</Typography>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               {totalUnRead}개의 확인하지 않은 알림이 있습니다.
             </Typography>
