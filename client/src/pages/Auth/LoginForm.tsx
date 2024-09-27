@@ -61,7 +61,9 @@ const LoginForm = () => {
     } catch (err: any) {
       console.log("에러가 발생했습니다:", err);
       if (err.response && err.response.data) {
-        setError(err.response.data.msg || "로그인에 실패했습니다.");
+        setError(
+          err.response.data.msg || "잘못된 이메일 주소 또는 비밀번호입니다."
+        );
       } else {
         setError("서버 오류가 발생했습니다.");
       }
