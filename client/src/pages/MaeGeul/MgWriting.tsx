@@ -39,19 +39,18 @@ const MgWriting: React.FC = () => {
 
   const navigate = useNavigate(); // useNavigate 훅을 컴포넌트 내부에서 호출
 
-  // RGB 값에 따른 색상 이름 반환 함수
-  const getColorName = (rgb: string) => {
-    switch (rgb) {
-      case "rgb(223,32,32)":
+  const getColorName = (colorValue: string) => {
+    switch (colorValue) {
+      case "#EE5D50":
         return "빨간색";
-      case "rgb(255,209,87)":
+      case "#FFDE57":
         return "노란색";
-      case "rgb(53,80,155)":
+      case "#6AD2FF":
         return "파란색";
-      case "rgb(147,196,125)":
+      case "#35D28":
         return "초록색";
       default:
-        return "알 수 없는 색상";
+        return "마음 색상";
     }
   };
 
@@ -274,7 +273,7 @@ const MgWriting: React.FC = () => {
       >
         {/* 왼쪽 컨텐츠 */}
         <motion.div
-          className="w-1/2 h-full p-4 bg-blue-100 rounded-3xl shadow-md dark:bg-gray-700"
+          className="w-1/2 h-full p-4 bg-slate-100 rounded-3xl shadow-md dark:bg-gray-700"
           initial={{ scaleX: 0 }} // 초기 가로 크기 0
           animate={{ scaleX: 1 }} // 가로 크기가 100%로 커짐
           transition={{ duration: 1, ease: "easeOut" }}
@@ -313,8 +312,9 @@ const MgWriting: React.FC = () => {
 
                 <motion.button
                   onClick={handleSaveEmotionAnalysis}
-                  className="bg-scampi-500 dark:bg-scampi-600 text-white py-2 px-6 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors mt-2"
-                  whileHover={{ scale: 1.05 }} // 버튼에 마우스를 올리면 약간 확대되는 효과
+                  className="rounded-xl border bg-violet-200 dark:bg-scampi-600 text-indigo-600 py-2 px-6 shadow-md
+           hover:bg-transparent border-none dark:hover:bg-scampi-700 transition-colors
+          font-bold font-plus-jakarta-sans leading-normal mt-5 text-lg"
                 >
                   편지받기
                 </motion.button>
@@ -323,10 +323,10 @@ const MgWriting: React.FC = () => {
           ) : (
             // emotionResult가 없을 때 기존 가이드 내용 표시
             <>
-              <div className="User w-96 h-11 text-scampi-800 font-bold text-2xl leading-10 dark:text-white mb-5">
-                <div className="p-5 bg-white shadow-lg rounded-lg w-[520px] h-[660px]">
+              <div className="User w-96 h-11 text-blue-950 font-bold text-2xl leading-10 dark:text-white mb-5">
+                <div className="p-5 bg-white shadow-lg w-[550px] h-[670px] rounded-3xl">
                   <div className="mb-5">
-                    <h1 className="text-2xl font-bold text-gray-800">
+                    <h1 className="text-2xl font-bold text-blue-950">
                       {user?.profile_name}님의 감정 일기
                       <img
                         src={heart}
@@ -337,61 +337,75 @@ const MgWriting: React.FC = () => {
                   </div>
 
                   <div className="p-5 border border-gray-200 rounded-xl">
-                    <p className="text-xl font-bold text-scampi-800 mb-2">
+                    <p className="text-xl font-bold text-blue-950 mb-2">
                       작성 안내
                     </p>
-                    <p className="text-sm text-gray-800">
-                      1. 감정을 느낀 구체적인 "상황"과 그 때 나의 "행동",
-                      "생각"을 포함해 적어보세요.
-                      <br />
-                      2. 조금씩이라도 매일 꾸준히 적다 보면 나의 마음을 건강하게
-                      변화시켜 갈 수 있어요.
-                      <br />
-                      3. 감정을 느꼈을 때 나의 신체적 변화에 대해서 적어보는
-                      것도 도움이 되어요.
-                    </p>
+                    <ul className="text-sm text-blue-950 space-y-2">
+                      <li>
+                        1. 감정을 느낀 구체적인 "상황"과 그 때 나의 "행동",
+                        "생각"을 포함해 적어보세요.
+                      </li>
+                      <li>
+                        2. 조금씩이라도 매일 꾸준히 적다 보면 나의 마음을
+                        건강하게 변화시켜 갈 수 있어요.
+                      </li>
+                      <li>
+                        3. 감정을 느꼈을 때 나의 신체적 변화에 대해서 적어보는
+                        것도 도움이 되어요.
+                      </li>
+                    </ul>
                   </div>
 
                   <div className="p-5 border border-gray-200 rounded-xl mt-10">
-                    <h2 className="text-xl font-bold text-gray-800 mb-2">
+                    <h2 className="text-xl font-bold text-blue-950 mb-2">
                       무드 컬러 진단 결과
                     </h2>
-                    <p className="text-sm text-gray-800">
-                      무드 컬러: {colorName}
-                      {highlightedColor && (
-                        <span
-                          style={{
-                            display: "inline-block",
-                            width: "25px",
-                            height: "25px",
-                            marginLeft: "5px",
-                            backgroundColor: highlightedColor,
-                            borderRadius: "3px",
-                          }}
-                        />
-                      )}
-                      <br />
-                      <br />
-                      오늘의 감정 태그를 선택해주세요
-                      <br />
-                      <br />
-                      {highlightedLabels.map((label) => (
-                        <span
-                          key={label}
-                          onClick={() => handleLabelClick(label)}
-                          className="text-sm text-scampi-700 dark:text-scampi-200 py-1 px-2 rounded-lg cursor-pointer transition-colors ml-1"
-                          style={{
-                            display: "inline-block",
-                            backgroundColor: "#f0f0f0", // 배경 색을 연한 그레이 톤으로
-                            color: "#333", // 글씨 색을 진한 회색으로
-                            padding: "4px 8px", // 패딩을 줄여서 해시태그 느낌
-                            marginRight: "5px", // 태그 사이에 약간의 간격 추가
-                          }}
-                        >
-                          #{label}
-                        </span>
-                      ))}
-                    </p>
+                    <div className="text-sm text-blue-950">
+                      <p className="mb-4">
+                        무드 컬러: {colorName}
+                        {highlightedColor && (
+                          <span
+                            style={{
+                              display: "inline-block",
+                              width: "30px",
+                              height: "30px",
+                              marginLeft: "5px",
+                              backgroundColor: highlightedColor,
+                              borderRadius: "3px",
+                              verticalAlign: "middle", // 텍스트와 수평 정렬
+                            }}
+                          />
+                        )}
+                      </p>
+
+                      {/* 감정 태그 라벨과 태그들을 가로로 정렬 */}
+                      <div className="flex items-center mb-4">
+                        <p className="mr-2">감정 태그:</p>
+                        <div className="flex flex-wrap">
+                          {highlightedLabels.map((label) => (
+                            <span
+                              key={label}
+                              onClick={() => handleLabelClick(label)}
+                              className="text-sm text-blue-950 dark:text-scampi-200 py-1 px-2 rounded-lg cursor-pointer transition-colors ml-1"
+                              style={{
+                                display: "inline-block",
+                                backgroundColor: "#E9E3FF", // 배경 색을 연한 그레이 톤으로
+                                color: "#333", // 글씨 색을 진한 회색으로
+                                padding: "4px 8px", // 패딩을 줄여서 해시태그 느낌
+                                marginRight: "5px", // 태그 사이에 약간의 간격 추가
+                              }}
+                            >
+                              #{label}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* 설명 문구 */}
+                      <p className="text-sm text-blue-950">
+                        오늘의 감정 태그를 선택하세요!
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -401,7 +415,7 @@ const MgWriting: React.FC = () => {
 
         {/* 오른쪽 컨텐츠 */}
         <motion.div
-          className="w-1/2 h-full p-8 bg-purple-100 rounded-3xl shadow-md dark:bg-gray-700 flex flex-col justify-between"
+          className="w-1/2 h-full p-8 bg-violet-100 rounded-3xl shadow-md dark:bg-gray-700 flex flex-col justify-between"
           initial={{ scaleX: 0 }} // 초기 가로 크기 0
           animate={{ scaleX: 1 }} // 가로 크기가 100%로 커짐
           transition={{ duration: 1, ease: "easeOut" }} // 약간의 딜레이 추가
@@ -409,16 +423,16 @@ const MgWriting: React.FC = () => {
         >
           <div className="w-full">
             <div className="flex justify-between items-center">
-              <div className="User w-120 h-11 text-scampi-800 font-bold text-xl dark:text-white">
+              <div className="User w-120 h-11 text-blue-950 font-bold text-xl dark:text-white">
                 {title}
               </div>
             </div>
             <div className="text-sm text-neutral-500 mt-2">{formattedDate}</div>
             <textarea
-              className="w-full h-[400px] bg-purple-100 text-lg mt-4 p-4 border border-transparent rounded-lg resize-none dark:bg-gray-600 dark:text-white"
+              className="w-full h-[400px] bg-violet-100 text-lg mt-4 p-4 border border-transparent rounded-lg resize-none dark:bg-gray-600 dark:text-white"
               placeholder={`${
                 user?.profile_name || ""
-              }님의 오늘 하루 어떠셨나요? 오늘 내가 느낀 감정을 일으킨 상황과 함께 구체적으로 작성해보세요.`}
+              }님의 오늘 하루 어떠셨나요?                           오늘 하루를 열 글자 이상 적어보아요`}
               maxLength={maxLength}
               value={content}
               onChange={(e) => setContent(e.target.value)}
@@ -432,15 +446,19 @@ const MgWriting: React.FC = () => {
           <div className="flex space-x-4 mt-4">
             <button
               onClick={contentReset}
-              className="dark:bg-scampi-600 text-white py-2 px-6 rounded-full shadow-md hover:bg-scampi-600 dark:hover:bg-scampi-700 transition-colors bg-scampi-500"
+              className="rounded-xl border dark:bg-scampi-600 text-indigo-600 py-2 px-6 shadow-md
+           hover:bg-violet-200 border-none dark:hover:bg-scampi-700 transition-colors
+          font-bold font-plus-jakarta-sans leading-normal"
             >
               내용 초기화
             </button>
             <button
               onClick={handleClick}
-              className="dark:bg-scampi-600 text-white py-2 px-6 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors bg-scampi-500"
+              className="rounded-xl border bg-violet-200 dark:bg-scampi-600 text-indigo-600 py-2 px-6 shadow-md
+           hover:bg-transparent border-none dark:hover:bg-scampi-700 transition-colors
+          font-bold font-plus-jakarta-sans leading-normal"
             >
-              작성 완료
+              작성 완료하기
             </button>
           </div>
         </motion.div>

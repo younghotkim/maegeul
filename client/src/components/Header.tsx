@@ -73,24 +73,21 @@ const Header: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <header className="sticky top-0 z-50 w-full bg-white dark:bg-scampi-800 font-bold font-plus-jakarta-sans py-4 leading-normal">
+      <header className="sticky top-0 z-50 w-full text-blue-950 bg-white dark:bg-scampi-800 font-bold font-plus-jakarta-sans py-4 leading-normal">
         <div className="max-w-[1140px] mx-auto flex justify-between items-center text-sm">
           <Link to="/home" className="flex-shrink-0">
             <img src={MeageulLogo} alt="Maegeul Logo" className="w-[150px]" />
           </Link>
 
-          <nav className="flex-grow flex justify-center space-x-12 text-lg tracking-wide">
+          <nav className="flex-grow flex justify-center space-x-12 text-sm text-blue-950 tracking-wide">
             {/* 무드일기 링크 - 로그인 상태일 때만 활성화 */}
             {isLoggedIn ? (
-              <Link
-                to="/maegeul"
-                className="nav-link hover:text-purple-500 hover:scale-105 transition-transform duration-200"
-              >
+              <Link to="/maegeul" className="nav-link">
                 무드일기
               </Link>
             ) : (
               <span
-                className="nav-link cursor-pointer hover:text-purple-500 hover:scale-105 transition-transform duration-200"
+                className="nav-link cursor-pointer"
                 onClick={() =>
                   openModal("무드일기는 로그인 후 이용 가능합니다.")
                 }
@@ -99,28 +96,33 @@ const Header: React.FC = () => {
               </span>
             )}
 
-            <Link
-              to="#"
-              className="nav-link hover:text-purple-500 hover:scale-105 transition-transform duration-200"
-            >
-              AI 진단 가이드
-            </Link>
-
             {isLoggedIn ? (
-              <Link
-                to="/contents"
-                className="nav-link hover:text-purple-500 hover:scale-105 transition-transform duration-200"
-              >
-                추천 콘텐츠
+              <Link to="/MgWriting" className="nav-link">
+                AI 하루진단
               </Link>
             ) : (
               <span
-                className="nav-link cursor-pointer hover:text-purple-500 hover:scale-105 transition-transform duration-200"
+                className="nav-link cursor-pointer"
+                onClick={() =>
+                  openModal("AI하루진단은 로그인 후 이용 가능합니다.")
+                }
+              >
+                AI 하루진단
+              </span>
+            )}
+
+            {isLoggedIn ? (
+              <Link to="/contents" className="nav-link">
+                콘텐츠
+              </Link>
+            ) : (
+              <span
+                className="nav-link cursor-pointer"
                 onClick={() =>
                   openModal("추천 콘텐츠는 로그인 후 이용 가능합니다.")
                 }
               >
-                추천 콘텐츠
+                콘텐츠
               </span>
             )}
           </nav>
@@ -172,9 +174,9 @@ const Header: React.FC = () => {
                 />
                 <button
                   onClick={handleLogout}
-                  className="bg-violet-100 dark:bg-scampi-600 py-2 px-4 rounded-lg
-                   dark:hover:bg-scampi-700 transition-colors text-indigo-600 text-sm font-bold
-                    whitespace-nowrap"
+                  className="bg-violet-100 hover:bg-violet-300 dark:bg-scampi-600 py-2 px-4 rounded-lg shadow-md
+                     dark:hover:bg-scampi-700 transition-colors text-indigo-600 text-sm font-extrabold
+                      whitespace-nowra"
                 >
                   로그아웃
                 </button>
@@ -192,9 +194,9 @@ const Header: React.FC = () => {
                 </Link>
                 <Link to="/mainsignup">
                   <button
-                    className="bg-violet-100 dark:bg-scampi-600 py-2 px-4 rounded-lg shadow-md
+                    className="bg-violet-100 hover:bg-violet-300 dark:bg-scampi-600 py-2 px-4 rounded-lg shadow-md
                      dark:hover:bg-scampi-700 transition-colors text-indigo-600 text-sm font-extrabold
-                      whitespace-nowrap"
+                      whitespace-nowra"
                   >
                     회원가입
                   </button>

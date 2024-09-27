@@ -44,7 +44,7 @@ const Banner: React.FC<BannerProps> = ({ className }) => {
           <div className="flex items-center gap-4">
             {/* 로그인 상태에 따라 링크 경로 변경 */}
             <Link to={isLoggedIn ? "/maegeul" : "/mainsignup"}>
-              <button className="px-7 py-4 bg-indigo-600 rounded-lg text-white text-sm font-bold font-plus-jakarta-sans">
+              <button className="px-7 py-4 bg-indigo-600 rounded-lg text-white text-sm font-bold font-plus-jakarta-sans hover:bg-indigo-500">
                 지금 바로 시작하기
               </button>
             </Link>

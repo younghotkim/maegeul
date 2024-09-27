@@ -24,11 +24,13 @@ const emojis = [
 ];
 
 const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
-  const [value, setValue] = useState<number>(1);
+  const [value, setValue] = useState<number>(5); // 초기값 5로 설정
+  const [progress, setProgress] = useState<number>(0); // ProgressBar의 상태값
 
   const handleSliderChange = (newValue: number) => {
     setValue(newValue);
     onValueChange(newValue);
+    setProgress(20); // 슬라이더가 변경되면 ProgressBar를 20%로 설정
   };
 
   const currentEmoji = emojis.find(
@@ -44,21 +46,25 @@ const MoodSlider: React.FC<MoodSliderProps> = ({ onValueChange, onSubmit }) => {
         </div>
         {/* Progress Bar (가운데에 위치) */}
         <div className="w-full flex justify-center">
-          <ProgressBar value={20} />
+          <ProgressBar value={progress} />{" "}
+          {/* ProgressBar의 value를 상태값으로 설정 */}
         </div>
       </div>
       <div className="w-full max-w-4xl mx-auto mt-10">
         <div className="text-center mb-8">
           <h1
-            className="text-black text-6xl font-black font-['Inter'] leading-10
-          mb-9 dark:text-scampi-300 inline-flex items-center"
+            className="text-blue-950 text-5xl font-black font-['font-plus-jakarta-sans'] leading-5
+            mb-9 dark:text-scampi-300 inline-flex items-center"
           >
             오늘 나의 편안 지수는?
-            <Tooltip message="오늘 나의 편안함 수치는 몇인가요? 만족감, 쾌적함, 기쁨 등 내가 느낀 긍정 감정의 정도를 기록해 봅시다.">
+            <Tooltip
+              message="오늘 나의 편안함 수치는 몇인가요? 
+            만족감, 쾌적함, 기쁨 등 내가 느낀 긍정 감정의 정도를 기록해 봅시다."
+            >
               <img src={Info} alt="Info" className="ml-2 cursor-pointer" />
             </Tooltip>
           </h1>
-          <div className="text-center text-slate-500 text-xs font-medium font-plus-jakarta-sans leading-normal">
+          <div className="text-center text-slate-500 text-base font-bold font-plus-jakarta-sans leading-normal">
             지금 내가 느끼는 편안함, 얼마나 만족스럽고 쾌적한 상태인지 긍정
             감정의 정도를 측정해 봅시다.
           </div>

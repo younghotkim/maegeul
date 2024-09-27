@@ -27,14 +27,17 @@ export function AnalyticsTrafficBySite({
   ...other
 }: Props) {
   return (
-    <Card sx={sx} {...other}>
+    <Card
+      sx={{ display: "flex", flexDirection: "column", height: "100%", ...sx }}
+      {...other}
+    >
       <CardHeader title={title} subheader={subheader} />
 
       <Box
         display="grid"
         gap={2}
         gridTemplateColumns="repeat(2, 1fr)"
-        sx={{ p: 3 }}
+        sx={{ p: 3, flexGrow: 1 }} // 부모의 남은 공간을 차지하게 설정
       >
         {list.map((site) => (
           <Box
@@ -50,6 +53,7 @@ export function AnalyticsTrafficBySite({
                 theme.vars.palette.grey["500Channel"],
                 0.12
               )}`,
+              height: "100%", // Box 내의 아이템들이 부모의 높이에 맞추어 확장
             })}
           >
             {site.value === "facebook" && (

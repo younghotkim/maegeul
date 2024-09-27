@@ -14,7 +14,7 @@ const EnergySlider: React.FC<EnergySliderProps> = ({
   onValueChange,
   onSubmit,
 }) => {
-  const [value, setValue] = useState<number>(1);
+  const [value, setValue] = useState<number>(5);
 
   const handleSliderChange = (newValue: number) => {
     setValue(newValue);
@@ -28,7 +28,7 @@ const EnergySlider: React.FC<EnergySliderProps> = ({
       <div className="text-center mb-8">
         {/* 텍스트 섹션 */}
         <h1
-          className="text-black text-6xl font-black font-['Inter'] leading-10
+          className="text-blue-950 text-5xl font-black font-['font-plus-jakarta-sans'] leading-5
             mb-9 dark:text-scampi-300 inline-flex items-center"
         >
           오늘 나의 에너지 레벨은?
@@ -36,7 +36,7 @@ const EnergySlider: React.FC<EnergySliderProps> = ({
             <img src={Info} alt="Info" className="ml-2 cursor-pointer" />
           </Tooltip>
         </h1>
-        <div className="text-center text-slate-500 text-xs font-medium font-plus-jakarta-sans leading-normal">
+        <div className="text-center text-slate-500 text-base font-bold font-plus-jakarta-sans leading-normal">
           지금 내가 느끼는 활력 정도를 수치로 기록해봐요.
         </div>
       </div>
@@ -61,8 +61,8 @@ const EnergySlider: React.FC<EnergySliderProps> = ({
       <div className="text-center mt-8">
         <button
           onClick={onSubmit}
-          className="rounded-xl border border-violet-500 dark:bg-scampi-600 text-violet-500 py-2 px-10 shadow-md
-           hover:bg-scampi-400 hover:text-white dark:hover:bg-scampi-700 transition-colors
+          className="rounded-xl border dark:bg-scampi-600 text-indigo-600 py-2 px-6 shadow-md
+           hover:bg-violet-200 border-none dark:hover:bg-scampi-700 transition-colors
           font-bold font-plus-jakarta-sans leading-normal"
         >
           측정 완료하기

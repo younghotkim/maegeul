@@ -49,15 +49,14 @@ export function UserTableRow({
   }, []);
 
   const colorMap: { [key: string]: string } = {
-    빨간색: "#FF0000",
-    노란색: "#FFFF00",
-    파란색: "#0000FF",
-    초록색: "#00FF00",
-    // 필요한 다른 색상들도 추가 가능
+    빨간색: "#EE5D50",
+    노란색: "#FFDE57",
+    파란색: "#6AD2FF",
+    초록색: "#35D28A",
   };
 
   // diaryData.color 텍스트를 컬러 코드로 변환
-  const backgroundColor = colorMap[row.color] || "#000000"; // row.color가 전달되도록 수정
+  const backgroundColor = colorMap[row.color] || "#FFFFFF"; // row.color가 전달되도록 수정
 
   return (
     <>
@@ -80,8 +79,8 @@ export function UserTableRow({
           <span
             style={{
               display: "inline-block",
-              width: "20px",
-              height: "20px",
+              width: "30px",
+              height: "30px",
               backgroundColor: backgroundColor, // 매핑된 색상 코드 적용
               borderRadius: "50%", // 원형으로 표시 (원형 말고 사각형으로 하려면 이 부분을 제거)
             }}
