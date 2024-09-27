@@ -31,10 +31,13 @@ const MainSignup = () => {
           <img
             src={MeageulLogo}
             alt="Maegeul Logo"
-            className="w-[300px] justify-center items-center"
+            className="w-[300px] justify-center items-center ml-7"
           />
+          <h2 className="text-blue-950 text-xl font-bold font-plus-jakarta-sans leading-10 text-center">
+            매일 감정 글쓰기를 통해 만드는 단단한 나
+          </h2>
         </Link>
-        {/* Ticket 정보 */}
+        {/* Ticket 정보
         <div className="w-[286px] h-[59px] rounded-lg border border-scampi-200 grid grid-cols-[1fr_3fr] items-center mt-5">
           <img src={Ticket} alt="Ticket Icon" className="w-14 h-14 mx-auto" />
           <div className="text-scampi-800">
@@ -44,24 +47,26 @@ const MainSignup = () => {
             </span>
             을 받을 수 있어요!
           </div>
-        </div>
+        </div> */}
 
         {/* 카카오 가입 버튼 */}
-        <div className="flex gap-4 mt-4">
+        <div className="flex gap-4 mt-10">
           <button
             onClick={handleLogin}
-            className="w-[400px] h-[59px] px-6 py-4 text-base text-white bg-scampi-600 rounded-full"
+            className="w-[486px] h-[72px] px-6 py-4 text-white bg-scampi-600 rounded-lg 
+            font-plus-jakarta-sans font-bold text-xl hover:shadow-lg"
           >
             카카오로 3초만에 시작하기
           </button>
         </div>
 
         {/* 이메일 가입 버튼 */}
-        <div className="flex gap-4 mt-2">
+        <div className="flex gap-4 mt-5">
           <button
             type="button"
             onClick={handleSignupClick}
-            className="w-[400px] h-[59px] px-6 py-4 text-base text-white bg-scampi-600 rounded-full"
+            className="w-[486px] h-[72px] px-6 py-4 text-white bg-scampi-600 rounded-lg 
+            font-plus-jakarta-sans font-bold text-xl hover:shadow-lg"
           >
             이메일로 시작하기
           </button>

@@ -63,11 +63,10 @@ const MainLogin = () => {
             alt="Maegeul Logo"
             className="w-[300px] justify-center items-center ml-7"
           />
-          <h2 className="text-scampi-700 text-xl font-bold font-plus-jakarta-sans leading-10 text-center">
+          <h2 className="text-blue-950 text-xl font-bold font-plus-jakarta-sans leading-10 text-center">
             매일 감정 글쓰기를 통해 만드는 단단한 나
           </h2>
         </Link>
-
         {/* 카카오 로그인 버튼 */}
         <button onClick={handleLogin} className="">
           <img
@@ -76,7 +75,6 @@ const MainLogin = () => {
             alt="Kakao Login Button"
           />
         </button>
-
         {/* 이메일 로그인 버튼 */}
         <button type="button" onClick={handleEmailLoginClick} className="">
           <img
@@ -85,7 +83,6 @@ const MainLogin = () => {
             alt="Email icon"
           />
         </button>
-
         {/* '또는' 구분선 */}
         <div className="w-[300px] flex items-center mt-8">
           <div className="flex-grow border-t border-gray-300"></div>
@@ -94,7 +91,6 @@ const MainLogin = () => {
           </span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-
         {/* 소셜 로그인 버튼들 */}
         <div className="flex gap-4 mt-5">
           <button className="w-10 h-10 flex justify-center items-center rounded-full border border-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
@@ -107,7 +103,6 @@ const MainLogin = () => {
             <img src={Facebook} alt="Facebook" className="w-6 h-6" />
           </button>
         </div>
-
         {/* 회원가입, 계정찾기, 비밀번호 찾기 */}
         <div className="flex items-center gap-4 mt-5">
           <button
