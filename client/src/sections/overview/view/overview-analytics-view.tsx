@@ -130,7 +130,9 @@ export function OverviewAnalyticsView() {
             // percent={2.8}
             total={3}
             color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic-glass-buy.svg" />}
+            icon={
+              <img alt="icon" src="/assets/icons/glass/ic-glass-users.svg" />
+            }
             chart={{
               categories: [
                 "Jan",

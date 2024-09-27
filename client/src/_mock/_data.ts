@@ -140,7 +140,7 @@ export const _notifications = [
   {
     id: _id(1),
     title: "무드 미터 진단이 3일 경과됐습니다.",
-    description: "waiting for shipping",
+    description: "무드일기를 작성해주세요!",
     avatarUrl: null,
     type: "order-placed",
     postedAt: _times(1),
@@ -148,8 +148,8 @@ export const _notifications = [
   },
   {
     id: _id(2),
-    title: _fullName(2),
-    description: "answered to your comment on the Minimal",
+    title: "무드 미터 진단이 3일 경과됐습니다",
+    description: "마음 일기 쓰기 할 시간입니다.",
     avatarUrl: "/assets/images/avatar/avatar-2.webp",
     type: "friend-interactive",
     postedAt: _times(2),
@@ -157,7 +157,7 @@ export const _notifications = [
   },
   {
     id: _id(3),
-    title: "You have new message",
+    title: "무드 미터 진단이 3일 경과됐습니다.",
     description: "5 unread messages",
     avatarUrl: null,
     type: "chat-message",
@@ -166,7 +166,7 @@ export const _notifications = [
   },
   {
     id: _id(4),
-    title: "You have new mail",
+    title: "무드 미터 진단이 3일 경과됐습니다.",
     description: "sent from Guido Padberg",
     avatarUrl: null,
     type: "mail",
