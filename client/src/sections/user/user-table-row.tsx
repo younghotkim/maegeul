@@ -71,7 +71,11 @@ export function UserTableRow({
         </TableCell>
 
         {/* Diary의 content 필드를 테이블에 표시 */}
-        <TableCell>{row.content}</TableCell>
+        <TableCell>
+          {row.content.length > 100
+            ? row.content.slice(0, 30) + "..."
+            : row.content}
+        </TableCell>
 
         {/* Diary의 date 필드를 테이블에 표시 */}
         {/* color 필드를 배경색으로 표시 */}
@@ -122,12 +126,12 @@ export function UserTableRow({
         >
           <MenuItem onClick={handleClosePopover}>
             <Iconify icon="solar:pen-bold" />
-            Edit
+            수정하기
           </MenuItem>
 
           <MenuItem onClick={handleClosePopover} sx={{ color: "error.main" }}>
             <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete
+            삭제하기
           </MenuItem>
         </MenuList>
       </Popover>

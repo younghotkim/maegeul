@@ -139,8 +139,8 @@ export const _tasks = [...Array(5)].map((_, index) => ({
 export const _notifications = [
   {
     id: _id(1),
-    title: "무드 미터 진단이 3일 경과됐습니다.",
-    description: "무드일기를 작성해주세요!",
+    title: "무드일기 작성이 3일 경과됐습니다!",
+    description: "무드일기를 작성해주세요.",
     avatarUrl: null,
     type: "order-placed",
     postedAt: _times(1),
@@ -148,8 +148,8 @@ export const _notifications = [
   },
   {
     id: _id(2),
-    title: "무드 미터 진단이 3일 경과됐습니다",
-    description: "마음 일기 쓰기 할 시간입니다.",
+    title: "새로운 컨텐츠가 추가됐습니다!",
+    description: "추천 컨텐츠 탭에서 확인해주세요.",
     avatarUrl: "/assets/images/avatar/avatar-2.webp",
     type: "friend-interactive",
     postedAt: _times(2),
@@ -157,8 +157,8 @@ export const _notifications = [
   },
   {
     id: _id(3),
-    title: "무드 미터 진단이 3일 경과됐습니다.",
-    description: "5 unread messages",
+    title: "긍정 감정이 급증했습니다!",
+    description: "긍정 감정을 유지해주세요.",
     avatarUrl: null,
     type: "chat-message",
     postedAt: _times(3),
@@ -166,8 +166,8 @@ export const _notifications = [
   },
   {
     id: _id(4),
-    title: "무드 미터 진단이 3일 경과됐습니다.",
-    description: "sent from Guido Padberg",
+    title: "무드일기 작성이 5일 경과됐습니다!",
+    description: "무드일기를 작성해주세요.",
     avatarUrl: null,
     type: "mail",
     postedAt: _times(4),
@@ -175,8 +175,8 @@ export const _notifications = [
   },
   {
     id: _id(5),
-    title: "Delivery processing",
-    description: "Your order is being shipped",
+    title: "무드일기 작성이 6일 경과됐습니다!",
+    description: "무드일기를 작성해주세요.",
     avatarUrl: null,
     type: "order-shipped",
     postedAt: _times(5),
