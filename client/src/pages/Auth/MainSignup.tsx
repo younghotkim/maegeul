@@ -48,30 +48,29 @@ const MainSignup = () => {
             을 받을 수 있어요!
           </div>
         </div> */}
-
         {/* 카카오 가입 버튼 */}
         <div className="flex gap-4 mt-10">
           <button
             onClick={handleLogin}
-            className="w-[486px] h-[72px] px-6 py-4 text-white bg-scampi-600 rounded-lg 
-            font-plus-jakarta-sans font-bold text-xl hover:shadow-lg"
+            className="w-[486px] h-[72px] px-6 py-4  
+            font-plus-jakarta-sans bg-violet-100 hover:bg-violet-300 dark:bg-scampi-600 rounded-lg shadow-md
+           dark:hover:bg-scampi-700 transition-colors text-blue-900 font-bold text-xl"
           >
             카카오로 3초만에 시작하기
           </button>
         </div>
-
         {/* 이메일 가입 버튼 */}
         <div className="flex gap-4 mt-5">
           <button
             type="button"
             onClick={handleSignupClick}
-            className="w-[486px] h-[72px] px-6 py-4 text-white bg-scampi-600 rounded-lg 
-            font-plus-jakarta-sans font-bold text-xl hover:shadow-lg"
+            className="w-[486px] h-[72px] px-6 py-4  
+            font-plus-jakarta-sans bg-violet-100 hover:bg-violet-300 dark:bg-scampi-600 rounded-lg shadow-md
+           dark:hover:bg-scampi-700 transition-colors text-blue-900 font-bold text-xl"
           >
             이메일로 시작하기
           </button>
         </div>
-
         {/* '또는' 구분선 */}
         <div className="w-[300px] flex items-center mt-8">
           <div className="flex-grow border-t border-gray-300"></div>
@@ -80,7 +79,6 @@ const MainSignup = () => {
           </span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-
         {/* 소셜 로그인 버튼들 */}
         <div className="flex gap-4 mt-5">
           <button className="w-10 h-10 flex justify-center items-center rounded-full border border-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
@@ -93,7 +91,6 @@ const MainSignup = () => {
             <img src={Facebook} alt="Facebook" className="w-6 h-6" />
           </button>
         </div>
-
         {/* 로그인, 계정찾기, 비밀번호 찾기 */}
         <div className="flex items-center gap-4 mt-5">
           <button

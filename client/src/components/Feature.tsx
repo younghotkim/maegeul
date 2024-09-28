@@ -33,8 +33,8 @@ const Feature: React.FC = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`flex flex-col items-center text-center p-6 bg-white rounded-2xl w-[375px] transition-shadow duration-300 ease-in-out
-                ${feature.title === "나만의 매글 대시보드" ? "shadow-md" : ""}
+              className={`flex flex-col items-center text-center p-8 bg-white rounded-2xl w-[375px] transition-shadow duration-300 ease-in-out
+                ${feature.title === "나만의 매글 대시보드" ? "shadow-lg" : ""}
                 hover:shadow-lg`}
             >
               <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex justify-center items-center mb-6">
@@ -47,7 +47,7 @@ const Feature: React.FC = () => {
               <h3 className="text-blue-950 text-2xl font-extrabold font-plus-jakarta-sans leading-loose mb-2">
                 {feature.title}
               </h3>
-              <p className="text-slate-500 text-base font-plus-jakarta-sans font-medium tracking-tighter leading-loose">
+              <p className="w-75 text-slate-500 text-[16px] font-plus-jakarta-sans font-medium tracking-normal leading-loose">
                 {feature.description}
               </p>
             </div>
