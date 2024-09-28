@@ -19,13 +19,22 @@ const D3WordCloud: React.FC<D3WordCloudProps> = ({
   fontFamily = "Plus Jakarta Sans",
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null); // 부모 요소의 크기를 측정하기 위한 ref
 
   useEffect(() => {
+    const svgElement = svgRef.current;
+    const containerElement = containerRef.current;
+
+    if (!svgElement || !containerElement) return;
+
+    // 부모 요소 크기 측정
+    const { width, height } = containerElement.getBoundingClientRect();
+
     // 이전 SVG 내용 제거
-    d3.select(svgRef.current).selectAll("*").remove();
+    d3.select(svgElement).selectAll("*").remove();
 
     const layout = cloud<cloud.Word>()
-      .size([800, 476.5]) // 클라우드 크기 설정
+      .size([width, height]) // 부모 요소 크기에 맞게 설정
       .words(
         words.map((word) => ({
           text: word.text,
@@ -43,7 +52,7 @@ const D3WordCloud: React.FC<D3WordCloudProps> = ({
 
     function draw(words: cloud.Word[]) {
       const svg = d3
-        .select(svgRef.current)
+        .select(svgElement)
         .attr("width", layout.size()[0])
         .attr("height", layout.size()[1]) // SVG 높이 설정
         .append("g")
@@ -76,7 +85,11 @@ const D3WordCloud: React.FC<D3WordCloudProps> = ({
     }
   }, [words, fontFamily]);
 
-  return <svg ref={svgRef} style={{ height: "379px", width: "100%" }}></svg>;
+  return (
+    <div ref={containerRef} style={{ width: "100%", height: "100%" }}>
+      <svg ref={svgRef} style={{ width: "100%", height: "100%" }}></svg>
+    </div>
+  );
 };
 
 export default D3WordCloud;

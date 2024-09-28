@@ -187,7 +187,7 @@ export function OverviewAnalyticsView() {
         </Grid>
 
         <Grid xs={12} md={6} lg={8}>
-          <AnalyticsWordCloud title="감정 어휘 클라우드" words={words} />
+          <AnalyticsWordCloud title="감정 어휘 클라우드" />
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>

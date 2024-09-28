@@ -49,7 +49,7 @@ const LoginForm = () => {
         setUser({
           user_id: loginResponse.data.user.user_id,
           email: loginResponse.data.user.email,
-          profile_name: loginResponse.data.user.profileName,
+          profile_name: loginResponse.data.user.profile_name,
           profile_picture: loginResponse.data.user.profile_picture || null, // 프로필 사진 경로 처리
           isKakaoUser: false, // 카카오 사용자 여부 저장
         });

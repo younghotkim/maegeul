@@ -29,6 +29,18 @@ const getMoodMeterByUserId = (user_id, callback) => {
   });
 };
 
+// 특정 user_id에 해당하는 감정 데이터를 조회하는 함수
+const getLabelByUserId = (user_id, callback) => {
+  const sql =
+    "SELECT label FROM MoodMeter WHERE user_id = ? ORDER BY moodmeter_id desc LIMIT 10";
+  db.query(sql, [user_id], (err, result) => {
+    if (err) {
+      return callback(err, null);
+    }
+    callback(null, result);
+  });
+};
+
 const getColorKeywordCountByUserId = (user_id, callback) => {
   const sql = `
     SELECT color, COUNT(*) AS count 
@@ -49,4 +61,5 @@ module.exports = {
   saveMoodMeter,
   getMoodMeterByUserId,
   getColorKeywordCountByUserId,
+  getLabelByUserId,
 };

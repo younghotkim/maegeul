@@ -1,9 +1,9 @@
 // moodData.ts
 export type Mood = {
-  label: string;
+  label: string; // 문자열로 정의
   color: string;
-  energy: number;
   pleasantness: number;
+  energy: number;
 };
 
 const colorMap: { [key: string]: string } = {
