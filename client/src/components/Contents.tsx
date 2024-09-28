@@ -64,6 +64,9 @@ const Contents: React.FC = () => {
     },
   ];
 
+  // 사용자의 로그인 상태를 확인하기 위해 isLoggedIn 변수를 추가
+  const isLoggedIn = !!sessionStorage.getItem("token");
+
   return (
     <>
       {/* 카드 컨텐츠 섹션 */}
@@ -96,7 +99,7 @@ const Contents: React.FC = () => {
 
       {/* 매글에서 지금 바로 시작해보세요 섹션 */}
       <section className="w-full flex justify-center items-center py-16 bg-white">
-        <div className="Cta2 max-w-[1150px] mx-auto justify-center items-start flex">
+        <div className="Cta2 max-w-[1140px] mx-auto justify-center items-start flex">
           <div className="Contain grow shrink basis-0 h-20 justify-center items-center gap-10 flex">
             <span
               className="text-blue-950 text-4xl font-extrabold font-plus-jakarta-sans 
@@ -106,29 +109,27 @@ const Contents: React.FC = () => {
               <br />
               매글에서 지금 바로 시작해보세요.
             </span>
-            {/* Text와 버튼 사이 여백 200px 추가 */}
-            <div style={{ marginBottom: "200px" }} />
             <div className="bg-white grow shrink basis-0 h-14 justify-end items-center gap-4 flex">
-              <Link to="/maegeul">
+              <Link to={isLoggedIn ? "/maegeul" : "/maegeul"}>
                 <div
-                  className="Button flex border border-indigo-600 rounded-xl justify-center items-center gap-2.5"
+                  className="Button flex border border-indigo-600 rounded-xl justify-center items-center gap-2.5 "
                   style={{ width: "171px", height: "56px" }}
                 >
                   <div
                     className="Text text-indigo-600 text-sm font-bold font-plus-jakarta-sans 
-                  dark:text-white leading-normal"
+                  dark:text-white leading-normal "
                   >
-                    지금 바로 시작하기
+                    {isLoggedIn ? "글 쓰러 가기" : "지금 바로 시작하기"}
                   </div>
                 </div>
               </Link>
-              <Link to="/mainsignup">
+              <Link to={isLoggedIn ? "/dashboard" : "/mainsignup"}>
                 <div
                   className="Button bg-indigo-600 rounded-xl flex justify-center items-center gap-2.5"
                   style={{ width: "171px", height: "56px" }}
                 >
                   <div className="Text text-white text-sm font-bold font-plus-jakarta-sans leading-normal">
-                    회원 가입 하기
+                    {isLoggedIn ? "마이매글" : "회원 가입 하기"}
                   </div>
                 </div>
               </Link>
