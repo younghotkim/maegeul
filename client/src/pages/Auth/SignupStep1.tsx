@@ -79,7 +79,7 @@ const SignupStep1: React.FC = () => {
         </h2>
 
         {/* 상단 장식 라인 */}
-        <div className="w-full border-t-8 border-scampi-500 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300"></div>
+        <div className="w-full border-t-8 border-violet-500 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300"></div>
 
         {/* 이용약관 체크하기 제목 */}
         <h3 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">
@@ -88,8 +88,8 @@ const SignupStep1: React.FC = () => {
 
         {/* 전체 동의 항목 */}
         <label
-          className={`p-4 rounded-md mb-2 flex items-center justify-between cursor-pointer ${
-            checkedItems.all ? "bg-scampi-100" : "bg-white"
+          className={`p-4 rounded-full border  mb-2 flex items-center justify-between cursor-pointer ${
+            checkedItems.all ? "bg-violet-100 border-violet-500" : "bg-white"
           }`}
         >
           <input
@@ -108,9 +108,9 @@ const SignupStep1: React.FC = () => {
           (item, index) => (
             <div key={index}>
               <label
-                className={`p-4 rounded-md mb-2 flex items-center justify-between cursor-pointer ${
+                className={`p-4 rounded-full border   mb-2 flex items-center justify-between cursor-pointer ${
                   checkedItems[item as keyof CheckedItems]
-                    ? "bg-scampi-100"
+                    ? "bg-violet-100 border-violet-500"
                     : "bg-white"
                 }`}
               >
@@ -160,10 +160,10 @@ const SignupStep1: React.FC = () => {
           <Link to={isNextButtonDisabled ? "#" : "/signupstep2"}>
             <button
               disabled={isNextButtonDisabled} // 필수 항목이 체크되지 않으면 비활성화
-              className={`w-full px-6 py-4 text-base font-bold text-white rounded-3xl ${
+              className={`w-full px-6 py-4 text-base font-bold text-blue-900 rounded-md ${
                 isNextButtonDisabled
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-scampi-600"
+                  ? "bg-gray-200 cursor-not-allowed"
+                  : "bg-violet-200 hover:bg-violet-300"
               }`}
             >
               다음 {/* 버튼 텍스트 */}

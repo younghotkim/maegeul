@@ -1,3 +1,4 @@
+//src/pages/Auth/LoginForm.tsx
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // `useNavigate` 훅을 사용하여 리다이렉트
@@ -75,21 +76,21 @@ const LoginForm = () => {
       onSubmit={handleLogin}
       className="flex flex-col w-full max-w-lg mx-auto dark:bg-gray-800 dark:text-white font-plus-jakarta-sans"
     >
-      {error && <div className="text-red-500 mb-2">{error}</div>}{" "}
-      {/* 에러 메시지 표시 */}
-      <div className="ml-[32px] mt-[34px] mb-2 text-white py-2 font-extrabold">
+      <div className="ml-[32px] mt-[34px] mb-[30px] text-violet-900 py-2 font-bold flex items-center">
         이메일주소
+        {error && <div className="text-red-500 ml-2 text-sm">{error}</div>}{" "}
+        {/* 에러 메시지 위치 변경 */}
       </div>
       <input
         type="email"
-        placeholder="이메일을 입력해 주세요"
+        placeholder="example@email.com"
         value={email}
         name="email"
         onChange={handleEmailChange}
-        className="w-[398px] h-[48px] ml-[32px] mb-2 text-lg border border-gray-300 dark:border-gray-600 rounded-full shadow-sm 
-        focus:outline-none focus:ring-2 focus:ring-scampi-300 dark:bg-gray-800 dark:text-white"
+        className="w-[398px] h-[48px] ml-[32px] mb-[38px] text-lg border bg-white border-gray-300 dark:border-gray-600 rounded-xl shadow-sm 
+        focus:outline-none focus:ring-2 focus:ring-violet-300 dark:bg-gray-800 dark:text-white pl-4" // Added pl-4 for left padding
       />
-      <div className="ml-[32px] mt-[34px] mb-2 text-white py-1 font-extrabold">
+      <div className="ml-[32px] mt-[30px] mb-2 text-violet-900 py-1 font-bold">
         비밀번호
       </div>
       <input
@@ -98,28 +99,30 @@ const LoginForm = () => {
         value={password}
         name="password"
         onChange={handlePasswordChange}
-        className="w-[398px] h-[48px] ml-[32px] mb-2 text-lg border border-gray-300 dark:border-gray-600 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-scampi-300 dark:bg-gray-800 dark:text-white"
+        className="w-[398px] h-[48px] ml-[32px] mb-2 text-lg border bg-white border-gray-300 dark:border-gray-600 rounded-xl shadow-sm 
+        focus:outline-none focus:ring-2 focus:ring-violet-300 dark:bg-gray-800 dark:text-white pl-4" // Added pl-4 for left padding
       />
       <button
         type="submit"
-        className="w-[398px] h-[48px] ml-[32px] mb-2 bg-violet-300 dark:bg-scampi-600 font-extrabold
-         text-violet-700 py-2 px-4 rounded-full shadow-md hover:bg-violet-100 dark:hover:bg-scampi-700 transition-colors"
+        className="w-[398px] h-[48px] ml-[32px] mt-[35px] bg-violet-500 dark:bg-scampi-600 font-extrabold
+         text-white rounded-xl shadow-md text-sm
+         hover:border-4 hover:border-violet-300 hover:bg-violet-500 dark:hover:bg-scampi-700 transition-colors"
       >
-        로그인
+        매글 로그인 하기
       </button>
       <div className="ml-[32px] mt-[34px] mr-10 mb-2 flex justify-between">
-        <Link
+        {/* <Link
           to="/mainsignup"
-          className="text-scampi-500 hover:text-scampi-700 transition-colors duration-300"
+          className="text-indigo-300 hover:font-bold hover:text-white transition-colors duration-300"
         >
           회원가입
         </Link>
         <Link
           to="/findPassword"
-          className="text-scampi-500 hover:text-scampi-700 transition-colors duration-300"
+          className="text-indigo-300 hover:font-bold hover:text-white transition-colors duration-300"
         >
           비밀번호 찾기
-        </Link>
+        </Link> */}
       </div>
     </form>
   );
