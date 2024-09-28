@@ -47,7 +47,7 @@ const MgWriting: React.FC = () => {
         return "노란색";
       case "#6AD2FF":
         return "파란색";
-      case "#35D28":
+      case "#35D28A":
         return "초록색";
       default:
         return "마음 색상";

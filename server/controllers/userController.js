@@ -2,17 +2,16 @@ const userModel = require("../models/user");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 const axios = require("axios");
+const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 
 // 회원가입 컨트롤러
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
   try {
-    // 로그 추가
-    console.log("req.body:", req.body); // 텍스트 데이터
-    console.log("req.file:", req.file); // 파일 업로드 데이터 (없을 수도 있음)
-
     const {
       email,
       password,
+      salt,
       username,
       profile_name,
       age,
@@ -27,7 +26,8 @@ exports.register = (req, res) => {
 
     const userData = {
       email,
-      password,
+      password, // 해싱된 비밀번호
+      salt, // 생성된 salt 저장
       username,
       profile_name,
       age,
@@ -36,56 +36,56 @@ exports.register = (req, res) => {
       profile_picture,
     };
 
-    userModel.insert(userData, (err, user_id) => {
+    // 데이터베이스에 userData 저장 (userModel.insertUser 등)
+    userModel.insertUser(userData, (err, userId) => {
       if (err) {
-        console.error("DB 저장 중 오류 발생:", err);
         return res
           .status(500)
           .json({ message: "DB 저장 중 오류 발생", error: err });
       }
-      res.status(201).json({ message: "회원가입 성공", user_id });
+      res.status(201).json({ message: "회원가입 성공", userId });
     });
   } catch (error) {
-    console.error("회원가입 중 오류 발생:", error);
-    res
-      .status(500)
-      .json({ message: "회원가입 중 오류가 발생했습니다.", error });
+    res.status(500).json({ message: "회원가입 중 오류 발생", error });
   }
 };
 
-exports.login = (req, res) => {
+// 로그인 컨트롤러
+exports.login = async (req, res) => {
   const { email, password } = req.body;
 
-  // 로그인 처리
-  userModel.select(email, password, (err, user) => {
+  console.log(req.body); // 클라이언트로부터 전달된 데이터 확인
+
+  // 사용자 조회
+  userModel.select(email, password, async (err, user) => {
+    console.log(user); // 데이터베이스에서 조회된 사용자 정보 확인
+
     if (err) {
       console.error("Database error:", err);
       return res.status(500).json({ message: "서버 오류" });
     }
 
     if (!user) {
-      console.log("Invalid email or password");
       return res
         .status(401)
         .json({ message: "이메일 또는 비밀번호가 잘못되었습니다." });
     }
 
-    console.log("Login successful for user:", user.profile_name);
-
     // JWT 토큰 생성
     const token = jwt.sign(
-      { userId: user.id, profileName: user.profile_name }, // 토큰에 포함할 정보
-      JWT_SECRET, // 비밀키
-      { expiresIn: "1h" } // 토큰 유효 기간 설정
+      { userId: user.user_id, profileName: user.profile_name },
+      JWT_SECRET,
+      { expiresIn: "1h" }
     );
 
-    // 토큰과 사용자 정보를 함께 클라이언트로 반환
+    console.log("로그인 성공: ", user.profile_name, user.user_id);
+
     res.status(200).json({
       message: "로그인 성공",
-      token, // 생성된 JWT 토큰
+      token,
       user: {
         user_id: user.user_id,
-        profileName: user.profile_name,
+        profile_name: user.profile_name,
         email: user.email,
         profile_picture: user.profile_picture,
       },
@@ -97,7 +97,6 @@ exports.login = (req, res) => {
 exports.getUser = (req, res) => {
   const { user_id } = req.params;
 
-  // 회원 정보 조회 처리
   userModel.get_user(user_id, (err, user) => {
     if (err) {
       return res.status(500).json({
@@ -110,7 +109,6 @@ exports.getUser = (req, res) => {
       return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
     }
 
-    // 프로필 이미지 경로가 포함된 사용자 정보를 응답
     res.status(200).json({
       message: "회원 정보 조회 성공",
       user: {
@@ -118,14 +116,14 @@ exports.getUser = (req, res) => {
         username: user.username,
         email: user.email,
         profile_name: user.profile_name,
-        profile_picture: user.profile_picture, // 프로필 이미지 경로 포함
+        profile_picture: user.profile_picture,
       },
     });
   });
 };
 
 // 회원 정보 수정 컨트롤러
-exports.updateUser = (req, res) => {
+exports.updateUser = async (req, res) => {
   const {
     user_id,
     username,
@@ -142,20 +140,28 @@ exports.updateUser = (req, res) => {
     return res.status(400).json({ message: "사용자 ID가 필요합니다." });
   }
 
-  // 수정할 회원 정보 생성
+  let updatedPassword = null;
+  let salt = null;
+
+  // 비밀번호가 수정된 경우 새로운 salt 생성 및 비밀번호 해싱
+  if (password) {
+    salt = crypto.randomBytes(16).toString("hex");
+    updatedPassword = await bcrypt.hash(password + salt, 10);
+  }
+
   const userData = {
     user_id,
     username,
     email,
     profile_name,
-    password, // 수정하려는 비밀번호 (수정하지 않으면 기존 비밀번호 유지)
+    password: updatedPassword || password,
+    salt: salt || null, // 새로운 비밀번호가 있을 때만 salt 업데이트
     age,
     gender,
     login_type,
     profile_picture,
   };
 
-  // 회원 정보 수정 처리
   userModel.update(userData, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -172,12 +178,12 @@ exports.updateUser = (req, res) => {
 exports.deleteUser = (req, res) => {
   const { user_id } = req.params;
 
-  // 회원 탈퇴 처리
   userModel.delete(user_id, (err, result) => {
     if (err) {
-      return res
-        .status(500)
-        .json({ message: "회원 탈퇴 중 오류가 발생했습니다.", error: err });
+      return res.status(500).json({
+        message: "회원 탈퇴 중 오류가 발생했습니다.",
+        error: err,
+      });
     }
 
     res.status(200).json({ message: "회원 탈퇴 성공", result });

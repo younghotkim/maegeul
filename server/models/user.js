@@ -1,67 +1,71 @@
 const bcrypt = require("bcrypt");
 const connection = require("../db"); // MySQL 연결
+const {
+  generateEncryptionKey,
+  generateRandomSalt,
+} = require("../util/encrypt");
+const crypto = require("crypto");
 
 // 카카오 로그인 로직
+// 카카오 로그인 시 암호화 키 생성
 exports.handleKakaoLogin = async (profile, cb = () => {}) => {
   try {
     const kakaoId = profile.id;
-    const email = profile._json.kakao_account.email; // 카카오에서 제공한 이메일
+    const email = profile._json.kakao_account.email;
     const nickname = profile.displayName;
     const profileImage = profile._json.properties.profile_image;
 
-    // 이메일로 먼저 사용자 찾기
-    this.findByEmail(email, (err, existingUser) => {
-      // `this`를 사용하여 같은 파일 내 함수 참조
+    // 기존 사용자 검색 후 없으면 회원가입
+    this.findByKakaoId(kakaoId, (err, existingKakaoUser) => {
       if (err) return cb(err);
+      console.log("카카오 로그인");
 
-      if (existingUser) {
-        // 이메일이 이미 존재하는 경우, 로그인 처리
-        console.log("기존 이메일로 로그인 처리");
-        return cb(null, existingUser); // 기존 사용자로 로그인
+      if (existingKakaoUser) {
+        return cb(null, existingKakaoUser);
       }
 
-      // 이메일이 없는 경우, 카카오 ID로 사용자 찾기
-      this.findByKakaoId(kakaoId, (err, existingKakaoUser) => {
+      // 새로운 사용자 생성
+      const salt = generateRandomSalt(); // 랜덤 Salt 생성
+      const encryptionKey = generateEncryptionKey(kakaoId, salt); // 암호화 키 생성
+
+      const newUser = {
+        kakao_id: kakaoId,
+        email: email || `kakao_${kakaoId}@example.com`,
+        username: nickname || "카카오유저",
+        password: kakaoId,
+        profile_name: nickname,
+        profile_picture: profileImage,
+        login_type: "kakao",
+        salt: salt, // 암호화 키 생성에 사용한 salt 저장
+      };
+
+      this.insert(newUser, (err, userId) => {
         if (err) return cb(err);
 
-        if (existingKakaoUser) {
-          // 카카오 ID로 기존 사용자 발견, 로그인 처리
-          console.log("기존 카카오 ID로 로그인 처리");
-          return cb(null, existingKakaoUser);
-        }
-
-        // 새로운 사용자 회원가입
-        const newUser = {
-          kakao_id: kakaoId,
-          email: email || `kakao_${kakaoId}@example.com`, // 이메일이 없을 경우 기본값 설정
-          username: nickname || "카카오유저",
-          profile_name: nickname,
-          profile_picture: profileImage,
-          login_type: "kakao",
-        };
-
-        this.insert(newUser, (err, userId) => {
-          if (err) return cb(err);
-
-          newUser.user_id = userId; // 새로 생성된 userId를 추가
-          console.log("새로운 사용자로 회원가입 후 로그인 처리");
-          return cb(null, newUser); // 새로운 사용자로 로그인 처리
-        });
+        newUser.user_id = userId;
+        return cb(null, newUser); // 사용자 생성 후 로그인 처리
+        console.log("새로운 카카오 사용자");
       });
     });
   } catch (error) {
-    return cb(error); // 에러 처리
+    return cb(error);
   }
 };
 
-// 이메일로 사용자 찾기 (findByEmail 함수)
-exports.findByEmail = (email, callback = () => {}) => {
+// userModel.js 파일에서 사용자 정보 조회 함수
+exports.findByEmail = (email, callback) => {
   const sql = `SELECT * FROM User WHERE email = ? LIMIT 1`;
+
   connection.query(sql, [email], (err, result) => {
     if (err) {
-      return callback(err, null);
+      return callback(err, null); // 에러 발생 시 콜백으로 에러 전달
     }
-    return callback(null, result[0]); // 이메일로 찾은 사용자 반환
+
+    if (result.length === 0) {
+      return callback(null, null); // 사용자가 없으면 null 반환
+    }
+
+    return callback(null, result[0]); // 첫 번째 사용자 정보 반환
   });
 };
 
@@ -78,16 +82,18 @@ exports.findByKakaoId = (kakaoId, callback = () => {}) => {
 
 // 새로운 사용자 추가 (insert 함수)
 exports.insert = (data, callback = () => {}) => {
-  const sql = `INSERT INTO User (kakao_id, email, profile_name, username, login_type, profile_picture) VALUES (?, ?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO User (kakao_id, email, profile_name, password, username, login_type, profile_picture, salt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
   connection.query(
     sql,
     [
       data.kakao_id,
       data.email,
       data.profile_name,
+      data.password,
       data.username,
       data.login_type,
       data.profile_picture,
+      data.salt,
     ],
     (err, result) => {
       if (err) {
@@ -98,29 +104,33 @@ exports.insert = (data, callback = () => {}) => {
   );
 };
 
-// 회원가입 정보 입력
-exports.insert = async (data, cb = () => {}) => {
+// 회원가입 시 사용자 정보를 DB에 저장하는 로직
+exports.insertUser = async (data, cb = () => {}) => {
   try {
-    let hashedPassword = null;
+    // salt 생성
+    const salt = crypto.randomBytes(16).toString("hex");
+    // PBKDF2를 사용한 비밀번호 해싱
+    const hashedPassword = crypto
+      .pbkdf2Sync(data.password, salt, 10000, 64, "sha512")
+      .toString("hex");
 
-    // 비밀번호가 있을 때만 해시, 카카오 로그인 등 비밀번호가 없는 경우 null 유지
-    if (data.password) {
-      hashedPassword = await bcrypt.hash(data.password, 10);
-    }
+    console.log("user_model: Generated salt:", salt);
+    console.log("user_model: Hashed password:", hashedPassword); // 해시된 비밀번호 출력
 
-    const sql = `INSERT INTO User (username, email, profile_name, password, age, gender, login_type, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO User (username, email, profile_name, password, salt, age, gender, login_type, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     connection.query(
       sql,
       [
-        data.username || data.profile_name, // username이 없으면 profile_name 사용
+        data.username,
         data.email,
         data.profile_name,
-        hashedPassword, // 비밀번호가 없는 경우 NULL로 저장
-        data.age || null, // 나이가 없으면 null 저장
-        data.gender || null, // 성별이 없으면 null 저장
-        data.login_type || "local", // 기본값 'local'
-        data.profile_picture || null, // 프로필 사진이 없으면 null 저장
+        hashedPassword, // 해시된 비밀번호
+        salt, // 생성된 salt 저장
+        data.age || null,
+        data.gender || null,
+        data.login_type || "local",
+        data.profile_picture || null,
       ],
       (err, rows) => {
         if (err) {
@@ -130,15 +140,14 @@ exports.insert = async (data, cb = () => {}) => {
       }
     );
   } catch (error) {
-    cb(error); // 에러 처리
+    cb(error);
   }
 };
 
-// 로그인 정보 읽기 (로그인 시 비밀번호 비교)
 exports.select = (email, password, cb = () => {}) => {
   const sql = `SELECT * FROM User WHERE email = ? LIMIT 1`;
 
-  connection.query(sql, [email], async (err, rows) => {
+  connection.query(sql, [email], (err, rows) => {
     if (err) {
       console.error("Database query failed:", err);
       return cb(err); // 에러 처리
@@ -150,19 +159,51 @@ exports.select = (email, password, cb = () => {}) => {
 
     const user = rows[0];
 
-    try {
-      // DB에서 가져온 해시된 비밀번호와 클라이언트에서 받은 평문 비밀번호를 비교
-      const isMatch = await bcrypt.compare(password, user.password);
+    // 로그로 확인하기
+    console.log("User's salt from DB:", user.salt); // 저장된 salt 출력
 
-      if (isMatch) {
-        cb(null, user); // 비밀번호가 일치하면 사용자 반환
-      } else {
-        cb(null, null); // 비밀번호가 일치하지 않으면 null 반환
-      }
-    } catch (err) {
-      console.error("Password comparison failed:", err);
-      return cb(err); // 에러 처리
+    // 만약 user.salt가 null이라면 여기서 중단
+    if (!user.salt) {
+      return cb(new Error("Salt 값이 null입니다."));
     }
+
+    // 저장된 salt를 사용해 입력된 비밀번호를 다시 해싱
+    const hashedInputPassword = crypto
+      .pbkdf2Sync(password, user.salt, 10000, 64, "sha512")
+      .toString("hex");
+
+    //const salt = crypto.randomBytes(16).toString("hex");
+    // PBKDF2를 사용한 비밀번호 해싱
+
+    console.log("로그인 Stored password:", user.password); // 저장된 해싱된 비밀번호
+    console.log("로그인 Hashed input password:", hashedInputPassword); // 입력된 비밀번호 해싱 결과
+
+    // 해싱된 비밀번호가 일치하는지 비교
+    if (hashedInputPassword === user.password) {
+      cb(null, user); // 비밀번호가 일치하면 사용자 반환
+    } else {
+      cb(null, null); // 비밀번호가 일치하지 않으면 null 반환
+    }
+  });
+};
+
+exports.getUserPasswordAndSalt = (user_id, callback) => {
+  const sql = `SELECT password, salt FROM User WHERE user_id = ? LIMIT 1`;
+  connection.query(sql, [user_id], (err, result) => {
+    console.log("쿼리 실행 확인");
+
+    if (err) {
+      console.error("DB 오류 발생:", err);
+      return callback(err, null); // DB 오류 발생 시 콜백으로 에러 전달
+    }
+
+    if (!result || result.length === 0) {
+      console.log("사용자 조회 실패");
+      return callback(new Error("사용자를 찾을 수 없습니다."), null); // 사용자를 찾지 못한 경우
+    }
+
+    console.log("사용자 정보 조회 성공");
+    callback(null, { password: result[0].password, salt: result[0].salt }); // 성공 시 비밀번호와 salt 반환
   });
 };
 
