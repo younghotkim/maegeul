@@ -1,6 +1,6 @@
 // src/components/Footer.tsx
 import React from "react";
-import Maegeul from "../Icon/MaegeulLogo.png";
+import Maegeul from "../Icon/Brand Logo_web ver. (v.1.0) (24.09.22) 1.png";
 
 const Footer: React.FC = () => {
   return (
