@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import { useMoodColorData } from "../../../hooks/useMoodColorData";
 import { useDiary } from "../../../context/DiaryContext"; // DiaryContext 가져오기
 import { countEmotionAnalysisByUserId } from ".././../../api/emotionApi";
+import { DiaryTimeline } from "../../../dashboardComponents/timeline/DiaryTimeline"; // DiaryTimeline 컴포넌트 임포트
 
 // ----------------------------------------------------------------------
 
@@ -191,10 +192,18 @@ export function OverviewAnalyticsView() {
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
-          <AnalyticsOrderTimeline title="무드 컬러 타임라인" list={_timeline} />
+          <DiaryTimeline />
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
+          <AnalyticsOrderTimeline title="무드 컬러 타임라인" list={_timeline} />
+        </Grid>
+
+        <Grid xs={12} md={6} lg={8}>
+          <AnalyticsNews title="추천 컨텐츠" list={_posts.slice(0, 4)} />
+        </Grid>
+
+        {/* <Grid xs={12} md={6} lg={4}>
           <AnalyticsCurrentSubject
             title="추천 영역"
             chart={{
@@ -220,10 +229,6 @@ export function OverviewAnalyticsView() {
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          <AnalyticsNews title="추천 컨텐츠" list={_posts.slice(0, 5)} />
-        </Grid>
-
         <Grid xs={12} md={6} lg={4}>
           <AnalyticsOrderTimeline title="무드 컬러 타임라인" list={_timeline} />
         </Grid>
@@ -240,11 +245,7 @@ export function OverviewAnalyticsView() {
               ],
             }}
           />
-        </Grid>
-
-        <Grid xs={12} md={6} lg={4}>
-          <AnalyticsOrderTimeline title="무드 컬러 타임라인" list={_timeline} />
-        </Grid>
+        </Grid> */}
 
         {/* <Grid xs={12} md={6} lg={8}>
           <AnalyticsConversionRates

@@ -14,6 +14,7 @@ import { Iconify } from "../../dashboardComponents/iconify";
 import { Scrollbar } from "../../dashboardComponents/scrollbar";
 
 import type { PostItemProps } from "../blog/post-item";
+import { Link } from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
@@ -37,19 +38,21 @@ export function AnalyticsNews({ title, subheader, list, ...other }: Props) {
       </Scrollbar>
 
       <Box sx={{ p: 2, textAlign: "right" }}>
-        <Button
-          size="small"
-          color="inherit"
-          endIcon={
-            <Iconify
-              icon="eva:arrow-ios-forward-fill"
-              width={18}
-              sx={{ ml: -0.5 }}
-            />
-          }
-        >
-          View all
-        </Button>
+        <Link to="/contents">
+          <Button
+            size="small"
+            color="inherit"
+            endIcon={
+              <Iconify
+                icon="eva:arrow-ios-forward-fill"
+                width={18}
+                sx={{ ml: -0.5 }}
+              />
+            }
+          >
+            모두 보기
+          </Button>
+        </Link>
       </Box>
     </Card>
   );

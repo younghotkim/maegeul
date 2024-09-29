@@ -44,13 +44,13 @@ export function AccountPopover({
   );
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
-    return !!sessionStorage.getItem("token");
+    return !!localStorage.getItem("token");
   });
 
   useEffect(() => {
     // `storage` 이벤트를 통해 다른 탭에서 토큰이 변경될 때 상태 업데이트
     const handleStorageChange = () => {
-      setIsLoggedIn(!!sessionStorage.getItem("token"));
+      setIsLoggedIn(!!localStorage.getItem("token"));
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -85,7 +85,7 @@ export function AccountPopover({
 
   const handleLogout = () => {
     // 로그아웃 시 localStorage에서 토큰 삭제 및 상태 업데이트
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     setIsLoggedIn(false); // 로그인 상태를 false로 설정
     setUser(null); // 사용자 정보를 초기화하여 profile_name 제거
     navigate("/mainlogin"); // 로그아웃 후 메인 페이지로 리다이렉트

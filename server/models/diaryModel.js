@@ -43,6 +43,7 @@ const getDiariesByUserId = (user_id, encryptionKey, callback) => {
     callback(null, decryptedDiaries);
   });
 };
+
 // 특정 유저의 총 일기 갯수를 카운트하는 함수
 const countDiariesByUserId = (user_id, callback) => {
   const sql = `SELECT COUNT(*) AS totalDiaries FROM Diary WHERE user_id = ?`;
@@ -79,9 +80,20 @@ const getConsecutiveDaysByUserId = (user_id, callback) => {
   });
 };
 
+// 특정 diary_id를 기반으로 일기를 삭제
+const deleteDiaryById = (diary_id, callback) => {
+  const sql = `DELETE FROM Diary WHERE diary_id = ?`;
+  db.query(sql, [diary_id], (err, result) => {
+    if (err) return callback(err);
+    // 삭제된 결과 반환
+    callback(null, result);
+  });
+};
+
 module.exports = {
   saveDiary,
   getDiariesByUserId,
   countDiariesByUserId,
-  getConsecutiveDaysByUserId, // 연속된 일수를 계산하는 함수 추가
+  getConsecutiveDaysByUserId,
+  deleteDiaryById,
 };

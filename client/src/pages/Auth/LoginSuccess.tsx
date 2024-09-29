@@ -13,7 +13,7 @@ const LoginSuccess: React.FC = () => {
 
     if (token) {
       // 토큰을 localStorage에 저장
-      sessionStorage.setItem("token", token);
+      localStorage.setItem("token", token);
       // 홈 페이지로 이동
       navigate("/home");
     } else {
