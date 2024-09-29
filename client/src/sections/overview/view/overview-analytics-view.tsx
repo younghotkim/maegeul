@@ -135,7 +135,7 @@ export function OverviewAnalyticsView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
-            title="마음 일기 수"
+            title="무드 일기 수"
             // percent={0.5} // 필요에 따라 작성 수 증감 비율을 계산하여 넣을 수 있음
             total={diaryCount} // diaryCount 값 적용
             color="secondary"

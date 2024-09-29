@@ -139,8 +139,8 @@ export const _tasks = [...Array(5)].map((_, index) => ({
 export const _notifications = [
   {
     id: _id(1),
-    title: "무드일기 작성이 3일 경과됐습니다!",
-    description: "무드일기를 작성해주세요.",
+    title: "무드 일기 작성이 3일 경과됐습니다!",
+    description: "무드 일기를 작성해주세요.",
     avatarUrl: null,
     type: "order-placed",
     postedAt: _times(1),
@@ -166,8 +166,8 @@ export const _notifications = [
   },
   {
     id: _id(4),
-    title: "무드일기 작성이 5일 경과됐습니다!",
-    description: "무드일기를 작성해주세요.",
+    title: "무드 일기 작성이 5일 경과됐습니다!",
+    description: "무드 일기를 작성해주세요.",
     avatarUrl: null,
     type: "mail",
     postedAt: _times(4),
@@ -175,8 +175,8 @@ export const _notifications = [
   },
   {
     id: _id(5),
-    title: "무드일기 작성이 6일 경과됐습니다!",
-    description: "무드일기를 작성해주세요.",
+    title: "무드 일기 작성이 6일 경과됐습니다!",
+    description: "무드 일기를 작성해주세요.",
     avatarUrl: null,
     type: "order-shipped",
     postedAt: _times(5),

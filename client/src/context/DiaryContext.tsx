@@ -33,7 +33,9 @@ interface DiaryContextType {
   fetchConsecutiveDays: (user_id: number) => void; // 연속된 일수 함수 추가
 }
 
-const DiaryContext = createContext<DiaryContextType | undefined>(undefined);
+export const DiaryContext = createContext<DiaryContextType | undefined>(
+  undefined
+);
 
 export const DiaryProvider: React.FC<{ children: ReactNode }> = ({
   children,

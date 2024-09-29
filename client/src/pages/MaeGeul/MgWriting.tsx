@@ -334,7 +334,7 @@ const MgWriting: React.FC = () => {
                 <div className="p-5 bg-white shadow-lg w-[550px] h-[670px] rounded-3xl">
                   <div className="mb-5">
                     <h1 className="text-2xl font-bold text-blue-950">
-                      {user?.profile_name}님의 무드 일기
+                      {user?.profile_name}님의 무드일기
                       <img
                         src={heart}
                         alt="Heart"

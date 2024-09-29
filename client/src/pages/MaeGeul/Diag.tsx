@@ -134,7 +134,7 @@ const Diag: React.FC = () => {
                 className="rounded-xl border bg-violet-200 dark:bg-scampi-600 text-indigo-600 py-2 px-8 shadow-md
            hover:bg-slate-50 border-none dark:hover:bg-scampi-700 transition-colors font-bold font-plus-jakarta-sans leading-normal"
               >
-                마음 일기쓰기
+                무드 일기쓰기
               </button>
             </Link>
           </div>
