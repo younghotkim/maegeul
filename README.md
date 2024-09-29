@@ -1,15 +1,31 @@
 # ✍️ 하루 5분 마음챙김 글쓰기 플랫폼, <매글>
 
-![스크린샷 2024-09-26 192919](https://github.com/user-attachments/assets/f575d4fc-aa12-4c69-ade8-70197f0e9366)
+![home1](https://github.com/user-attachments/assets/a835cbef-33c1-42ad-b30c-621b2eed3483)
 
 ## 🌟 프로젝트 서비스 목표
 
 - **셀프 탐색**부터 **보완점 진단**, 이에 대한 **글쓰기 지원**하는 웹 서비스
-  ![스크린샷 2024-09-26 193016](https://github.com/user-attachments/assets/62445dff-b127-4105-be21-d306528f388a)
+
+![slider](https://github.com/user-attachments/assets/191eb6a2-5895-478b-8a44-fc77c3bb91b4)
+
+
 - 기분 수치 측정을 통한 무드 컬러 추출과 감정 일기 작성을 통해 자신의 감정을 더욱 자세히 느끼고 글로 표현할 수 있도록 도와줌. 이러한 경험을 바탕으로 자기 이해 및 자아 효능감을 증진시키고자 함.
-  ![스크린샷 2024-09-26 193135](https://github.com/user-attachments/assets/0a7ea6e8-c4f7-4625-b23c-5c71aeed36bc)
-  <br/>
+  
+![moodmeter](https://github.com/user-attachments/assets/03195c7b-4e35-4349-8efb-b32c2bd1b889)
+
+![writing](https://github.com/user-attachments/assets/af3dfb18-33c3-416f-bb98-3985adc57970)
+
+![aianalysis](https://github.com/user-attachments/assets/6a8488ae-ab81-49f5-b176-fc3789636042)
+
+
+
+
 - 일상의 스트레스에 효과적으로 대처할 수 있고, 부정 감정을 해소하는 방법을 익히며 자신의 감정을 조절하고 더 나은 방향으로 개선해 나갈 수 있도록 안내함. 이러한 사용 경험이 사용자의 정서 건강과 편안한 일상 구축에 기여할 수 있음.
+  
+![dashboard_maeguel](https://github.com/user-attachments/assets/82871860-960c-46af-9193-71e9bc4f8180)
+
+![diary](https://github.com/user-attachments/assets/328c08fd-fb0d-42b0-96e2-0438ee8ba2ad)
+
 
 ## 🗓️ 작업 기간 및 주요기능
 
