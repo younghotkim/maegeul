@@ -5,6 +5,8 @@ import "./MgModal.css";
 import { useUser } from "../../context/UserContext"; // UserContext 임포트
 import { useDiary } from "../../context/DiaryContext"; // DiaryContext 가져오기
 import { Navigate, useNavigate } from "react-router-dom";
+import Logo from "../../logo/main_logo.png";
+import { DotLoader } from "react-spinners";
 
 interface ModalProps {
   content: string; // content prop 추가
@@ -64,10 +66,10 @@ const MgModal: React.FC<ModalProps> = ({
       <div className="Container w-[1000px] h-[500px] relative bg-white rounded-lg shadow-lg p-8 flex flex-col items-center">
         {/* 사용자 안내 문구 */}
         <div className="Paragraph text-center text-scampi-700 text-3xl font-bold font-['DM Sans'] leading-8 mt-20">
-          {user?.profile_name}님의 {diaryText} 감정일기 작성이 완료되었어요!{" "}
+          {user?.profile_name}님의 {diaryText} 무드일기 작성이 완료되었어요!{" "}
         </div>
-        <div className="Paragraph text-center text-scampi-700 text-xl font-bold font-['DM Sans'] leading-8 mt-5 mb-6">
-          꾸준히 감정일기를 작성하면, 나의 마음 지도를 <br />
+        <div className="Paragraph text-center text-blue-950 text-xl font-bold font-['DM Sans'] leading-8 mt-5 mb-6">
+          꾸준히 무드일기를 작성하면, 나의 마음 지도를 <br />
           만들고 자기 돌봄 습관을 만들어 갈 수 있어요.
         </div>
 
@@ -76,18 +78,18 @@ const MgModal: React.FC<ModalProps> = ({
           {/* 아이콘 이미지 */}
           <div className="flex items-center justify-center w-1/6">
             <img
-              src={aiIcon}
-              alt="ai_icon"
-              className="w-20 h-20 bg-scampi-500 rounded-full object-cover"
+              src={Logo}
+              alt="Logo"
+              className="w-20 h-20 bg-scampi-500 rounded-full object-cover mb-10"
             />
           </div>
 
           {/* AI 하루진단 안내 및 설명 */}
-          <div className="Paragraph text-left text-slate-400 text-lg font-bold font-['DM Sans'] w-4/6 mt-10">
+          <div className="Paragraph text-left text-slate-400 text-lg font-bold font-plus-jakarta-sans w-4/6 mt-10">
             무디타봇에게 [AI 하루진단]을 받아보세요. <br /> {user?.profile_name}
-            님이 작성한 일기 내용을 바탕으로 오늘 느낀 감정을 분석하고 그에 맞는
-            기분 가이드를 드려요.
-            <div className="text-zinc-500 text-sm font-['Noto Sans KR'] leading-5 mt-10">
+            님이 작성한 일기 내용을 바탕으로 오늘 느낀 감정을 분석하고 <br />{" "}
+            그에 맞는 기분 가이드를 드려요.
+            <div className="text-zinc-500 text-sm font-plus-jakarta-sans leading-5 mt-10">
               <input
                 type="checkbox"
                 className="mr-2"
@@ -95,44 +97,33 @@ const MgModal: React.FC<ModalProps> = ({
                 onChange={handleCheckboxChange} // 체크박스 상태 변경 처리
               />
               AI 분석을 위해 OpenAI에 작성글을 전송하는 것에 동의합니다. <br />
-              <a href="#" className="underline text-xs">
-                [이용 약관 자세히 보기]
-              </a>
             </div>
+            <a href="#" className="underline text-xs ml-4">
+              [이용 약관 자세히 보기]
+            </a>
           </div>
 
           {/* AI 하루진단 버튼 */}
-          <div className="flex flex-col items-center justify-center w-1/6 space-y-4">
+          <div className="flex flex-col items-center justify-center w-1/6 space-y-4 mb-12">
             <button
               onClick={handleAnalyze} // 버튼 클릭 시 감정 분석 실행
-              className={`bg-scampi-500 dark:bg-scampi-600 text-white py-3 px-6 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors ${
+              className={`bg-violet-400 dark:bg-scampi-600 text-white py-3 px-6 rounded-xl shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors ${
                 isChecked ? "" : "opacity-50 cursor-not-allowed"
               }`}
               disabled={!isChecked} // 체크박스가 체크되지 않았으면 버튼 비활성화
             >
               AI 하루진단
             </button>
-
-            <button
-              onClick={handleDashboard}
-              className="bg-scampi-500 dark:bg-scampi-600 text-white py-3 px-6 rounded-full shadow-md hover:bg-scampi-400 dark:hover:bg-scampi-700 transition-colors"
-            >
-              마이매글
-            </button>
           </div>
         </div>
 
         {/* 로딩 상태일 때 로딩 애니메이션 표시 */}
-        {loading && (
-          <div className="flex justify-center items-center mt-4">
-            <div className="loader"></div> {/* 간단한 로딩 애니메이션 */}
-          </div>
-        )}
+        {loading && <DotLoader color="#7551FF" size={70} speedMultiplier={1} />}
 
         {/* 닫기 버튼 */}
         <button
-          onClick={onClose}
-          className="absolute right-4 top-4 bg-scampi-500 text-white py-2 px-4 rounded shadow hover:bg-scampi-400 transition"
+          onClick={handleDashboard}
+          className="absolute right-4 top-4 bg-scampi-500 text-white py-2 px-4 rounded-xl shadow hover:bg-scampi-400 transition"
         >
           닫기
         </button>

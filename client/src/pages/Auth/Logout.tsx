@@ -8,7 +8,7 @@ const LogoutForm = () => {
     const handleLogout = async () => {
       try {
         // 로컬 스토리지에서 토큰 제거
-        sessionStorage.removeItem("token");
+        localStorage.removeItem("token");
         // 로그아웃 성공 시 홈 페이지로 리다이렉트
         navigate("/");
       } catch (err) {

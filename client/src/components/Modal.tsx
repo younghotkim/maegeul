@@ -4,7 +4,7 @@ import mainLogo from "../logo/main_logo.png";
 
 interface ModalProps {
   isOpen: boolean;
-  message: string;
+  message: React.ReactNode; // string 대신 ReactNode로 변경
   onClose: () => void;
 }
 
@@ -21,12 +21,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, message, onClose }) => {
           alt="Main Logo"
         />
         {/* 메세지 섹션 */}
-        <p className="text-xl font-bold mb-10">{message}</p>
+        <div className="text-xl font-bold mb-10">{message}</div>
 
         <div className="flex justify-around mt-10">
           {/* 회원가입 버튼 */}
           <Link to="/mainsignup">
-            <button className="bg-blue-500 text-white text-lg px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors duration-200">
+            <button className="bg-blue-400 text-white text-lg px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors duration-200">
               회원가입
             </button>
           </Link>
@@ -45,5 +45,3 @@ const Modal: React.FC<ModalProps> = ({ isOpen, message, onClose }) => {
 };
 
 export default Modal;
-
-export {};

@@ -72,7 +72,7 @@ const AnalyticsWordCloud: React.FC<AnalyticsWordCloudProps> = ({
           </div>
         ) : (
           <div>
-            지금 매글을 시작해서 나만의 감정 어휘 클라우드를 만들어보세요!
+            지금 매글을 시작해서 나만의 감정 어휘 클라우드를 만들어보세요 🎈
           </div>
         )}
       </CardContent>

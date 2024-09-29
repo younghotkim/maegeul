@@ -19,7 +19,7 @@ const KakaoCallback = () => {
     const userId = queryParams.get("userId");
 
     if (token && userId) {
-      sessionStorage.setItem("token", token);
+      localStorage.setItem("token", token);
 
       axios
         .get(`${BASE_URL}/api/user/${userId}`, {

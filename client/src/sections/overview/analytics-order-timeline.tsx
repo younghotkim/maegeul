@@ -12,6 +12,8 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineItem, { timelineItemClasses } from "@mui/lab/TimelineItem";
 
 import { fDateTime } from "../../utils/format-time";
+import { ChartLegends } from "../../dashboardComponents/chart/chart-legends";
+import { Divider } from "@mui/material";
 
 // ----------------------------------------------------------------------
 

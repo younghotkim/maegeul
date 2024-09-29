@@ -8,13 +8,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { useUser } from "../context/UserContext";
 import Modal from "./Modal";
+import Logo from "../logo/main_logo.png";
 
 const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    return sessionStorage.getItem("isDarkMode") === "true";
+    return localStorage.getItem("isDarkMode") === "true";
   });
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
-    return !!sessionStorage.getItem("token");
+    return !!localStorage.getItem("token");
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,7 +44,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const handleStorageChange = () => {
-      setIsLoggedIn(!!sessionStorage.getItem("token"));
+      setIsLoggedIn(!!localStorage.getItem("token"));
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -54,7 +55,8 @@ const Header: React.FC = () => {
   }, []);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
+    window.location.reload();
     setIsLoggedIn(false);
     setUser(null);
     navigate("/");
@@ -73,13 +75,16 @@ const Header: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <header className="sticky top-0 z-50 w-full text-blue-950 bg-white dark:bg-scampi-800 font-bold font-plus-jakarta-sans py-4 leading-normal">
+      <header className="sticky top-0 z-50 w-full text-blue-950 bg-white dark:bg-gray-950 font-bold font-plus-jakarta-sans py-4 leading-normal">
         <div className="max-w-[1140px] mx-auto flex justify-between items-center text-sm">
-          <Link to="/home" className="flex-shrink-0">
-            <img src={MeageulLogo} alt="Maegeul Logo" className="w-[150px]" />
+          <Link to="/home" className="flex items-center gap-2">
+            <img src={Logo} alt="Logo" className="w-[35px] h-[35px]" />
+            <div className="title inline text-blue-950 dark:text-white text-[24.01px] font-extrabold leading-[28.81px] tracking-[0.22em]">
+              maegeul
+            </div>
           </Link>
 
-          <nav className="flex-grow flex justify-center space-x-12 text-sm text-blue-950 tracking-wide">
+          <nav className="flex-grow flex justify-center space-x-12 text-sm text-blue-950 dark:text-gray-300 tracking-wide">
             {/* 무드일기 링크 - 로그인 상태일 때만 활성화 */}
             {isLoggedIn ? (
               <Link to="/maegeul" className="nav-link">
@@ -89,7 +94,9 @@ const Header: React.FC = () => {
               <span
                 className="nav-link cursor-pointer"
                 onClick={() =>
-                  openModal("무드일기는 로그인 후 이용 가능합니다.")
+                  openModal(
+                    "무드일기는 로그인 후 이용 할 수 있어요.\n매글과 함께하는 하루 돌봄 여정을 지금 바로 시작해 보세요."
+                  )
                 }
               >
                 무드일기

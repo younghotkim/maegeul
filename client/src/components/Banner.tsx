@@ -8,18 +8,18 @@ interface BannerProps {
 }
 
 const Banner: React.FC<BannerProps> = ({ className }) => {
-  // 로그인 여부를 sessionStorage에서 확인
+  // 로그인 여부를 localStorage에서 확인
   const [isLoggedIn] = useState<boolean>(() => {
-    return !!sessionStorage.getItem("token");
+    return !!localStorage.getItem("token");
   });
 
   return (
     <div
       className={`w-full bg-white flex justify-center items-center ${className}`}
     >
-      <div className="max-w-[1140px] w-full flex flex-col lg:flex-row justify-between items-center relative">
+      <div className="max-w-[1140px] w-full flex flex-col dark:bg-gray-950 lg:flex-row justify-between items-center relative">
         {/* Text area */}
-        <div className="flex-1 flex flex-col justify-start items-start gap-6">
+        <div className="flex-1 flex flex-col justify-start items-start gap-6 dark:bg-gray-950">
           <div className="DailyMoodDiaryWithMaegeul text-indigo-600 text-sm font-bold font-['Inter'] leading-tight tracking-widest">
             Daily Mood Diary with Maegeul
           </div>
@@ -59,7 +59,7 @@ const Banner: React.FC<BannerProps> = ({ className }) => {
         </div>
 
         {/* Image area */}
-        <div className="w-full lg:w-[456px] h-[600px] lg:h-[640px] relative">
+        <div className="w-full lg:w-[456px] h-[600px] lg:h-[640px] relative dark:bg-gray-950">
           <div className="w-full h-full rounded-2xl overflow-hidden">
             <img
               src={WritingImage}

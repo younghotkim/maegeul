@@ -2,7 +2,8 @@ const {
   saveDiary,
   getDiariesByUserId,
   countDiariesByUserId,
-  getConsecutiveDaysByUserId, // 연속된 일수를 계산하는 함수 추가
+  getConsecutiveDaysByUserId,
+  deleteDiaryById,
 } = require("../models/diaryModel");
 const { getUserPasswordAndSalt } = require("../models/user");
 const { encrypt, generateEncryptionKey } = require("../util/encrypt");
@@ -138,9 +139,31 @@ const getConsecutiveDaysByUser = (req, res) => {
   });
 };
 
+const deleteDiary = (req, res) => {
+  const { diary_id } = req.params; // URL에서 diary_id를 가져옴
+
+  if (!diary_id) {
+    return res.status(400).json({ error: "Diary ID is required" });
+  }
+
+  // deleteDiaryById 함수 호출
+  deleteDiaryById(diary_id, (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to delete diary" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Diary not found" });
+    }
+
+    return res.status(200).json({ message: "Diary deleted successfully" });
+  });
+};
+
 module.exports = {
   createDiary,
   getUserDiaries,
   getDiaryCountByUser,
-  getConsecutiveDaysByUser, // 새로운 함수 추가
+  getConsecutiveDaysByUser,
+  deleteDiary,
 };
