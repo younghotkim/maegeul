@@ -110,7 +110,7 @@ const Contents: React.FC = () => {
               매글에서 지금 바로 시작해보세요.
             </span>
             <div className="bg-white grow shrink basis-0 h-14 justify-end items-center gap-4 flex">
-              <Link to={isLoggedIn ? "/maegeul" : "/maegeul"}>
+              <Link to={isLoggedIn ? "/mainsignup" : "/mainsignup"}>
                 <div
                   className="Button flex border border-indigo-600 rounded-xl justify-center items-center gap-2.5 "
                   style={{ width: "171px", height: "56px" }}
