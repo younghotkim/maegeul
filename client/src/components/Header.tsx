@@ -88,16 +88,16 @@ const Header: React.FC = () => {
             {/* 무드일기 링크 - 로그인 상태일 때만 활성화 */}
             {isLoggedIn ? (
               <Link to="/maegeul" className="nav-link">
-                무드일기
+                무드 일기
               </Link>
             ) : (
               <span
                 className="nav-link cursor-pointer"
                 onClick={() =>
-                  openModal("무드일기는 로그인 후 이용 할 수 있어요.")
+                  openModal("무드 일기는 로그인 후 이용 할 수 있어요.")
                 }
               >
-                무드일기
+                무드 일기
               </span>
             )}
 

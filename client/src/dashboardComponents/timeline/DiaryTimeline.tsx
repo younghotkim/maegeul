@@ -22,14 +22,21 @@ export function DiaryTimeline() {
   const fetchDiaryData = async () => {
     try {
       const response = await fetch(`${BASE_URL}/api/diary/${user?.user_id}`);
-      const data: Diary[] = await response.json();
-      console.log("Fetched Diary Data:", data); // 일기 데이터를 확인하기 위한 콘솔 로그
-      setDiaryData(data); // 상태에 저장
+      const data = await response.json();
+
+      // 응답이 배열인지 확인 후 처리
+      if (Array.isArray(data)) {
+        setDiaryData(data);
+      } else {
+        console.error("다이어리 데이터가 배열이 아닙니다:", data);
+        setDiaryData([]); // 배열이 아닐 경우 빈 배열로 처리
+      }
     } catch (error) {
       console.error(
         "다이어리 데이터를 가져오는 중 오류가 발생했습니다:",
         error
       );
+      setDiaryData([]); // 오류 발생 시에도 빈 배열로 설정
     }
   };
 
@@ -63,11 +70,17 @@ export function DiaryTimeline() {
 
   return (
     <div>
-      {/* AnalyticsOrderTimeline 컴포넌트에 _timeline 데이터를 전달 */}
-      <AnalyticsOrderTimeline
-        title="무드 컬러 타임라인"
-        list={_timeline} // 변환한 _timeline 데이터 전달
-      />
+      {diaryData.length === 0 ? (
+        <AnalyticsOrderTimeline
+          title="무드 컬러 타임라인"
+          list={_timeline} // 변환한 _timeline 데이터 전달
+        />
+      ) : (
+        <AnalyticsOrderTimeline
+          title="무드 컬러 타임라인"
+          list={_timeline} // 변환한 _timeline 데이터 전달
+        />
+      )}
     </div>
   );
 }

@@ -59,7 +59,7 @@ const Banner: React.FC<BannerProps> = ({ className }) => {
         </div>
 
         {/* Image area */}
-        <div className="w-full lg:w-[456px] h-[600px] lg:h-[640px] relative dark:bg-gray-950">
+        <div className="w-full lg:w-[456px] h-[600px] lg:h-[640px] relative">
           <div className="w-full h-full rounded-2xl overflow-hidden">
             <img
               src={WritingImage}

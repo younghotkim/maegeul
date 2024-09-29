@@ -69,7 +69,7 @@ export function UserView() {
     <DashboardContent>
       <Box display="flex" alignItems="center" mb={5}>
         <Typography variant="h4" flexGrow={1}>
-          {user?.profile_name}님의 무드일기 💖
+          {user?.profile_name}님의 무드 일기 💖
         </Typography>
         <Button
           variant="contained"

@@ -69,7 +69,7 @@ const MgModal: React.FC<ModalProps> = ({
           {user?.profile_name}님의 {diaryText} 무드일기 작성이 완료되었어요!{" "}
         </div>
         <div className="Paragraph text-center text-blue-950 text-xl font-bold font-['DM Sans'] leading-8 mt-5 mb-6">
-          꾸준히 무드일기를 작성하면, 나의 마음 지도를 <br />
+          꾸준히 무드 일기를 작성하면, 나의 마음 지도를 <br />
           만들고 자기 돌봄 습관을 만들어 갈 수 있어요.
         </div>
 
