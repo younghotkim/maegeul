@@ -3,6 +3,12 @@ import Typography from "@mui/material/Typography";
 
 import { _tasks, _posts, _timeline } from "../../../_mock";
 import { DashboardContent } from "../../../layouts/dashboard";
+import Graph from "../../../Icon/graph.png";
+import Pen from "../../../Icon/pen.png";
+import Glass from "../../../Icon/glass.png";
+import Post from "../../../Icon/post.png";
+import Pigeon from "../../../Icon/pigeon.png";
+import Palette from "../../../Icon/palette.png";
 
 import { AnalyticsNews } from "../analytics-news";
 import { AnalyticsTasks } from "../analytics-tasks";
@@ -85,7 +91,8 @@ export function OverviewAnalyticsView() {
             // percent={0}
             total={totalLabels} // totalLabels 값을 total에 적용
             icon={
-              <img alt="icon" src="/assets/icons/glass/ic-glass-users.svg" />
+              // <img alt="icon" src="/assets/icons/glass/ic-glass-users.svg" />
+              <img src={Palette} />
             }
             chart={{
               categories: [
@@ -109,9 +116,7 @@ export function OverviewAnalyticsView() {
             // percent={2.8}
             total={greenYellowTotal}
             color="warning"
-            icon={
-              <img alt="icon" src="/assets/icons/glass/ic-glass-users.svg" />
-            }
+            icon={<img src={Pen} />}
             chart={{
               categories: [
                 "Jan",
@@ -134,9 +139,7 @@ export function OverviewAnalyticsView() {
             // percent={0.5} // 필요에 따라 작성 수 증감 비율을 계산하여 넣을 수 있음
             total={diaryCount} // diaryCount 값 적용
             color="secondary"
-            icon={
-              <img alt="icon" src="/assets/icons/glass/ic-glass-users.svg" />
-            }
+            icon={<img src={Post} />}
             chart={{
               categories: [
                 "Jan",
@@ -159,9 +162,7 @@ export function OverviewAnalyticsView() {
             // percent={3.6}
             total={emotionCount}
             color="error"
-            icon={
-              <img alt="icon" src="/assets/icons/glass/ic-glass-message.svg" />
-            }
+            icon={<img src={Glass} />}
             chart={{
               categories: [
                 "Jan",
@@ -195,12 +196,12 @@ export function OverviewAnalyticsView() {
           <DiaryTimeline />
         </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
+        {/* <Grid xs={12} md={6} lg={4}>
           <AnalyticsOrderTimeline title="무드 컬러 타임라인" list={_timeline} />
-        </Grid>
+        </Grid> */}
 
         <Grid xs={12} md={6} lg={8}>
-          <AnalyticsNews title="추천 컨텐츠" list={_posts.slice(0, 4)} />
+          <AnalyticsNews title="추천 컨텐츠" list={_posts.slice(0, 3)} />
         </Grid>
 
         {/* <Grid xs={12} md={6} lg={4}>

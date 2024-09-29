@@ -323,7 +323,7 @@ const MgWriting: React.FC = () => {
            hover:bg-transparent border-none dark:hover:bg-scampi-700 transition-colors
           font-bold font-plus-jakarta-sans leading-normal mt-3 text-lg"
                 >
-                  저장
+                  편지 저장하기
                 </motion.button>
               </div>
             </motion.div>

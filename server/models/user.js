@@ -114,9 +114,6 @@ exports.insertUser = async (data, cb = () => {}) => {
       .pbkdf2Sync(data.password, salt, 10000, 64, "sha512")
       .toString("hex");
 
-    console.log("user_model: Generated salt:", salt);
-    console.log("user_model: Hashed password:", hashedPassword); // 해시된 비밀번호 출력
-
     const sql = `INSERT INTO User (username, email, profile_name, password, salt, age, gender, login_type, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     connection.query(
@@ -159,10 +156,6 @@ exports.select = (email, password, cb = () => {}) => {
 
     const user = rows[0];
 
-    // 로그로 확인하기
-    console.log("User's salt from DB:", user.salt); // 저장된 salt 출력
-
-    // 만약 user.salt가 null이라면 여기서 중단
     if (!user.salt) {
       return cb(new Error("Salt 값이 null입니다."));
     }
@@ -172,12 +165,7 @@ exports.select = (email, password, cb = () => {}) => {
       .pbkdf2Sync(password, user.salt, 10000, 64, "sha512")
       .toString("hex");
 
-    //const salt = crypto.randomBytes(16).toString("hex");
     // PBKDF2를 사용한 비밀번호 해싱
-
-    console.log("로그인 Stored password:", user.password); // 저장된 해싱된 비밀번호
-    console.log("로그인 Hashed input password:", hashedInputPassword); // 입력된 비밀번호 해싱 결과
-
     // 해싱된 비밀번호가 일치하는지 비교
     if (hashedInputPassword === user.password) {
       cb(null, user); // 비밀번호가 일치하면 사용자 반환
@@ -190,8 +178,6 @@ exports.select = (email, password, cb = () => {}) => {
 exports.getUserPasswordAndSalt = (user_id, callback) => {
   const sql = `SELECT password, salt FROM User WHERE user_id = ? LIMIT 1`;
   connection.query(sql, [user_id], (err, result) => {
-    console.log("쿼리 실행 확인");
-
     if (err) {
       console.error("DB 오류 발생:", err);
       return callback(err, null); // DB 오류 발생 시 콜백으로 에러 전달
