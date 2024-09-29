@@ -207,7 +207,8 @@ const SignupStep2: React.FC = () => {
         <h2 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">
           STEP 2
         </h2>
-        <div className="w-full border-t-8 border-scampi-500 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300"></div>
+        {/* 상단 장식 라인 */}
+        <div className="w-full border-t-8 border-violet-500 pt-4 mt-8 text-center text-scampi-700 dark:text-scampi-300"></div>
         <h3 className="text-scampi-700 dark:text-scampi-300 text-xl font-bold mb-4">
           나의 정보 입력하기
         </h3>
@@ -233,7 +234,7 @@ const SignupStep2: React.FC = () => {
             <button
               type="button"
               onClick={handleEmailCheck}
-              className=" w-1/3 px-4 py-2 text-base font-bold text-white rounded-3xl bg-scampi-600"
+              className=" w-1/3 px-4 py-2 text-base font-bold text-blue-900 bg-violet-200 hover:bg-violet-300 rounded-md hover:shadow-lg"
             >
               중복 확인
             </button>
@@ -431,7 +432,7 @@ const SignupStep2: React.FC = () => {
         <div className="mt-8">
           <button
             type="submit"
-            className="w-full px-6 py-4 text-base font-bold text-white bg-scampi-600 rounded-3xl"
+            className="w-full px-6 py-4 text-base font-bold text-blue-900 bg-violet-200 hover:bg-violet-300 rounded-md hover:shadow-lg"
           >
             회원가입 완료
           </button>

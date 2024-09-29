@@ -89,7 +89,9 @@ const Header: React.FC = () => {
               <span
                 className="nav-link cursor-pointer"
                 onClick={() =>
-                  openModal("무드일기는 로그인 후 이용 가능합니다.")
+                  openModal(
+                    "매글과 함께하는 하루 돌봄 여정을<br/>지금 바로 시작해 보세요."
+                  )
                 }
               >
                 무드일기
