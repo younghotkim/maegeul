@@ -66,7 +66,6 @@ export function DiaryTimeline() {
       {/* AnalyticsOrderTimeline 컴포넌트에 _timeline 데이터를 전달 */}
       <AnalyticsOrderTimeline
         title="무드 컬러 타임라인"
-        subheader="일기의 작성 일자와 내용을 확인하세요"
         list={_timeline} // 변환한 _timeline 데이터 전달
       />
     </div>

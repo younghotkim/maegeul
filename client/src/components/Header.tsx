@@ -94,11 +94,7 @@ const Header: React.FC = () => {
               <span
                 className="nav-link cursor-pointer"
                 onClick={() =>
-                  openModal(
-
-                    "무드일기는 로그인 후 이용 할 수 있어요.\n매글과 함께하는 하루 돌봄 여정을 지금 바로 시작해 보세요."
-
-                  )
+                  openModal("무드일기는 로그인 후 이용 할 수 있어요.")
                 }
               >
                 무드일기
@@ -113,7 +109,7 @@ const Header: React.FC = () => {
               <span
                 className="nav-link cursor-pointer"
                 onClick={() =>
-                  openModal("AI하루진단은 로그인 후 이용 가능합니다.")
+                  openModal("AI하루진단은 로그인 후 이용 할 수 있어요.")
                 }
               >
                 AI 하루진단
@@ -121,17 +117,17 @@ const Header: React.FC = () => {
             )}
 
             {isLoggedIn ? (
-              <Link to="/contents" className="nav-link">
-                콘텐츠
+              <Link to="/dashboard" className="nav-link">
+                마이매글
               </Link>
             ) : (
               <span
                 className="nav-link cursor-pointer"
                 onClick={() =>
-                  openModal("추천 콘텐츠는 로그인 후 이용 가능합니다.")
+                  openModal("마이매글은 로그인 후 이용 할 수 있어요.")
                 }
               >
-                콘텐츠
+                마이매글
               </span>
             )}
           </nav>
@@ -159,7 +155,7 @@ const Header: React.FC = () => {
                       ),
                     },
                     {
-                      label: "알림 설정",
+                      label: "다크모드",
                       href: "#",
                       icon: (
                         <Iconify

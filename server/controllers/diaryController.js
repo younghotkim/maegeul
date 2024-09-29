@@ -9,11 +9,7 @@ const { getUserPasswordAndSalt } = require("../models/user");
 const { encrypt, generateEncryptionKey } = require("../util/encrypt");
 
 const createDiary = (req, res) => {
-  console.log("createDiary 컨트롤러에 요청이 도달했습니다.");
-
   const { user_id, title, content, color } = req.body;
-
-  console.log(user_id, title, content, color);
 
   // 사용자의 해시된 비밀번호와 salt를 가져와 암호화 키를 생성
   getUserPasswordAndSalt(user_id, (err, user) => {
@@ -36,8 +32,6 @@ const createDiary = (req, res) => {
     // 일기 내용을 암호화
     const encryptedContent = encrypt(content, encryptionKey);
     // 모델을 통해 일기 저장
-
-    console.log("암호화: ", encryptedContent);
 
     saveDiary({ user_id, title, encryptedContent, color }, (err, result) => {
       if (err) {
